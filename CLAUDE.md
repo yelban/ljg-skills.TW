@@ -1,8 +1,5 @@
 # CLAUDE.md
 
-> **This is a Traditional Chinese (Taiwan) fork** of [ljg-skills](https://github.com/lijigang/ljg-skills).
-
-
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Overview
@@ -119,13 +116,3 @@ After modifying a skill:
 1. Copy to `~/.claude/skills/`
 2. Restart Claude Code to reload skills
 3. Test via natural language trigger or `/skill-name`
-
-## Fork Maintenance (ljg-skills.TW)
-
-Sync strategy: **Reset + Re-apply** (not merge/rebase). Full guide: [docs/traditional-chinese-fork.md](docs/traditional-chinese-fork.md)
-
-Quick steps:
-1. `./scripts/sync-upstream.sh` (interactive: fetch, reset, convert, customize, commit)
-2. `git push --force-with-lease`
-
-Uses custom opencc config (`scripts/s2twp-custom.json`) with false-positive fix dictionary (`scripts/opencc-custom-phrases.txt`).

@@ -64,8 +64,8 @@ fi
 # 修改 README.md
 README_FILE="README.md"
 if [ -f "$README_FILE" ]; then
-    # 替換 repo 路徑
-    sed -i '' 's|lijigang/ljg-skills|yelban/ljg-skills.TW|g' "$README_FILE"
+    # 替換 repo 路徑；略過下方插入的「上游：」說明行，否則重跑時上游連結會被換成 fork 網址
+    sed -i '' '/^> 上游：/!s|lijigang/ljg-skills|yelban/ljg-skills.TW|g' "$README_FILE"
 
     # 替換標題
     sed -i '' 's|^# ljg-skills$|# ljg-skills-tw|g' "$README_FILE"
@@ -74,7 +74,9 @@ if [ -f "$README_FILE" ]; then
     sed -i '' 's|\.ljg-skills/|.ljg-skills-tw/|g' "$README_FILE"
 
     # 替換安裝路徑（plugins/ljg-skills → plugins/ljg-skills-tw）
-    sed -i '' 's|plugins/ljg-skills|plugins/ljg-skills-tw|g' "$README_FILE"
+    # 先把已替換過的還原再替換，重跑才不會變成 -tw-tw（BSD sed 沒有 lookahead）
+    sed -i '' -e 's|plugins/ljg-skills-tw|plugins/ljg-skills|g' \
+        -e 's|plugins/ljg-skills|plugins/ljg-skills-tw|g' "$README_FILE"
 
     echo "  已更新: $README_FILE (repo 名稱替換)"
 
@@ -93,39 +95,6 @@ if [ -f "$README_FILE" ]; then
         }
         {print}' "$README_FILE" > "$README_FILE.tmp" && mv "$README_FILE.tmp" "$README_FILE"
         echo "  已更新: $README_FILE (加入繁體中文版說明)"
-    fi
-fi
-
-# 修改 CLAUDE.md — 加入 fork 說明 + Fork Maintenance 區段
-CLAUDE_FILE="CLAUDE.md"
-if [ -f "$CLAUDE_FILE" ]; then
-    if ! grep -q "Traditional Chinese (Taiwan) fork" "$CLAUDE_FILE"; then
-        # 在第一行標題後插入 fork 說明
-        awk 'NR==1 {
-            print
-            print ""
-            print "> **This is a Traditional Chinese (Taiwan) fork** of [ljg-skills](https://github.com/lijigang/ljg-skills)."
-            print ""
-            next
-        }
-        {print}' "$CLAUDE_FILE" > "$CLAUDE_FILE.tmp" && mv "$CLAUDE_FILE.tmp" "$CLAUDE_FILE"
-        echo "  已更新: $CLAUDE_FILE (加入 fork 說明)"
-    fi
-
-    if ! grep -q "Fork Maintenance" "$CLAUDE_FILE"; then
-        cat >> "$CLAUDE_FILE" << 'FORK_SECTION'
-
-## Fork Maintenance (ljg-skills.TW)
-
-Sync strategy: **Reset + Re-apply** (not merge/rebase). Full guide: [docs/traditional-chinese-fork.md](docs/traditional-chinese-fork.md)
-
-Quick steps:
-1. `./scripts/sync-upstream.sh` (interactive: fetch, reset, convert, customize, commit)
-2. `git push --force-with-lease`
-
-Uses custom opencc config (`scripts/s2twp-custom.json`) with false-positive fix dictionary (`scripts/opencc-custom-phrases.txt`).
-FORK_SECTION
-        echo "  已更新: $CLAUDE_FILE (加入 Fork Maintenance 區段)"
     fi
 fi
 

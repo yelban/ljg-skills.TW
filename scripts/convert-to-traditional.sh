@@ -64,7 +64,8 @@ convert_files() {
             rm -f "$tmp"
             echo "  失敗: $file"
         fi
-    done < <(find "$root" -name "*.$ext" -not -path "./.git/*" -not -path "./node_modules/*" -not -path "*/node_modules/*" -print0)
+    # 略過 docs/：fork 文件原本就是繁體，轉換會把 false positive 表格裡示範的錯誤寫法也改掉
+    done < <(find "$root" -name "*.$ext" -not -path "./.git/*" -not -path "./docs/*" -not -path "./node_modules/*" -not -path "*/node_modules/*" -print0)
 
     echo "  $ext 檔案轉換完成: $count 個檔案有變更"
 }
