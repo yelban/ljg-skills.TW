@@ -35,6 +35,9 @@ cd "$PROJECT_ROOT"
 
 # 準備自訂 opencc config（將詞典路徑注入模板）
 OPENCC_CONFIG=$(mktemp)
+OPENCC_STDERR=$(mktemp)
+trap 'rm -f "$OPENCC_CONFIG" "$OPENCC_STDERR"' EXIT
+FAILED=0
 sed "s|CUSTOM_PHRASES_PATH|$SCRIPT_DIR/opencc-custom-phrases.txt|" \
     "$SCRIPT_DIR/s2twp-custom.json" > "$OPENCC_CONFIG"
 
@@ -50,7 +53,8 @@ convert_files() {
 
     while IFS= read -r -d '' file; do
         tmp=$(mktemp)
-        if opencc -i "$file" -o "$tmp" -c "$OPENCC_CONFIG" 2>/dev/null; then
+        # stderr 先存檔：成功時 opencc 也會對每個檔案印 config schema 警告，只在失敗時才顯示
+        if opencc -i "$file" -o "$tmp" -c "$OPENCC_CONFIG" 2>"$OPENCC_STDERR"; then
             if ! cmp -s "$file" "$tmp"; then
                 # 用 cat 寫回而非 mv，保留原檔權限（mktemp 是 600，.sh 會丟掉執行權限）
                 cat "$tmp" > "$file"
@@ -62,7 +66,9 @@ convert_files() {
             fi
         else
             rm -f "$tmp"
-            echo "  失敗: $file"
+            echo "  失敗: $file" >&2
+            sed 's/^/    /' "$OPENCC_STDERR" >&2
+            FAILED=$((FAILED + 1))
         fi
     # 略過 docs/：fork 文件原本就是繁體，轉換會把 false positive 表格裡示範的錯誤寫法也改掉
     done < <(find "$root" -name "*.$ext" -not -path "./.git/*" -not -path "./docs/*" -not -path "./node_modules/*" -not -path "*/node_modules/*" -print0)
@@ -84,7 +90,10 @@ for ext in ts js json html yaml sh; do
 done
 echo ""
 
-rm -f "$OPENCC_CONFIG"
+if [ "$FAILED" -gt 0 ]; then
+    echo "錯誤: $FAILED 個檔案轉換失敗，詳見上方訊息。" >&2
+    exit 1
+fi
 
 echo "轉換完成！"
 echo ""

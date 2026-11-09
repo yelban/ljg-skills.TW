@@ -42,6 +42,17 @@ echo "上游新增的 commits:"
 git log HEAD..upstream/$UPSTREAM_BRANCH --oneline | head -20
 echo ""
 
+# 步驟 3.5: 有未提交變更就中止。reset --hard 會丟掉已追蹤檔案的修改；
+# 未追蹤檔案雖然不會被刪，但最後的 git add -A 會把它們混進同步 commit。
+DIRTY=$(git status --porcelain)
+if [ -n "$DIRTY" ]; then
+    echo "工作目錄或暫存區有未提交的變更，已中止同步："
+    echo "$DIRTY"
+    echo ""
+    echo "請先 commit 或 stash 這些變更，再重新執行。"
+    exit 1
+fi
+
 # 步驟 4: 確認是否繼續
 read -p "是否同步上游並重新執行繁體轉換? (y/N) " -n 1 -r
 echo ""
