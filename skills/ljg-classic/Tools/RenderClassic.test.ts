@@ -15,25 +15,25 @@ import {
 import { validateClassicArtifacts } from "./ValidateClassic.ts";
 
 const validSpec = {
-  book: "道德经",
+  book: "道德經",
   chapter: "第十六章",
-  original: "致虚极，守静笃。",
+  original: "致虛極，守靜篤。",
   source: "通行本",
   passages: [{
     tokens: [
-      { text: "致虚极", note: "尽力使内心虚静", tone: "word" },
+      { text: "致虛極", note: "盡力使內心虛靜", tone: "word" },
       { text: "，", punctuation: true },
-      { text: "守静笃", note: "彻底守住清静", tone: "clause" },
+      { text: "守靜篤", note: "徹底守住清靜", tone: "clause" },
       { text: "。", punctuation: true },
     ],
   }],
-  interpretation: ["先让心静下来，才看得见事物如何往复。"],
+  interpretation: ["先讓心靜下來，才看得見事物如何往復。"],
 };
 
 describe("validateSpec", () => {
   test("accepts a fully annotated round-trip spec", () => {
     const spec = validateSpec(validSpec);
-    expect(spec.book).toBe("道德经");
+    expect(spec.book).toBe("道德經");
   });
 
   test("rejects an unannotated non-punctuation token", () => {
@@ -44,13 +44,13 @@ describe("validateSpec", () => {
 
   test("rejects original round-trip drift", () => {
     const broken = structuredClone(validSpec) as any;
-    broken.original = "致虚极。";
+    broken.original = "致虛極。";
     expect(() => validateSpec(broken)).toThrow("Original round-trip mismatch");
   });
 
   test("rejects annotation fields on punctuation", () => {
     const broken = structuredClone(validSpec) as any;
-    broken.passages[0].tokens[1].note = "逗号";
+    broken.passages[0].tokens[1].note = "逗號";
     expect(() => validateSpec(broken)).toThrow("is punctuation");
   });
 
@@ -64,7 +64,7 @@ describe("validateSpec", () => {
     const spec = validateSpec({
       ...validSpec,
       heroImage: "assets/chapter-hero.png",
-      heroAlt: "雾山静水间，一圈涟漪正在平复",
+      heroAlt: "霧山靜水間，一圈漣漪正在平復",
     });
     expect(spec.heroImage).toBe("assets/chapter-hero.png");
   });
@@ -76,31 +76,31 @@ describe("validateSpec", () => {
 
   test("rejects remote and data hero sources", () => {
     for (const heroImage of ["https://example.com/hero.png", "data:image/png;base64,AAAA"]) {
-      expect(() => validateSpec({ ...validSpec, heroImage, heroAlt: "章节意旨图" }))
+      expect(() => validateSpec({ ...validSpec, heroImage, heroAlt: "章節意旨圖" }))
         .toThrow("heroImage must be a local file path");
     }
   });
 
   test("rejects interpretation scaffolding labels", () => {
-    expect(() => validateSpec({ ...validSpec, interpretation: ["解读边界：这里只适用于某些情况。"] }))
-      .toThrow("interpretation must not contain 解读边界");
+    expect(() => validateSpec({ ...validSpec, interpretation: ["解讀邊界：這裡只適用於某些情況。"] }))
+      .toThrow("interpretation must not contain 解讀邊界");
   });
 
   test("preserves an explicit newline punctuation token in the original round trip", () => {
     const spec = validateSpec({
       ...validSpec,
-      original: "致虚极。\n守静笃。",
+      original: "致虛極。\n守靜篤。",
       passages: [{
         tokens: [
-          { text: "致虚极", note: "尽力使内心虚静", tone: "word" },
+          { text: "致虛極", note: "盡力使內心虛靜", tone: "word" },
           { text: "。", punctuation: true },
           { text: "\n", punctuation: true },
-          { text: "守静笃", note: "彻底守住清静", tone: "clause" },
+          { text: "守靜篤", note: "徹底守住清靜", tone: "clause" },
           { text: "。", punctuation: true },
         ],
       }],
     });
-    expect(spec.original).toBe("致虚极。\n守静笃。");
+    expect(spec.original).toBe("致虛極。\n守靜篤。");
     expect(renderHtml(spec)).toContain('<br class="punctuation-break" data-token="punctuation">');
   });
 
@@ -109,8 +109,8 @@ describe("validateSpec", () => {
       { text: " ", punctuation: true },
       { text: "\t", punctuation: true },
       { text: "\n\n", punctuation: true },
-      { text: "\n", note: "换行", tone: "word" },
-      { text: "致虚极\n", note: "未拆换行", tone: "word" },
+      { text: "\n", note: "換行", tone: "word" },
+      { text: "致虛極\n", note: "未拆換行", tone: "word" },
       { text: "。\n", punctuation: true },
     ]) {
       const broken = structuredClone(validSpec) as any;
@@ -126,13 +126,13 @@ describe("renderHtml", () => {
     const html = renderHtml(spec, 1080);
     expect(html).toContain("data-book");
     expect(html).toContain("data-chapter");
-    expect(html).toContain("章节解读");
+    expect(html).toContain("章節解讀");
     expect(html).toContain("tone-word");
     expect(html).toContain("tone-clause");
     expect(html).toContain("&lt;校本&gt;");
     expect(html).toContain("width: 1080px");
     expect(html).toContain(
-      '<span class="classic-run"><span class="classic-text">致虚极</span><span class="punctuation" data-token="punctuation">，</span></span>',
+      '<span class="classic-run"><span class="classic-text">致虛極</span><span class="punctuation" data-token="punctuation">，</span></span>',
     );
   });
 
@@ -140,12 +140,12 @@ describe("renderHtml", () => {
     const spec = validateSpec({
       ...validSpec,
       heroImage: "assets/chapter-hero.png",
-      heroAlt: "雾山静水间，一圈涟漪正在平复",
+      heroAlt: "霧山靜水間，一圈漣漪正在平復",
     });
     const html = renderHtml(spec, 1080, "data:image/png;base64,AAAA");
     expect(html).toContain('class="hero-image"');
     expect(html).toContain('src="data:image/png;base64,AAAA"');
-    expect(html).toContain('alt="雾山静水间，一圈涟漪正在平复"');
+    expect(html).toContain('alt="霧山靜水間，一圈漣漪正在平復"');
     expect(html.indexOf('class="hero"')).toBeLessThan(html.indexOf('class="classic"'));
     expect(html).toContain("--interpretation-ink: #39342e");
     expect(html).toContain("--interpretation-paper: #eee8dc");
@@ -157,15 +157,15 @@ describe("renderHtml", () => {
       ...validSpec,
       original: "曰：“道。”\n“德”。",
       passages: [{ tokens: [
-        { text: "曰", note: "说", tone: "word" },
+        { text: "曰", note: "說", tone: "word" },
         { text: "：", punctuation: true },
         { text: "“", punctuation: true },
-        { text: "道", note: "道路与规律", tone: "word" },
+        { text: "道", note: "道路與規律", tone: "word" },
         { text: "。", punctuation: true },
         { text: "”", punctuation: true },
         { text: "\n", punctuation: true },
         { text: "“", punctuation: true },
-        { text: "德", note: "所得与品格", tone: "word" },
+        { text: "德", note: "所得與品格", tone: "word" },
         { text: "”", punctuation: true },
         { text: "。", punctuation: true },
       ] }],
@@ -188,7 +188,7 @@ describe("renderHtml", () => {
       ...validSpec,
       original: "曰“\n善",
       passages: [{ tokens: [
-        { text: "曰", note: "说", tone: "word" },
+        { text: "曰", note: "說", tone: "word" },
         { text: "“", punctuation: true },
         { text: "\n", punctuation: true },
         { text: "善", note: "好", tone: "word" },
@@ -205,12 +205,12 @@ describe("renderHtml", () => {
   test("keeps computed typography inside the layout grammar ranges", async () => {
     const spec = validateSpec({
       ...validSpec,
-      source: "維基文庫固定修订 https://zh.wikisource.org/w/index.php?title=%E9%81%93%E5%BE%B7%E7%B6%93&oldid=2354026",
+      source: "維基文庫固定修訂 https://zh.wikisource.org/w/index.php?title=%E9%81%93%E5%BE%B7%E7%B6%93&oldid=2354026",
       passages: [{
         tokens: [
-          { text: "致虚极", note: "尽力使内心虚静", tone: "word", pinyin: "zhì xū jí" },
+          { text: "致虛極", note: "盡力使內心虛靜", tone: "word", pinyin: "zhì xū jí" },
           { text: "，", punctuation: true },
-          { text: "守静笃", note: "彻底守住清静", tone: "clause" },
+          { text: "守靜篤", note: "徹底守住清靜", tone: "clause" },
           { text: "。", punctuation: true },
         ],
       }],
@@ -249,12 +249,12 @@ describe("renderHtml", () => {
   test("renders an explicit newline as a real visual line break", async () => {
     const spec = validateSpec({
       ...validSpec,
-      original: "致虚极。\n守静笃。",
+      original: "致虛極。\n守靜篤。",
       passages: [{ tokens: [
-          { text: "致虚极", note: "尽力使内心虚静", tone: "word" },
+          { text: "致虛極", note: "盡力使內心虛靜", tone: "word" },
           { text: "。", punctuation: true },
           { text: "\n", punctuation: true },
-          { text: "守静笃", note: "彻底守住清静", tone: "clause" },
+          { text: "守靜篤", note: "徹底守住清靜", tone: "clause" },
           { text: "。", punctuation: true },
       ] }],
     });
@@ -372,7 +372,7 @@ async function createArtifactFixture(options: { gap?: boolean } = {}) {
   const spec = validateSpec({
     ...validSpec,
     heroImage: "assets/hero.png",
-    heroAlt: "山谷中一圈涟漪正在平复",
+    heroAlt: "山谷中一圈漣漪正在平復",
   });
   await Bun.write(input, `${JSON.stringify(spec, null, 2)}\n`);
   await Bun.write(hero, testPng(900, 600));

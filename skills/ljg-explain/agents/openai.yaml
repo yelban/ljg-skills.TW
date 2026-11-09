@@ -1,4 +1,4 @@
 interface:
   display_name: "ljg-explain"
-  short_description: "用通俗中文讲透概念、公式与原理，让读者能辨认、推导和迁移判断"
-  default_prompt: "使用 $ljg-explain 通俗易懂、透彻地讲解这个知识点，并给出对照、成立条件和迁移示例。"
+  short_description: "用通俗中文講透概念、公式與原理，讓讀者能辨認、推導和遷移判斷"
+  default_prompt: "使用 $ljg-explain 通俗易懂、透徹地講解這個知識點，並給出對照、成立條件和遷移示例。"

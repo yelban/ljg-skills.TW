@@ -1,6 +1,6 @@
 # Push Workflow
 
-一键同步 ljg-* skills 到 github repo（master + md 双分支）。
+一鍵同步 ljg-* skills 到 github repo（master + md 雙分支）。
 
 ## Voice Notification
 
@@ -11,67 +11,67 @@ curl -s -X POST http://localhost:31337/notify \
   > /dev/null 2>&1 &
 ```
 
-输出文本：`Running **Push** in **ljg-push**...`
+輸出文本：`Running **Push** in **ljg-push**...`
 
 ## Step 0: Pre-push README check（硬 gate）
 
-每次 push 都要先问自己一句：
+每次 push 都要先問自己一句：
 
-> README 还跟实际的 skill 集合对得上吗？
+> README 還跟實際的 skill 集合對得上嗎？
 
-具体三件事：
+具體三件事：
 
-1. *新增 skill 了吗*？ → README 的 skill 清单 / 安装命令需要加一行
-2. *删了 skill 吗*？ → README 对应行要删
-3. *某个 skill 的描述大改了吗*？ → README 的简介可能要同步
+1. *新增 skill 了嗎*？ → README 的 skill 清單 / 安裝命令需要加一行
+2. *刪了 skill 嗎*？ → README 對應行要刪
+3. *某個 skill 的描述大改了嗎*？ → README 的簡介可能要同步
 
-脚本会自动 grep README 里所有 `ljg-xxx` 名字，跟 `~/.agents/skills/ljg-*` 对比。如果有 skill 在 local 但不在 README，*push 直接中止*。
+指令碼會自動 grep README 裡所有 `ljg-xxx` 名字，跟 `~/.agents/skills/ljg-*` 對比。如果有 skill 在 local 但不在 README，*push 直接中止*。
 
-绕过办法（仅当你确认 README 已经审过、不需要更新）：
+繞過辦法（僅當你確認 README 已經審過、不需要更新）：
 
 ```bash
 bash Push.sh --skip-readme-check
 ```
 
-## Step 1: 解析参数
+## Step 1: 解析引數
 
-| 用户说 | 标志 | 效果 |
+| 使用者說 | 標誌 | 效果 |
 |--------|------|------|
-| 默认 | （无标志）| README check + 检测变更 + 双分支推送 |
-| "dry-run", "看一下" | `--dry-run` | 只列出会做什么，不真推（README check 跳过）|
-| "force", "强推" | `--force` | 跳过 detect，强制 rsync 所有 ljg-* |
-| "README 已审" | `--skip-readme-check` | 跳过 README 一致性 gate（其他 check 仍跑）|
+| 預設 | （無標誌）| README check + 檢測變更 + 雙分支推送 |
+| "dry-run", "看一下" | `--dry-run` | 只列出會做什麼，不真推（README check 跳過）|
+| "force", "強推" | `--force` | 跳過 detect，強制 rsync 所有 ljg-* |
+| "README 已審" | `--skip-readme-check` | 跳過 README 一致性 gate（其他 check 仍跑）|
 
-## Step 2: 执行脚本
+## Step 2: 執行指令碼
 
 ```bash
 bash ~/.agents/skills/ljg-push/Tools/Push.sh [--dry-run|--force]
 ```
 
-脚本逻辑：
+指令碼邏輯：
 
-1. *Setup*：检查 `$HOME/code/ljg-skills` 是否存在，不存在则 clone
-2. *Detect*：以与同步完全相同的文件边界对比 `~/.agents/skills/ljg-*` vs `repo/skills/ljg-*`——按校验和识别新增、删除、内容和可执行位变化；纯时间戳、目录元数据和空目录不会单独触发发布，`.git/`、`node_modules/`、`.DS_Store` 被忽略，但普通备份文件不会被忽略
+1. *Setup*：檢查 `$HOME/code/ljg-skills` 是否存在，不存在則 clone
+2. *Detect*：以與同步完全相同的檔案邊界對比 `~/.agents/skills/ljg-*` vs `repo/skills/ljg-*`——按校驗和識別新增、刪除、內容和可執行位變化；純時間戳、目錄元資料和空目錄不會單獨觸發釋出，`.git/`、`node_modules/`、`.DS_Store` 被忽略，但普通備份檔案不會被忽略
 3. *Master 推送*：
    - `git checkout master` + `git pull --rebase`
-   - 对每个有差异的 skill：按上述共同边界 rsync（删除目标端多出的真实文件、保留权限，不传播时间戳/所有者/群组；目录本身不进入 Git 结果）
+   - 對每個有差異的 skill：按上述共同邊界 rsync（刪除目標端多出的真實檔案、保留許可權，不傳播時間戳/所有者/群組；目錄本身不進入 Git 結果）
    - bump patch version (plugin.json + marketplace.json)
    - `git add` + `git commit` + `git push origin master`
 4. *Md 推送*：
    - `git checkout md` + `git pull --rebase`
-   - 对每个有差异的 skill：rsync + 应用 markdown 化（`mdize_skill` 函数——含 org 文件本体转换：`orgfile_to_md` 转 YAML 头/`#` 标题后删 .org，Markdown 与运行时代码中的实际文件引用全局改写；Markdown 内嵌的完整 Org 模板，以及首行就是 Org 头的无语言围栏模板，由 `MdizeEmbeddedOrg.ts` 转成带 YAML frontmatter 的 Markdown 模板，并保留原文件换行风格；结构化 `- *标签*：` 转成 `- **标签**：`；eval 输出契约与 stdin 默认格式同步切到 Markdown；`ljg-is` 的输出标题、路径称谓、元数据名、tags 与验收合同同步切到 Markdown/YAML + Denote）
-   - commit 前运行残留审计：拒绝未转换的输出指令、Org 专用 lint 调用、Org 头标记、单星号加粗/Org 等宽文本等旧语法规则、非 assets `.org` 文件、eval JSON 的 Org 输出要求和运行时 Org 默认值
+   - 對每個有差異的 skill：rsync + 應用 markdown 化（`mdize_skill` 函式——含 org 檔案本體轉換：`orgfile_to_md` 轉 YAML 頭/`#` 標題後刪 .org，Markdown 與執行時程式碼中的實際檔案引用全域性改寫；Markdown 內嵌的完整 Org 模板，以及首行就是 Org 頭的無語言圍欄模板，由 `MdizeEmbeddedOrg.ts` 轉成帶 YAML frontmatter 的 Markdown 模板，並保留原檔案換行風格；結構化 `- *標籤*：` 轉成 `- **標籤**：`；eval 輸出契約與 stdin 預設格式同步切到 Markdown；`ljg-is` 的輸出標題、路徑稱謂、元資料名、tags 與驗收合同同步切到 Markdown/YAML + Denote）
+   - commit 前執行殘留審計：拒絕未轉換的輸出指令、Org 專用 lint 呼叫、Org 頭標記、單星號加粗/Org 等寬文本等舊語法規則、非 assets `.org` 檔案、eval JSON 的 Org 輸出要求和執行時 Org 預設值
    - bump patch version
    - `git add` + `git commit` + `git push origin md`
-5. *收尾*：切回 `master`，让本地工作 repo 留在源分支
-6. *Report*：列出推送结果 + 仍需手工 review 的差异清单
+5. *收尾*：切回 `master`，讓本地工作 repo 留在源分支
+6. *Report*：列出推送結果 + 仍需手工 review 的差異清單
 
-## Step 3: 报告
+## Step 3: 報告
 
-输出格式：
+輸出格式：
 
 ```
-═══ ljg-push 报告 ═══════════════
+═══ ljg-push 報告 ═══════════════
 更新的 skills:
   - ljg-qa
   - ljg-card
@@ -79,26 +79,26 @@ bash ~/.agents/skills/ljg-push/Tools/Push.sh [--dry-run|--force]
 master @ v1.17.13 → pushed
 md     @ v1.0.8   → pushed
 
-仍需手工 review（自动转换不覆盖的差异）:
-  - ljg-xxx/SKILL.md  (正文 `*bold*` 标记——斜体歧义，脚本不动；结构化 bullet 标签除外)
+仍需手工 review（自動轉換不覆蓋的差異）:
+  - ljg-xxx/SKILL.md  (正文 `*bold*` 標記——斜體歧義，指令碼不動；結構化 bullet 標籤除外)
 
 ══════════════════════════════════
 ```
 
-## Step 4: 异常处理
+## Step 4: 異常處理
 
-| 异常 | 处理 |
+| 異常 | 處理 |
 |------|------|
-| repo 路径不存在 | 自动 clone，告知用户 |
-| 路径存在但不是 ljg-skills repo | 报错，不破坏现有目录 |
-| `git push` 被远端拒（远端有新 commit）| 尝试 `pull --rebase`，再推；冲突时报错让用户处理 |
-| `git pull --rebase` 冲突 | 报错，列出冲突文件，提示 `rebase --abort` 或手工解决 |
-| `~/.agents/skills/ljg-*` 没有任何变更 | 输出 "Nothing to push." 退出 |
+| repo 路徑不存在 | 自動 clone，告知使用者 |
+| 路徑存在但不是 ljg-skills repo | 報錯，不破壞現有目錄 |
+| `git push` 被遠端拒（遠端有新 commit）| 嘗試 `pull --rebase`，再推；衝突時報錯讓使用者處理 |
+| `git pull --rebase` 衝突 | 報錯，列出衝突檔案，提示 `rebase --abort` 或手工解決 |
+| `~/.agents/skills/ljg-*` 沒有任何變更 | 輸出 "Nothing to push." 退出 |
 
-## 验收
+## 驗收
 
-- 两个分支都有新 commit（除非检测到无变更）
-- 远端 origin/master 和 origin/md 都更新
-- 本地 `$HOME/code/ljg-skills` 最后停在 `master`
-- 报告里列出版本号和推送的 skills
-- 任何 markdown 化未覆盖的差异都列在 review checklist 里
+- 兩個分支都有新 commit（除非檢測到無變更）
+- 遠端 origin/master 和 origin/md 都更新
+- 本地 `$HOME/code/ljg-skills` 最後停在 `master`
+- 報告裡列出版本號和推送的 skills
+- 任何 markdown 化未覆蓋的差異都列在 review checklist 裡

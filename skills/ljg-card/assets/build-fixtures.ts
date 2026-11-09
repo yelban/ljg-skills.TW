@@ -9,8 +9,8 @@ const logo = pathToFileURL(logoPath).href;
 const fixtureImagePath = process.env.LJG_CARD_FIXTURE_IMAGE;
 const fixtureImage = pathToFileURL(resolve(fixtureImagePath ?? logoPath)).href;
 const fixtureImageAlt = fixtureImagePath
-  ? "人物面对一组工作任务，单线场景用于验证长图叙事锚点"
-  : "黑色圆形品牌图像，仅用于验证本地位图槽成功加载";
+  ? "人物面對一組工作任務，單線場景用於驗證長圖敘事錨點"
+  : "黑色圓形品牌影像，僅用於驗證本地點陣圖槽成功載入";
 
 await mkdir(output, { recursive: true });
 
@@ -229,46 +229,46 @@ async function inspectWhiteboardFonts(path: string): Promise<{
 const common = {
   IMAGE_STATE: "ready",
   IMAGE_SRC: logo,
-  IMAGE_ALT: "黑色圆形品牌图像，仅用于验证本地位图槽成功加载",
+  IMAGE_ALT: "黑色圓形品牌影像，僅用於驗證本地點陣圖槽成功載入",
   IMAGE_CLAIM: "claim-anchor",
   LOGO: logo,
-  SOURCE_LINE: '<span class="info-source">结构验收样例</span>',
+  SOURCE_LINE: '<span class="info-source">結構驗收樣例</span>',
 };
 
 const fullBlocks = [
-  { id: "b001", text: "当内容不动，设计才真正开始" },
-  { id: "b002", text: "原文中的“一个字”与 A & B 都不能被改写。" },
-  { id: "b003", text: "排版负责什么" },
-  { id: "b004", text: "强调可以改变看见的顺序，不能改变原稿的顺序。" },
-  { id: "b005", text: "标题建立层级。" },
+  { id: "b001", text: "當內容不動，設計才真正開始" },
+  { id: "b002", text: "原文中的“一個字”與 A & B 都不能被改寫。" },
+  { id: "b003", text: "排版負責什麼" },
+  { id: "b004", text: "強調可以改變看見的順序，不能改變原稿的順序。" },
+  { id: "b005", text: "標題建立層級。" },
   { id: "b006", text: "正文保持呼吸。" },
-  { id: "b007", text: "作者的句子只出现一次。" },
-  { id: "b008", text: "结构样例" },
-  { id: "b009", text: "行内代码 const answer 仍属于原文。" },
+  { id: "b007", text: "作者的句子只出現一次。" },
+  { id: "b008", text: "結構樣例" },
+  { id: "b009", text: "行內程式碼 const answer 仍屬於原文。" },
   { id: "b010", text: "const answer = 42;" },
-  { id: "b011", text: "表一　设计与边界" },
-  { id: "b012", text: "动作" },
-  { id: "b013", text: "边界" },
+  { id: "b011", text: "表一　設計與邊界" },
+  { id: "b012", text: "動作" },
+  { id: "b013", text: "邊界" },
   { id: "b014", text: "排版" },
-  { id: "b015", text: "只改呈现" },
-  { id: "b016", text: "原稿图片保真进入，不承担新解释。" },
-  { id: "b017", text: "注：脚注降级显示，但仍完整可读。" },
+  { id: "b015", text: "只改呈現" },
+  { id: "b016", text: "原稿圖片保真進入，不承擔新解釋。" },
+  { id: "b017", text: "注：腳註降級顯示，但仍完整可讀。" },
 ];
 
 const fullDocumentHtml = [
-  '<h1 data-source-block="b001">当内容不动，设计才真正开始</h1>',
-  '<p class="opening" data-source-block="b002">原文中的“<strong>一个字</strong>”与 A &amp; B 都不能被改写。</p>',
-  '<h2 data-source-block="b003">排版负责什么</h2>',
-  '<p class="full-key" data-source-block="b004">强调可以改变看见的顺序，不能改变原稿的顺序。</p>',
-  '<ul><li data-source-block="b005">标题建立层级。</li><li data-source-block="b006">正文保持呼吸。</li></ul>',
-  '<blockquote><p data-source-block="b007">作者的句子只出现一次。</p></blockquote>',
-  '<h3 data-source-block="b008">结构样例</h3>',
-  '<p data-source-block="b009">行内代码 <code>const answer</code> 仍属于原文。</p>',
+  '<h1 data-source-block="b001">當內容不動，設計才真正開始</h1>',
+  '<p class="opening" data-source-block="b002">原文中的“<strong>一個字</strong>”與 A &amp; B 都不能被改寫。</p>',
+  '<h2 data-source-block="b003">排版負責什麼</h2>',
+  '<p class="full-key" data-source-block="b004">強調可以改變看見的順序，不能改變原稿的順序。</p>',
+  '<ul><li data-source-block="b005">標題建立層級。</li><li data-source-block="b006">正文保持呼吸。</li></ul>',
+  '<blockquote><p data-source-block="b007">作者的句子只出現一次。</p></blockquote>',
+  '<h3 data-source-block="b008">結構樣例</h3>',
+  '<p data-source-block="b009">行內程式碼 <code>const answer</code> 仍屬於原文。</p>',
   '<pre data-source-block="b010"><code>const answer = 42;</code></pre>',
-  '<table><caption data-source-block="b011">表一　设计与边界</caption><thead><tr><th data-source-block="b012">动作</th><th data-source-block="b013">边界</th></tr></thead><tbody><tr><td data-source-block="b014">排版</td><td data-source-block="b015">只改呈现</td></tr></tbody></table>',
-  `<figure class="source-figure"><img src="${fixtureImage}" alt="来源图片，用于验证全文模式的本地 source 资产"><figcaption data-source-block="b016">原稿图片保真进入，不承担新解释。</figcaption></figure>`,
+  '<table><caption data-source-block="b011">表一　設計與邊界</caption><thead><tr><th data-source-block="b012">動作</th><th data-source-block="b013">邊界</th></tr></thead><tbody><tr><td data-source-block="b014">排版</td><td data-source-block="b015">只改呈現</td></tr></tbody></table>',
+  `<figure class="source-figure"><img src="${fixtureImage}" alt="來源圖片，用於驗證全文模式的本地 source 資產"><figcaption data-source-block="b016">原稿圖片保真進入，不承擔新解釋。</figcaption></figure>`,
   '<hr class="section-break" aria-hidden="true">',
-  '<section class="footnotes"><p class="footnote" data-source-block="b017">注：脚注降级显示，但仍完整可读。</p></section>',
+  '<section class="footnotes"><p class="footnote" data-source-block="b017">注：腳註降級顯示，但仍完整可讀。</p></section>',
 ].join("");
 
 const sourceSnapshot = `${fullBlocks.map(block => block.text).join("\n\n")}\n`;
@@ -308,27 +308,27 @@ interface FixtureRelation {
 }
 
 const roleLabels: Record<FixtureRole, string> = {
-  question: "问题",
+  question: "問題",
   premise: "前提",
-  evidence: "证据",
+  evidence: "證據",
   tension: "矛盾",
-  inference: "推论",
-  turn: "转折",
-  synthesis: "汇合",
-  conclusion: "结论",
-  boundary: "边界",
+  inference: "推論",
+  turn: "轉折",
+  synthesis: "匯合",
+  conclusion: "結論",
+  boundary: "邊界",
 };
 
 const whiteboardParagraphs = [
-  "经验留下了大量轨迹，但模型能力没有随任务结束而改变。",
-  "上下文只能暂存经验，不能保证下一次任务继续调用。",
-  "不同记忆层的写入深度、更新频率与调用成本彼此牵制。",
-  "单一路线无法同时优化稳定保留与快速更新，论证因此分叉。",
-  "世界模型路线从完整轨迹中学习环境怎样变化。",
-  "LoRA 与策略路线选择高价值轨迹并写入隔离能力。",
-  "两条路线最终回到同一组写入深度与调用成本权衡。",
-  "持续学习依赖经验进入下一轮仍可调用的载体。",
-  "遗忘、在线更新与新旧能力干扰仍是开放问题。",
+  "經驗留下了大量軌跡，但模型能力沒有隨任務結束而改變。",
+  "上下文只能暫存經驗，不能保證下一次任務繼續呼叫。",
+  "不同記憶層的寫入深度、更新頻率與呼叫成本彼此牽制。",
+  "單一路線無法同時最佳化穩定保留與快速更新，論證因此分叉。",
+  "世界模型路線從完整軌跡中學習環境怎樣變化。",
+  "LoRA 與策略路線選擇高價值軌跡並寫入隔離能力。",
+  "兩條路線最終回到同一組寫入深度與呼叫成本權衡。",
+  "持續學習依賴經驗進入下一輪仍可呼叫的載體。",
+  "遺忘、線上更新與新舊能力干擾仍是開放問題。",
 ];
 const whiteboardSource = `${whiteboardParagraphs.join("\n\n")}\n`;
 const whiteboardSourceHash = sha256(new TextEncoder().encode(whiteboardSource));
@@ -367,7 +367,7 @@ const sourceSectionsFor = (steps: FixtureStep[]) => whiteboardParagraphs.map((_,
   const stepIds = steps.filter(step => step.source_refs.includes(id)).map(step => step.id);
   return stepIds.length > 0
     ? { id, disposition: "rendered" as const, step_ids: stepIds }
-    : { id, disposition: "omitted" as const, omission_reason: "局部结构 fixture 只验证所列步骤，不展开其余分支路线。" };
+    : { id, disposition: "omitted" as const, omission_reason: "區域性結構 fixture 只驗證所列步驟，不展開其餘分支路線。" };
 });
 
 const logicLedger = (steps: FixtureStep[], relations: FixtureRelation[]): string => JSON.stringify({
@@ -389,30 +389,30 @@ const whiteboardShell = (title: string, question: string, orientation: string, s
   "</section></main>",
 ].join("");
 
-const matrixShape = '<section class="local-shape local-matrix" data-logic-shape="matrix"><h3 class="local-shape-title">把两条路线放回同一坐标</h3><div class="matrix-frame"><div class="matrix-axis-x"><span>调用成本：低 → 高</span><span class="axis-line"></span><span class="axis-arrowhead" aria-hidden="true"></span></div><div class="matrix-axis-y"><span>写入深度：浅 → 深</span><span class="axis-line"></span><span class="axis-arrowhead" aria-hidden="true"></span></div><div class="matrix-grid"><article class="quadrant"><h3>上下文</h3><p>写入浅，调用轻。</p></article><article class="quadrant"><h3>状态</h3><p>局部保留，可再检索。</p></article><article class="quadrant"><h3>适配器</h3><p>能力隔离，按需加载。</p></article><article class="quadrant"><h3>参数</h3><p>写入深，更新昂贵。</p></article></div></div></section>';
+const matrixShape = '<section class="local-shape local-matrix" data-logic-shape="matrix"><h3 class="local-shape-title">把兩條路線放回同一座標</h3><div class="matrix-frame"><div class="matrix-axis-x"><span>呼叫成本：低 → 高</span><span class="axis-line"></span><span class="axis-arrowhead" aria-hidden="true"></span></div><div class="matrix-axis-y"><span>寫入深度：淺 → 深</span><span class="axis-line"></span><span class="axis-arrowhead" aria-hidden="true"></span></div><div class="matrix-grid"><article class="quadrant"><h3>上下文</h3><p>寫入淺，呼叫輕。</p></article><article class="quadrant"><h3>狀態</h3><p>區域性保留，可再檢索。</p></article><article class="quadrant"><h3>介面卡</h3><p>能力隔離，按需載入。</p></article><article class="quadrant"><h3>引數</h3><p>寫入深，更新昂貴。</p></article></div></div></section>';
 
 const compositeSteps: FixtureStep[] = [
-  { id: "step-01", role: "question", source_refs: ["src-01"], claim: "经验为什么没有变成能力？", support: "Agent 完成了任务，也留下了大量轨迹。", residue: "任务结束时，模型本身仍然没有改变。", must_render: true, presentation: "typography" },
-  { id: "step-02", role: "premise", source_refs: ["src-02"], claim: "短期记住，不等于长期学会", support: "上下文能暂存经验，却不能保证跨任务继续调用。", residue: "", must_render: true, presentation: "text" },
-  { id: "step-03", role: "tension", source_refs: ["src-03"], claim: "写得越深，能力越稳；代价也越高", support: "上下文、状态、适配器与参数，是不同深度的记忆层。", residue: "", must_render: true, presentation: "text" },
-  { id: "step-04", role: "turn", source_refs: ["src-04"], claim: "问题因此分成两条技术路线", support: "一条先学习环境怎样变化；另一条先选择哪些经验值得写入。", residue: "", must_render: true, presentation: "branch" },
-  { id: "step-05", role: "inference", source_refs: ["src-05"], claim: "世界模型路线", support: "从成功、失败与无标签轨迹中学习状态转移。", residue: "可学习的经验更多了，模型与训练成本也随之上升。", must_render: true, presentation: "branch" },
-  { id: "step-06", role: "inference", source_refs: ["src-06"], claim: "LoRA / 策略路线", support: "强编码 Agent 选择轨迹，把变化写入隔离的适配器。", residue: "改写范围缩小了，路由与协作负担却留了下来。", must_render: true, presentation: "branch" },
-  { id: "step-07", role: "synthesis", source_refs: ["src-07"], claim: "两条路线落到同一个权衡", support: "真正共同的坐标，是更新频率、写入深度与调用成本。", residue: "", must_render: true, presentation: "matrix" },
-  { id: "step-08", role: "conclusion", source_refs: ["src-08"], claim: "能力来自可持续写入，而不是更多对话", support: "经验必须进入下一轮仍可检索、路由或训练的载体。", residue: "", must_render: true, presentation: "typography" },
-  { id: "step-09", role: "boundary", source_refs: ["src-09"], claim: "人类水平的持续学习仍未完成", support: "遗忘、非独立同分布的在线更新与新旧能力干扰仍是开放问题。", residue: "", must_render: true, presentation: "text" },
+  { id: "step-01", role: "question", source_refs: ["src-01"], claim: "經驗為什麼沒有變成能力？", support: "Agent 完成了任務，也留下了大量軌跡。", residue: "任務結束時，模型本身仍然沒有改變。", must_render: true, presentation: "typography" },
+  { id: "step-02", role: "premise", source_refs: ["src-02"], claim: "短期記住，不等於長期學會", support: "上下文能暫存經驗，卻不能保證跨任務繼續呼叫。", residue: "", must_render: true, presentation: "text" },
+  { id: "step-03", role: "tension", source_refs: ["src-03"], claim: "寫得越深，能力越穩；代價也越高", support: "上下文、狀態、介面卡與引數，是不同深度的記憶層。", residue: "", must_render: true, presentation: "text" },
+  { id: "step-04", role: "turn", source_refs: ["src-04"], claim: "問題因此分成兩條技術路線", support: "一條先學習環境怎樣變化；另一條先選擇哪些經驗值得寫入。", residue: "", must_render: true, presentation: "branch" },
+  { id: "step-05", role: "inference", source_refs: ["src-05"], claim: "世界模型路線", support: "從成功、失敗與無標籤軌跡中學習狀態轉移。", residue: "可學習的經驗更多了，模型與訓練成本也隨之上升。", must_render: true, presentation: "branch" },
+  { id: "step-06", role: "inference", source_refs: ["src-06"], claim: "LoRA / 策略路線", support: "強編碼 Agent 選擇軌跡，把變化寫入隔離的介面卡。", residue: "改寫範圍縮小了，路由與協作負擔卻留了下來。", must_render: true, presentation: "branch" },
+  { id: "step-07", role: "synthesis", source_refs: ["src-07"], claim: "兩條路線落到同一個權衡", support: "真正共同的座標，是更新頻率、寫入深度與呼叫成本。", residue: "", must_render: true, presentation: "matrix" },
+  { id: "step-08", role: "conclusion", source_refs: ["src-08"], claim: "能力來自可持續寫入，而不是更多對話", support: "經驗必須進入下一輪仍可檢索、路由或訓練的載體。", residue: "", must_render: true, presentation: "typography" },
+  { id: "step-09", role: "boundary", source_refs: ["src-09"], claim: "人類水平的持續學習仍未完成", support: "遺忘、非獨立同分布的線上更新與新舊能力干擾仍是開放問題。", residue: "", must_render: true, presentation: "text" },
 ];
 
 const compositeRelations: FixtureRelation[] = [
   { id: "rel-01", from: "step-01", to: "step-02", kind: "deepen", visibility: "implicit", bridge: "" },
-  { id: "rel-02", from: "step-02", to: "step-03", kind: "question", visibility: "visible", bridge: "如果经验要跨任务保留，就必须先看清它能写到多深、多久更新一次。" },
-  { id: "rel-03", from: "step-03", to: "step-04", kind: "branch", visibility: "visible", bridge: "单一记忆层无法同时满足快速更新与稳定保留，问题由此分成两条路线。" },
+  { id: "rel-02", from: "step-02", to: "step-03", kind: "question", visibility: "visible", bridge: "如果經驗要跨任務保留，就必須先看清它能寫到多深、多久更新一次。" },
+  { id: "rel-03", from: "step-03", to: "step-04", kind: "branch", visibility: "visible", bridge: "單一記憶層無法同時滿足快速更新與穩定保留，問題由此分成兩條路線。" },
   { id: "rel-04a", from: "step-04", to: "step-05", kind: "branch", visibility: "implicit", bridge: "" },
   { id: "rel-05a", from: "step-05", to: "step-07", kind: "return", visibility: "implicit", bridge: "" },
   { id: "rel-04b", from: "step-04", to: "step-06", kind: "branch", visibility: "implicit", bridge: "" },
   { id: "rel-05b", from: "step-06", to: "step-07", kind: "return", visibility: "implicit", bridge: "" },
   { id: "rel-06", from: "step-07", to: "step-08", kind: "deepen", visibility: "implicit", bridge: "" },
-  { id: "rel-07", from: "step-08", to: "step-09", kind: "boundary", visibility: "visible", bridge: "即使经验已经能够写入，遗忘与在线更新仍然限制着它能否稳定积累。" },
+  { id: "rel-07", from: "step-08", to: "step-09", kind: "boundary", visibility: "visible", bridge: "即使經驗已經能夠寫入，遺忘與線上更新仍然限制著它能否穩定積累。" },
 ];
 
 const compositeSpine = [
@@ -420,32 +420,32 @@ const compositeSpine = [
   logicStep(compositeSteps[1], "20"), logicRelation(compositeRelations[1]),
   logicStep(compositeSteps[2], "40"), logicRelation(compositeRelations[2]),
   logicStep(compositeSteps[3], "60"),
-  '<section class="local-shape local-branch" data-logic-shape="branch" data-branch-state="converged" data-entry-step="step-04" data-return-step="step-07"><h3 class="local-shape-title">同一缺口，分出两种写入路线</h3><div class="branch-grid">',
+  '<section class="local-shape local-branch" data-logic-shape="branch" data-branch-state="converged" data-entry-step="step-04" data-return-step="step-07"><h3 class="local-shape-title">同一缺口，分出兩種寫入路線</h3><div class="branch-grid">',
   `<div class="branch-path" data-branch-id="world-model">${logicRelation(compositeRelations[3])}${logicStep(compositeSteps[4], "A")}${logicRelation(compositeRelations[4])}</div>`,
   `<div class="branch-path" data-branch-id="policy-lora">${logicRelation(compositeRelations[5])}${logicStep(compositeSteps[5], "B")}${logicRelation(compositeRelations[6])}</div>`,
-  '</div><p class="branch-return">两条路线在下一层重新汇合：比较的不再是哪条更先进，而是谁把经验写到多深、多久更新一次、调用时付出多少成本。</p></section>',
+  '</div><p class="branch-return">兩條路線在下一層重新匯合：比較的不再是哪條更先進，而是誰把經驗寫到多深、多久更新一次、呼叫時付出多少成本。</p></section>',
   logicStep(compositeSteps[6], "80"), matrixShape, logicRelation(compositeRelations[7]),
   logicStep(compositeSteps[7], "100"), logicRelation(compositeRelations[8]),
   logicStep(compositeSteps[8], "120"),
 ].join("");
 
 const whiteboardComposite = whiteboardShell(
-  "经验，怎样变成能力？",
-  "一段任务经验，怎样进入下一次任务仍然可调用的能力？",
-  "沿着写入位置不断下潜，直到两条技术路线在同一组成本约束下重新汇合。",
+  "經驗，怎樣變成能力？",
+  "一段任務經驗，怎樣進入下一次任務仍然可呼叫的能力？",
+  "沿著寫入位置不斷下潛，直到兩條技術路線在同一組成本約束下重新匯合。",
   compositeSpine,
 );
 
 const buildLinearWhiteboard = (shape: "chain" | "timeline" | "matrix" | "radial", shapeHtml: string) => {
   const steps: FixtureStep[] = [
-    { id: "step-01", role: "question", source_refs: ["src-01"], claim: "这个变化从哪里开始？", support: "先找到原文试图解释的具体局面。", residue: "现状与目标之间还隔着一个没有解释的缺口。", must_render: true, presentation: "typography" },
-    { id: "step-02", role: "premise", source_refs: ["src-02"], claim: "旧办法只解决了表面", support: "局部结果出现了，承重机制仍未改变。", residue: "", must_render: true, presentation: "text" },
-    { id: "step-03", role: "inference", source_refs: ["src-03"], claim: "关键机制开始可见", support: "局部结构只解释这一层，不替代整条主干。", residue: "", must_render: true, presentation: shape },
-    { id: "step-04", role: "conclusion", source_refs: ["src-08", "src-09"], claim: "经验要能在下一次任务中被调用", support: "写入载体之后，还要处理遗忘和新旧能力干扰。", residue: "", must_render: true, presentation: "typography" },
+    { id: "step-01", role: "question", source_refs: ["src-01"], claim: "這個變化從哪裡開始？", support: "先找到原文試圖解釋的具體局面。", residue: "現狀與目標之間還隔著一個沒有解釋的缺口。", must_render: true, presentation: "typography" },
+    { id: "step-02", role: "premise", source_refs: ["src-02"], claim: "舊辦法只解決了表面", support: "區域性結果出現了，承重機制仍未改變。", residue: "", must_render: true, presentation: "text" },
+    { id: "step-03", role: "inference", source_refs: ["src-03"], claim: "關鍵機制開始可見", support: "區域性結構只解釋這一層，不替代整條主幹。", residue: "", must_render: true, presentation: shape },
+    { id: "step-04", role: "conclusion", source_refs: ["src-08", "src-09"], claim: "經驗要能在下一次任務中被呼叫", support: "寫入載體之後，還要處理遺忘和新舊能力干擾。", residue: "", must_render: true, presentation: "typography" },
   ];
   const relations: FixtureRelation[] = [
     { id: "rel-01", from: "step-01", to: "step-02", kind: "deepen", visibility: "implicit", bridge: "" },
-    { id: "rel-02", from: "step-02", to: "step-03", kind: "question", visibility: "visible", bridge: "表面结果已经出现，真正决定它能否持续的内部机制却还没有被看见。" },
+    { id: "rel-02", from: "step-02", to: "step-03", kind: "question", visibility: "visible", bridge: "表面結果已經出現，真正決定它能否持續的內部機制卻還沒有被看見。" },
     { id: "rel-03", from: "step-03", to: "step-04", kind: "continue", visibility: "implicit", bridge: "" },
   ];
   const spine = [
@@ -455,14 +455,14 @@ const buildLinearWhiteboard = (shape: "chain" | "timeline" | "matrix" | "radial"
     logicStep(steps[3], "100"),
   ].join("");
   return {
-    html: whiteboardShell("逻辑沿主干不断下潜", "局部结构怎样服务整篇文章的推导？", "主干保持阅读方向，局部工具只在论证改变形状时出现。", spine),
+    html: whiteboardShell("邏輯沿主幹不斷下潛", "區域性結構怎樣服務整篇文章的推導？", "主幹保持閱讀方向，區域性工具只在論證改變形狀時出現。", spine),
     ledger: logicLedger(steps, relations),
   };
 };
 
-const chainShape = '<section class="local-shape local-chain" data-logic-shape="chain"><h3 class="local-shape-title">节点内部的短递进</h3><p class="local-chain-item">先辨认条件</p><p class="local-chain-item">再看机制变化</p><p class="local-chain-item">最后观察结果</p></section>';
-const timelineShape = '<section class="local-shape local-timeline" data-logic-shape="timeline"><h3 class="local-shape-title">同一对象的状态迁移</h3><div class="timeline-track"><article class="timeline-event"><time class="timeline-time">T0</time><div><h3>手工执行</h3><p>注意力被重复动作占满。</p></div></article><article class="timeline-event"><time class="timeline-time">T1</time><div><h3>判断前移</h3><p>工具接走步骤，人开始管理例外。</p></div></article></div></section>';
-const radialShape = '<section class="local-shape local-radial" data-logic-shape="radial"><h3 class="local-shape-title">多个机制共同作用</h3><div class="radial-grid"><article class="radial-center"><h3>反馈改变下一轮选择</h3><p>结果必须进入下一次分配。</p></article><article class="radial-spoke"><h3>改变信息</h3><p>偏差变得可见。</p></article><article class="radial-spoke"><h3>改变激励</h3><p>有效路径获得资源。</p></article></div></section>';
+const chainShape = '<section class="local-shape local-chain" data-logic-shape="chain"><h3 class="local-shape-title">節點內部的短遞進</h3><p class="local-chain-item">先辨認條件</p><p class="local-chain-item">再看機制變化</p><p class="local-chain-item">最後觀察結果</p></section>';
+const timelineShape = '<section class="local-shape local-timeline" data-logic-shape="timeline"><h3 class="local-shape-title">同一物件的狀態遷移</h3><div class="timeline-track"><article class="timeline-event"><time class="timeline-time">T0</time><div><h3>手工執行</h3><p>注意力被重複動作佔滿。</p></div></article><article class="timeline-event"><time class="timeline-time">T1</time><div><h3>判斷前移</h3><p>工具接走步驟，人開始管理例外。</p></div></article></div></section>';
+const radialShape = '<section class="local-shape local-radial" data-logic-shape="radial"><h3 class="local-shape-title">多個機制共同作用</h3><div class="radial-grid"><article class="radial-center"><h3>反饋改變下一輪選擇</h3><p>結果必須進入下一次分配。</p></article><article class="radial-spoke"><h3>改變資訊</h3><p>偏差變得可見。</p></article><article class="radial-spoke"><h3>改變激勵</h3><p>有效路徑獲得資源。</p></article></div></section>';
 
 const linearWhiteboards = {
   "whiteboard-chain": buildLinearWhiteboard("chain", chainShape),
@@ -474,11 +474,11 @@ const linearWhiteboards = {
 // Authored teaching input shared by both molds. These are layout/content samples,
 // not evidence of reader learning and not production long cards with generated art.
 const learningParagraphs = [
-  "竖直旗杆顶端连着一条绷直的 13 米拉绳。地面水平，绳脚距杆脚 5 米。旗杆有多高？",
-  "旗杆与地面垂直，构成直角；绷直拉绳对应斜边 c=13，水平距离对应直角边 b=5。直角三角形满足 a²+b²=c²。",
-  "旗杆高度 a=√(13²−5²)=12 米。先认出直角与各条边，公式才有明确的输入。",
-  "换成一把靠在竖直墙面、置于水平地面的 10 米直梯，梯脚距墙 6 米。哪条是斜边，顶端离地多高？地面倾斜时还能直接套同一计算吗？",
-  "直梯对应斜边；墙与水平地面垂直，所以高度为 √(10²−6²)=8 米。地面倾斜时，墙与地面的夹角需要重新判断，不能直接沿用直角条件。",
+  "豎直旗杆頂端連著一條繃直的 13 米拉繩。地面水平，繩腳距杆腳 5 米。旗杆有多高？",
+  "旗杆與地面垂直，構成直角；繃直拉繩對應斜邊 c=13，水平距離對應直角邊 b=5。直角三角形滿足 a²+b²=c²。",
+  "旗杆高度 a=√(13²−5²)=12 米。先認出直角與各條邊，公式才有明確的輸入。",
+  "換成一把靠在豎直牆面、置於水平地面的 10 米直梯，梯腳距牆 6 米。哪條是斜邊，頂端離地多高？地面傾斜時還能直接套同一計算嗎？",
+  "直梯對應斜邊；牆與水平地面垂直，所以高度為 √(10²−6²)=8 米。地面傾斜時，牆與地面的夾角需要重新判斷，不能直接沿用直角條件。",
 ];
 const learningSourcePath = join(output, "learning-source.txt");
 const learningInventoryPath = join(output, "learning-source-inventory.json");
@@ -488,13 +488,13 @@ await run(["bun", join(root, "assets", "prepare-whiteboard-source.ts"), learning
 
 const learningPanel = (body: string, label: string, className = "learning-material") =>
   `<section class="${className}"><span class="learning-label">${label}</span><p>${body}</p></section>`;
-const transferHtml = learningPanel(learningParagraphs[3], "换个情形 · 先判断再下滑", "transfer-check") +
-  learningPanel(learningParagraphs[4], "核对依据", "transfer-feedback");
+const transferHtml = learningPanel(learningParagraphs[3], "換個情形 · 先判斷再下滑", "transfer-check") +
+  learningPanel(learningParagraphs[4], "核對依據", "transfer-feedback");
 const learningSteps: FixtureStep[] = [
-  { id: "step-01", role: "question", source_refs: ["src-01"], claim: "旗杆高度怎样算？", support: learningParagraphs[0], residue: "", must_render: true, presentation: "text" },
-  { id: "step-02", role: "premise", source_refs: ["src-02"], claim: "先认出直角和斜边", support: learningParagraphs[1], residue: "", must_render: true, presentation: "text" },
-  { id: "step-03", role: "conclusion", source_refs: ["src-03"], claim: "对应清楚后再计算", support: learningParagraphs[2], residue: "", must_render: true, presentation: "text" },
-  { id: "step-04", role: "conclusion", source_refs: ["src-04", "src-05"], claim: "换对象，重查条件", support: `换个情形 · 先判断再下滑 ${learningParagraphs[3]} 核对依据 ${learningParagraphs[4]}`, residue: "", must_render: true, presentation: "text" },
+  { id: "step-01", role: "question", source_refs: ["src-01"], claim: "旗杆高度怎樣算？", support: learningParagraphs[0], residue: "", must_render: true, presentation: "text" },
+  { id: "step-02", role: "premise", source_refs: ["src-02"], claim: "先認出直角和斜邊", support: learningParagraphs[1], residue: "", must_render: true, presentation: "text" },
+  { id: "step-03", role: "conclusion", source_refs: ["src-03"], claim: "對應清楚後再計算", support: learningParagraphs[2], residue: "", must_render: true, presentation: "text" },
+  { id: "step-04", role: "conclusion", source_refs: ["src-04", "src-05"], claim: "換物件，重查條件", support: `換個情形 · 先判斷再下滑 ${learningParagraphs[3]} 核對依據 ${learningParagraphs[4]}`, residue: "", must_render: true, presentation: "text" },
 ];
 const learningRelations: FixtureRelation[] = learningSteps.slice(0, -1).map((step, index) => ({
   id: `rel-0${index + 1}`, from: step.id, to: learningSteps[index + 1].id,
@@ -504,7 +504,7 @@ const learningSpine = learningSteps.map((step, index) => {
   let html = logicStep(step, String(index + 1).padStart(2, "0"));
   if (index === 1) {
     html = html.replace(`<p class="step-support">${step.support}</p>`,
-      `<section class="learning-material"><span class="learning-label">凭什么归类</span><p class="step-support">${step.support}</p></section>`);
+      `<section class="learning-material"><span class="learning-label">憑什麼歸類</span><p class="step-support">${step.support}</p></section>`);
   }
   if (index === 3) {
     // Keep one complete support surface for the existing ledger/DOM contract.
@@ -526,16 +526,16 @@ const learningLedger = JSON.stringify({
 
 const fixtures: Record<string, Record<string, string>> = {
   "long-learning": {
-    LOGO: logo, SOURCE_LINE: '<span class="info-source">自拟教学材料 · 排版检查</span>',
+    LOGO: logo, SOURCE_LINE: '<span class="info-source">自擬教學材料 · 排版檢查</span>',
     IMAGE_STATE: "empty", IMAGE_SRC: "", IMAGE_ALT: "",
     BG_COLOR: "#FAF6EC", ACCENT_COLOR: "#B6533F",
-    TITLE_BLOCK: '<div class="title-area"><div class="eyebrow">知识讲解 · 判别与应用</div><h1>会背公式，还要认对对象</h1><p class="deck">同一条关系，怎样从旗杆走到梯子？</p></div>',
-    BODY_HTML: `<p>${learningParagraphs[0]}</p>${learningPanel(learningParagraphs[1], "凭什么归类")}<p>${learningParagraphs[2]}</p>${transferHtml}`,
+    TITLE_BLOCK: '<div class="title-area"><div class="eyebrow">知識講解 · 判別與應用</div><h1>會背公式，還要認對物件</h1><p class="deck">同一條關係，怎樣從旗杆走到梯子？</p></div>',
+    BODY_HTML: `<p>${learningParagraphs[0]}</p>${learningPanel(learningParagraphs[1], "憑什麼歸類")}<p>${learningParagraphs[2]}</p>${transferHtml}`,
   },
   "whiteboard-learning": {
-    LOGO: logo, SOURCE_LINE: '<span class="info-source">自拟教学材料 · 来源与排版检查</span>',
+    LOGO: logo, SOURCE_LINE: '<span class="info-source">自擬教學材料 · 來源與排版檢查</span>',
     CUSTOM_CSS: "", LOGIC_LEDGER_JSON: learningLedger,
-    CONTENT_HTML: whiteboardShell("从场景，走进公式", "哪些具体条件让这道题可以使用勾股定理？", "从旗杆到梯子，先认出直角、斜边，再计算高度。", learningSpine),
+    CONTENT_HTML: whiteboardShell("從場景，走進公式", "哪些具體條件讓這道題可以使用勾股定理？", "從旗杆到梯子，先認出直角、斜邊，再計算高度。", learningSpine),
   },
   long: {
     ...common,
@@ -543,8 +543,8 @@ const fixtures: Record<string, Record<string, string>> = {
     IMAGE_ALT: fixtureImageAlt,
     BG_COLOR: "#FAF6EC",
     ACCENT_COLOR: "#B6533F",
-    TITLE_BLOCK: '<div class="title-area"><div class="eyebrow">论文解读 · 决策边界</div><h1>AI 不只是在省时间</h1><p class="deck">真正的生产率问题，是控制权如何在工作流里移动。</p></div>',
-    BODY_HTML: '<p class="dropcap">当一个人面对同一组任务：先全部手做，再让工具接管重复步骤。场景只画动作变化，结论仍由文字说准。</p><p class="highlight">关键变化不是“更快”，而是人的注意力从执行移向判断。</p><section class="narrative-beat"><span class="beat-index">01</span><div><h2>压力出现</h2><p>任务数量没有减少，重复操作先挤占了用于判断的时间。</p></div></section><section class="narrative-beat"><span class="beat-index">02</span><div><h2>控制权移动</h2><p>工具接走可描述的步骤，人保留目标、例外与验收。</p></div></section><div class="metric-row"><div class="metric"><strong>1 个</strong><span>稳定人物贯穿前后变化</span></div><div class="metric"><strong>2 拍</strong><span>足够表达一条因果链</span></div></div><p>效率数字可以说明局部任务表现，不能自动推出组织总产出或长期福利。</p><div class="prompt"><strong>阅读问题：</strong>工具替你做了什么，又把哪一种判断还给了你？</div><div class="closing-judgment">把 AI 放进工作流时，先画清控制权，再讨论速度。</div>',
+    TITLE_BLOCK: '<div class="title-area"><div class="eyebrow">論文解讀 · 決策邊界</div><h1>AI 不只是在省時間</h1><p class="deck">真正的生產率問題，是控制權如何在工作流裡移動。</p></div>',
+    BODY_HTML: '<p class="dropcap">當一個人面對同一組任務：先全部手做，再讓工具接管重複步驟。場景只畫動作變化，結論仍由文字說準。</p><p class="highlight">關鍵變化不是“更快”，而是人的注意力從執行移向判斷。</p><section class="narrative-beat"><span class="beat-index">01</span><div><h2>壓力出現</h2><p>任務數量沒有減少，重複操作先擠佔了用於判斷的時間。</p></div></section><section class="narrative-beat"><span class="beat-index">02</span><div><h2>控制權移動</h2><p>工具接走可描述的步驟，人保留目標、例外與驗收。</p></div></section><div class="metric-row"><div class="metric"><strong>1 個</strong><span>穩定人物貫穿前後變化</span></div><div class="metric"><strong>2 拍</strong><span>足夠表達一條因果鏈</span></div></div><p>效率數字可以說明區域性任務表現，不能自動推出組織總產出或長期福利。</p><div class="prompt"><strong>閱讀問題：</strong>工具替你做了什麼，又把哪一種判斷還給了你？</div><div class="closing-judgment">把 AI 放進工作流時，先畫清控制權，再討論速度。</div>',
   },
   full: {
     ...common,
@@ -554,18 +554,18 @@ const fixtures: Record<string, Record<string, string>> = {
   comic: {
     ...common,
     CUSTOM_CSS: '.fixture { margin: 24px 60px 42px; padding: 32px; border: 4px solid var(--ink); } .fixture h1 { font: 900 68px/1 var(--serif); } .fixture p { margin-top: 18px; font: 400 28px/1.5 var(--sans); }',
-    CONTENT_HTML: '<main class="fixture"><h1>动作进入分格</h1><p>对白、旁白和格线仍由排版层承担。</p></main>',
+    CONTENT_HTML: '<main class="fixture"><h1>動作進入分格</h1><p>對白、旁白和格線仍由排版層承擔。</p></main>',
   },
   whiteboard: {
     LOGO: logo,
-    SOURCE_LINE: '<span class="info-source">纵向论证验收样例</span>',
+    SOURCE_LINE: '<span class="info-source">縱向論證驗收樣例</span>',
     CUSTOM_CSS: "",
     LOGIC_LEDGER_JSON: logicLedger(compositeSteps, compositeRelations),
     CONTENT_HTML: whiteboardComposite,
   },
   ...Object.fromEntries(Object.entries(linearWhiteboards).map(([name, fixture]) => [name, {
     LOGO: logo,
-    SOURCE_LINE: '<span class="info-source">局部结构验收样例</span>',
+    SOURCE_LINE: '<span class="info-source">區域性結構驗收樣例</span>',
     CUSTOM_CSS: "",
     LOGIC_LEDGER_JSON: fixture.ledger,
     CONTENT_HTML: fixture.html,
@@ -583,19 +583,19 @@ for (const [name, values] of Object.entries(fixtures)) {
 const whiteboardTemplate = await Bun.file(join(root, "assets", "whiteboard_template.html")).text();
 const validWhiteboardHtml = fill(whiteboardTemplate, fixtures.whiteboard);
 const implicitCopyRelations = structuredClone(compositeRelations);
-implicitCopyRelations[0].bridge = "继续追问。";
+implicitCopyRelations[0].bridge = "繼續追問。";
 const implicitCopyHtml = fill(whiteboardTemplate, {
   ...fixtures.whiteboard,
   LOGIC_LEDGER_JSON: logicLedger(compositeSteps, implicitCopyRelations),
 });
 const duplicateTransitionSteps = structuredClone(compositeSteps);
-duplicateTransitionSteps[1].residue = "经验若要跨任务保留，就必须找到一种可持续写入的机制。";
+duplicateTransitionSteps[1].residue = "經驗若要跨任務保留，就必須找到一種可持續寫入的機制。";
 const duplicateTransitionHtml = fill(whiteboardTemplate, {
   ...fixtures.whiteboard,
   LOGIC_LEDGER_JSON: logicLedger(duplicateTransitionSteps, compositeRelations),
   CONTENT_HTML: whiteboardComposite.replace(
     '<p class="step-residue"></p>',
-    '<p class="step-residue">经验若要跨任务保留，就必须找到一种可持续写入的机制。</p>',
+    '<p class="step-residue">經驗若要跨任務保留，就必須找到一種可持續寫入的機制。</p>',
   ),
 });
 const invalidWhiteboards = [
@@ -677,7 +677,7 @@ for (const [name, imageValues] of Object.entries({
   "long-broken": {
     IMAGE_STATE: "ready",
     IMAGE_SRC: pathToFileURL(join(output, "does-not-exist.png")).href,
-    IMAGE_ALT: "用于验证损坏图片会被截图门禁拒绝",
+    IMAGE_ALT: "用於驗證損壞圖片會被截圖門禁拒絕",
   },
 })) {
   const path = join(output, `${name}.html`);

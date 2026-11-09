@@ -1,82 +1,82 @@
 # 模具：白板（-w）
 
-白板把作者怎样一步步走到结论摊开。1080px 竖长卡片像下潜深水：问题在上，前提、证据、矛盾、转折与局部分支逐层变深，最后停在内容自身的收束处。读者只看成品，也应能复述「为什么下一步从上一步发生」。
+白板把作者怎樣一步步走到結論攤開。1080px 豎長卡片像下潛深水：問題在上，前提、證據、矛盾、轉折與區域性分支逐層變深，最後停在內容自身的收束處。讀者只看成品，也應能複述「為什麼下一步從上一步發生」。
 
-自然流动来自前一步留下的压力，而不是旁白不断宣布「现在继续追问」。主干在账本里始终明确；前台只让真正改变论证方向的铰链出声，普通延续、解释和递进保持安静。
+自然流動來自前一步留下的壓力，而不是旁白不斷宣佈「現在繼續追問」。主幹在賬本里始終明確；前臺只讓真正改變論證方向的鉸鏈出聲，普通延續、解釋和遞進保持安靜。
 
-用于知识讲解时，读者还应知道现实对象凭什么归入概念、规则怎样产生具体结果。先读 `references/learning-design.md`，明确目标读者的判断任务。纵向主干表示作者论证的先后，下上结构表示对象与概念的对应；二者独立，不把整张白板强制改成上下两栏。
+用於知識講解時，讀者還應知道現實物件憑什麼歸入概念、規則怎樣產生具體結果。先讀 `references/learning-design.md`，明確目標讀者的判斷任務。縱向主幹表示作者論證的先後，下上結構表示物件與概念的對應；二者獨立，不把整張白板強制改成上下兩欄。
 
-执行时先读取 `references/image-generation.md` 与 `assets/whiteboard_template.html`。共享协议决定资产身份和来源边界，本文件决定论证抽取、纵向主干与局部结构。
+執行時先讀取 `references/image-generation.md` 與 `assets/whiteboard_template.html`。共享協議決定資產身份和來源邊界，本檔案決定論證抽取、縱向主幹與區域性結構。
 
-## 一、先建立论证账本
+## 一、先建立論證賬本
 
-视觉母题之前，先按原文阅读顺序建立账本。不要从摘要直接进入排版；摘要会保留结论，却最容易删除作者抵达结论的过程。
+視覺母題之前，先按原文閱讀順序建立賬本。不要從摘要直接進入排版；摘要會保留結論，卻最容易刪除作者抵達結論的過程。
 
-先把锁定后的正文按原段落保存为精确来源快照；段落之间保留一个空行。用确定性工具生成独立来源清单：
+先把鎖定後的正文按原段落儲存為精確來源快照；段落之間保留一個空行。用確定性工具生成獨立來源清單：
 
 ```bash
 bun assets/prepare-whiteboard-source.ts /tmp/<task>/source.txt /tmp/<task>/whiteboard-source-inventory.json
 ```
 
-工具会锁定原文件 SHA-256，并按顺序给每个非空段落分配 `src-01`、`src-02`……及段落哈希。论证账本的 `source_sections` 必须与这份独立清单 ID、顺序完全一致，因此不能先漏掉原文，再让自写账本与 DOM 互相证明。
+工具會鎖定原檔案 SHA-256，並按順序給每個非空段落分配 `src-01`、`src-02`……及段落雜湊。論證賬本的 `source_sections` 必須與這份獨立清單 ID、順序完全一致，因此不能先漏掉原文，再讓自寫賬本與 DOM 互相證明。
 
-每个来源段落登记为 `source_sections`：
+每個來源段落登記為 `source_sections`：
 
-- `id`：稳定来源锚点，例如 `src-01`；
-- `disposition: rendered`：它进入白板，并列出对应 `step_ids`；
-- `disposition: omitted`：它既不承担必要论证，也不承担目标读者所需的学习材料，同时写清 `omission_reason`；
-- 每个源章节必须二选一，不能静默消失。
+- `id`：穩定來源錨點，例如 `src-01`；
+- `disposition: rendered`：它進入白板，並列出對應 `step_ids`；
+- `disposition: omitted`：它既不承擔必要論證，也不承擔目標讀者所需的學習材料，同時寫清 `omission_reason`；
+- 每個源章節必須二選一，不能靜默消失。
 
-对候选材料做两种删除测试，任一成立就保留：
+對候選材料做兩種刪除測試，任一成立就保留：
 
-- **论证承重**：删后，后面的判断失去前提、转折、证据或边界。
-- **学习承重**：删后，目标读者无法初次辨认概念、区分易混对象、完成规则与具体结果的对应。例子未参与证明，也可能在这里承重。
+- **論證承重**：刪後，後面的判斷失去前提、轉折、證據或邊界。
+- **學習承重**：刪後，目標讀者無法初次辨認概念、區分易混物件、完成規則與具體結果的對應。例子未參與證明，也可能在這裡承重。
 
-学习材料优先放进所属步骤的 `support` 或局部 `.learning-material`，不为了保留一个例子强造推理转折；它的来源段落仍以 `rendered` 映射到该步骤。确实新增独立判断时才建立新步骤。最终账本中每个步骤的 `must_render` 仍为 `true`；`omission_reason` 要说明被删材料的功能为何不再需要，不能只写「只是例子」。不凑固定节点数。
+學習材料優先放進所屬步驟的 `support` 或區域性 `.learning-material`，不為了保留一個例子強造推理轉折；它的來源段落仍以 `rendered` 對映到該步驟。確實新增獨立判斷時才建立新步驟。最終賬本中每個步驟的 `must_render` 仍為 `true`；`omission_reason` 要說明被刪材料的功能為何不再需要，不能只寫「只是例子」。不湊固定節點數。
 
-账本字段与引用齐全只证明材料已登记。节点的实际解释还应把对象、动作或状态、归类依据与结果接起来；正文中看不见的对应，读者无法从箭头或字段名中补出。用 `references/learning-design.md` 的同文对照审阅表达，不把结构门禁当成讲解效果。
+賬本欄位與引用齊全只證明材料已登記。節點的實際解釋還應把物件、動作或狀態、歸類依據與結果接起來；正文中看不見的對應，讀者無法從箭頭或欄位名中補出。用 `references/learning-design.md` 的同文對照審閱表達，不把結構門禁當成講解效果。
 
-每个步骤登记：
+每個步驟登記：
 
-| 字段 | 含义 |
+| 欄位 | 含義 |
 |---|---|
-| `id` | 稳定步骤 ID，与 DOM 的 `data-step-id` 一致 |
+| `id` | 穩定步驟 ID，與 DOM 的 `data-step-id` 一致 |
 | `role` | `question` / `premise` / `evidence` / `tension` / `inference` / `turn` / `synthesis` / `conclusion` / `boundary` |
-| `source_refs` | 一个或多个来源章节 ID |
-| `claim` | 本步新增的判断，不重复总标题 |
-| `support` | 原文给出的事实、解释或限定；没有时为空字符串 |
-| `residue` | 本步自然留下、足以推动后文的未解压力；没有就为空字符串，不为凑深度制造问题 |
-| `must_render` | 最终账本固定为 `true` |
+| `source_refs` | 一個或多個來源章節 ID |
+| `claim` | 本步新增的判斷，不重複總標題 |
+| `support` | 原文給出的事實、解釋或限定；沒有時為空字串 |
+| `residue` | 本步自然留下、足以推動後文的未解壓力；沒有就為空字串，不為湊深度製造問題 |
+| `must_render` | 最終賬本固定為 `true` |
 | `presentation` | `text` / `typography` / `image` / `chain` / `branch` / `timeline` / `matrix` / `radial` |
 
-`role` 描述论证作用，不把教学例子一律标成 `evidence`。`support` 与局部学习材料可以呈现对象、判别依据、关系及结果，不要求五项分栏。原文实例绑定其真实 `source_refs`；经授权补例放在所解释步骤内，可见标注「补充假设例」，其规则的来源引用不能冒充例子来自原文。缺材料且未获补例授权时，在制作记录和交付回复中写明缺口。
+`role` 描述論證作用，不把教學例子一律標成 `evidence`。`support` 與區域性學習材料可以呈現物件、判別依據、關係及結果，不要求五項分欄。原文例項繫結其真實 `source_refs`；經授權補例放在所解釋步驟內，可見標註「補充假設例」，其規則的來源引用不能冒充例子來自原文。缺材料且未獲補例授權時，在製作記錄和交付回覆中寫明缺口。
 
-关系另行登记为 `relations`，每条含 `id`、`from`、`to`、`kind`、`visibility`、`bridge`：
+關係另行登記為 `relations`，每條含 `id`、`from`、`to`、`kind`、`visibility`、`bridge`：
 
 - `kind`：`continue` / `deepen` / `contrast` / `question` / `branch` / `return` / `boundary`；
-- `visibility: implicit`：普通延续、解释、例证或自然递进。`bridge` 固定为空，视觉上只让纵向主干继续；
-- `visibility: visible`：矛盾出现、问题被改写、条件变化、分支、回收或边界。`bridge` 写一条完整、具体的自然句，不再拆成关系标签与解释句。
+- `visibility: implicit`：普通延續、解釋、例證或自然遞進。`bridge` 固定為空，視覺上只讓縱向主幹繼續；
+- `visibility: visible`：矛盾出現、問題被改寫、條件變化、分支、回收或邊界。`bridge` 寫一條完整、具體的自然句，不再拆成關係標籤與解釋句。
 
-同一条边只能有一个可见承载面：如果当前步骤已经用 `residue` 留下了压力，随后关系就使用 `implicit`；如果转折需要独立停顿，当前步骤的 `residue` 留空，由关系的 `bridge` 承担。不要同时写两遍。相邻不自动等于因果。
+同一條邊只能有一個可見承載面：如果當前步驟已經用 `residue` 留下了壓力，隨後關係就使用 `implicit`；如果轉折需要獨立停頓，當前步驟的 `residue` 留空，由關係的 `bridge` 承擔。不要同時寫兩遍。相鄰不自動等於因果。
 
-最终账本使用下面的结构，并写入模板的 `{{LOGIC_LEDGER_JSON}}`：
+最終賬本使用下面的結構，並寫入模板的 `{{LOGIC_LEDGER_JSON}}`：
 
 ```json
 {
   "version": 2,
-  "source_sha256": "锁定原文的 64 位 SHA-256",
+  "source_sha256": "鎖定原文的 64 位 SHA-256",
   "source_sections": [
     {"id": "src-01", "disposition": "rendered", "step_ids": ["step-01", "step-02"]},
-    {"id": "src-02", "disposition": "omitted", "omission_reason": "作者信息，不参与论证"}
+    {"id": "src-02", "disposition": "omitted", "omission_reason": "作者資訊，不參與論證"}
   ],
   "steps": [
     {
       "id": "step-01",
       "role": "question",
       "source_refs": ["src-01"],
-      "claim": "原文真正试图回答的问题",
-      "support": "问题出现的具体局面",
-      "residue": "这只说明经验会消失，还没有说明它应该写到哪里。",
+      "claim": "原文真正試圖回答的問題",
+      "support": "問題出現的具體局面",
+      "residue": "這隻說明經驗會消失，還沒有說明它應該寫到哪裡。",
       "must_render": true,
       "presentation": "typography"
     }
@@ -87,19 +87,19 @@ bun assets/prepare-whiteboard-source.ts /tmp/<task>/source.txt /tmp/<task>/white
 }
 ```
 
-把 JSON 中的 `<` 序列化为 `\u003c`，不要把原文 HTML 或可执行内容复制进 `<script type="application/json">`。
+把 JSON 中的 `<` 序列化為 `\u003c`，不要把原文 HTML 或可執行內容複製進 `<script type="application/json">`。
 
-## 二、一条主干，局部变形
+## 二、一條主幹，區域性變形
 
-每张白板只有一个 `.reasoning-spine`。它是阅读方向，也是视觉上的下潜线。旧的整卡 `data-whiteboard-layout` 已停用：真实文章可以先链式递进，中段分叉，随后用矩阵比较，再汇入结论。
+每張白板只有一個 `.reasoning-spine`。它是閱讀方向，也是視覺上的下潛線。舊的整卡 `data-whiteboard-layout` 已停用：真實文章可以先鏈式遞進，中段分叉，隨後用矩陣比較，再匯入結論。
 
-开头使用：
+開頭使用：
 
-- `.whiteboard-title`：文章议题，不提前代替全部推导；
-- `.whiteboard-question`：读者带着什么问题向下走；
-- 可选 `.whiteboard-orientation`：交代来源场景，不写结论摘要。
+- `.whiteboard-title`：文章議題，不提前代替全部推導；
+- `.whiteboard-question`：讀者帶著什麼問題向下走；
+- 可選 `.whiteboard-orientation`：交代來源場景，不寫結論摘要。
 
-每个承重步骤使用：
+每個承重步驟使用：
 
 ```html
 <article class="logic-step"
@@ -111,14 +111,14 @@ bun assets/prepare-whiteboard-source.ts /tmp/<task>/source.txt /tmp/<task>/white
   </div>
   <div class="step-panel">
     <span class="step-role">矛盾</span>
-    <h2 class="step-claim">短期记住不等于长期学会</h2>
-    <p class="step-support">上下文结束后，经验没有稳定进入下一次任务。</p>
-    <p class="step-residue">这只说明经验会消失，还没有说明它应该写到哪里。</p>
+    <h2 class="step-claim">短期記住不等於長期學會</h2>
+    <p class="step-support">上下文結束後，經驗沒有穩定進入下一次任務。</p>
+    <p class="step-residue">這隻說明經驗會消失，還沒有說明它應該寫到哪裡。</p>
   </div>
 </article>
 ```
 
-普通递进仍登记端点，但保持静默：
+普通遞進仍登記端點，但保持靜默：
 
 ```html
 <div class="logic-relation"
@@ -130,7 +130,7 @@ bun assets/prepare-whiteboard-source.ts /tmp/<task>/source.txt /tmp/<task>/white
      aria-hidden="true"></div>
 ```
 
-真正改变方向时才使用可见转折；一句话同时承担关系与理由：
+真正改變方向時才使用可見轉折；一句話同時承擔關係與理由：
 
 ```html
 <div class="logic-relation"
@@ -139,42 +139,42 @@ bun assets/prepare-whiteboard-source.ts /tmp/<task>/source.txt /tmp/<task>/white
      data-to="step-04"
      data-kind="branch"
      data-visibility="visible"
-     aria-label="单一记忆层无法同时满足快速更新与稳定保留，问题由此分成两条路线。">
+     aria-label="單一記憶層無法同時滿足快速更新與穩定保留，問題由此分成兩條路線。">
   <span class="relation-rail" aria-hidden="true">
     <span class="relation-stem"></span><span class="relation-arrowhead"></span>
   </span>
   <div class="transition-copy">
-    <p class="transition-sentence">单一记忆层无法同时满足快速更新与稳定保留，问题由此分成两条路线。</p>
+    <p class="transition-sentence">單一記憶層無法同時滿足快速更新與穩定保留，問題由此分成兩條路線。</p>
   </div>
 </div>
 ```
 
-账本步骤、DOM 步骤、账本关系与 DOM 关系的 ID、顺序、类型、显隐和文字必须一致。第一步是 `question`，结论前至少有真实推导；结尾服从原文的结论、问题或余韵，不强制以 `boundary` 收尾。`boundary` 仅标记原文真正改变判断的适用条件或限制，不能为它补造免责声明，也不能让顶部一句核心判断替代整条路径。
+賬本步驟、DOM 步驟、賬本關係與 DOM 關係的 ID、順序、型別、顯隱和文字必須一致。第一步是 `question`，結論前至少有真實推導；結尾服從原文的結論、問題或餘韻，不強制以 `boundary` 收尾。`boundary` 僅標記原文真正改變判斷的適用條件或限制，不能為它補造免責宣告，也不能讓頂部一句核心判斷替代整條路徑。
 
-### 流水式衔接的删除测试
+### 流水式銜接的刪除測試
 
-先把标题、支撑文字和可选 `residue` 连起来朗读，再逐条检查关系：
+先把標題、支撐文字和可選 `residue` 連起來朗讀，再逐條檢查關係：
 
-- 删除这句转折，读者仍能顺着前一步进入下一步：改为 `implicit`；
-- 删除后会丢失矛盾、问题改写、分叉、回收或边界：保留 `visible`；
-- 过渡句只说「继续追问」「再向前一步」「因此展开」而没有指出原文中的具体未解对象：它只是报幕，重写或删除；
-- 下一节点标题已经自然回答了前一步的余压：不要再加关系文案。
+- 刪除這句轉折，讀者仍能順著前一步進入下一步：改為 `implicit`；
+- 刪除後會丟失矛盾、問題改寫、分叉、回收或邊界：保留 `visible`；
+- 過渡句只說「繼續追問」「再向前一步」「因此展開」而沒有指出原文中的具體未解物件：它只是報幕，重寫或刪除；
+- 下一節點標題已經自然回答了前一步的餘壓：不要再加關係文案。
 
-可见转折的数量由删除测试决定，不设比例。目标不是少写，而是只在逻辑真正换挡时写。
+可見轉折的數量由刪除測試決定，不設比例。目標不是少寫，而是隻在邏輯真正換擋時寫。
 
-## 三、五种 topology 降为局部工具
+## 三、五種 topology 降為區域性工具
 
-局部结构使用 `data-logic-shape`，可以在同一主干内组合：
+區域性結構使用 `data-logic-shape`，可以在同一主幹內組合：
 
-| 局部结构 | 适用时刻 | 必须出现的语义面 |
+| 區域性結構 | 適用時刻 | 必須出現的語義面 |
 |---|---|---|
-| `chain` | 一个节点内部还需展开短递进 | `.local-chain` 与有序子项 |
-| `branch` | 同一问题分出不同条件、机制或路线 | `.local-branch`、两条以上 `.branch-path`、回流或开放说明 |
-| `timeline` | 同一对象发生状态迁移 | `.local-timeline`、时间/状态标签 |
-| `matrix` | 两条独立轴形成比较空间 | `.local-matrix`、两条轴与四区 |
-| `radial` | 多个独立机制共同作用于一处 | `.local-radial`、中心与独立辐射项 |
+| `chain` | 一個節點內部還需展開短遞進 | `.local-chain` 與有序子項 |
+| `branch` | 同一問題分出不同條件、機制或路線 | `.local-branch`、兩條以上 `.branch-path`、迴流或開放說明 |
+| `timeline` | 同一物件發生狀態遷移 | `.local-timeline`、時間/狀態標籤 |
+| `matrix` | 兩條獨立軸形成比較空間 | `.local-matrix`、兩條軸與四區 |
+| `radial` | 多個獨立機制共同作用於一處 | `.local-radial`、中心與獨立輻射項 |
 
-分支必须说明去向：
+分支必須說明去向：
 
 ```html
 <section class="local-shape local-branch"
@@ -186,62 +186,62 @@ bun assets/prepare-whiteboard-source.ts /tmp/<task>/source.txt /tmp/<task>/white
     <div class="branch-path" data-branch-id="route-a">...</div>
     <div class="branch-path" data-branch-id="route-b">...</div>
   </div>
-  <p class="branch-return">两条路线在 step-07 重新汇合。</p>
+  <p class="branch-return">兩條路線在 step-07 重新匯合。</p>
 </section>
 ```
 
-`converged` 分支的每条路径都要通过关系抵达 `data-return-step`；暂时无法汇合时使用 `data-branch-state="open"` 并写可见的 `.branch-open`，不能画完两栏就遗忘它们。
+`converged` 分支的每條路徑都要通過關係抵達 `data-return-step`；暫時無法匯合時使用 `data-branch-state="open"` 並寫可見的 `.branch-open`，不能畫完兩欄就遺忘它們。
 
-## 四、图像只进入承重步骤
+## 四、影像只進入承重步驟
 
-在决定是否用图前，同时检查论证与判别是否受损：删图后两者均不受损才可省略。具体下层材料可以由文字、原图或生成场景承载，0 幅生成图仍合法；保留图片必须说明它让哪个特征或结果更容易辨认。
+在決定是否用圖前，同時檢查論證與判別是否受損：刪圖後兩者均不受損才可省略。具體下層材料可以由文字、原圖或生成場景承載，0 幅生成圖仍合法；保留圖片必須說明它讓哪個特徵或結果更容易辨認。
 
-生成图预算为 `0–4` 幅。白板没有顶部 hero 图槽；图片只嵌入它解释的 `.logic-step`，并让 `data-source-claim` 等于该步骤 ID：
+生成圖預算為 `0–4` 幅。白板沒有頂部 hero 圖槽；圖片只嵌入它解釋的 `.logic-step`，並讓 `data-source-claim` 等於該步驟 ID：
 
 ```html
 <figure class="generated-art generated-art--whiteboard"
         data-asset-kind="generated"
         data-asset-id="g02"
         data-source-claim="step-05">
-  <img src="/absolute/path.png" alt="阀门收紧后，流入容器的水明显变少">
+  <img src="/absolute/path.png" alt="閥門收緊後，流入容器的水明顯變少">
 </figure>
 ```
 
-图片只画人、手、物件、容器、绳索、阀门、地形等可见动作。箭头、轴线、矩阵边界、标签、公式、标题和编号全部留给 HTML/CSS。提示词追加：
+圖片只畫人、手、物件、容器、繩索、閥門、地形等可見動作。箭頭、軸線、矩陣邊界、標籤、公式、標題和編號全部留給 HTML/CSS。提示詞追加：
 
 ```text
 minimal hand-drawn whiteboard vignette, warm paper-compatible flat background,
 one object and one visible action, loose marker line, low detail, generous clean margin
 ```
 
-专属负向约束：图中不要箭头、轴线、标签、纸纹、便签壳、阴影或新增高饱和色。透明背景不稳定时，平底色必须与 `--board` 完全一致。
+專屬負向約束：圖中不要箭頭、軸線、標籤、紙紋、便籤殼、陰影或新增高飽和色。透明背景不穩定時，平底色必須與 `--board` 完全一致。
 
-## 五、竖长阅读节奏
+## 五、豎長閱讀節奏
 
-- 1080px 宽度固定，高度由推理深度决定；不为接近某个模板高度删节点。
-- 连续下潜线贯穿主干；每个步骤带深度编号、角色、判断与支撑，只有真实未解压力才增加 `residue`。
-- 铺垫收紧，矛盾、转折、分支回流、结论放大；不要把所有节点做成等重卡片墙。
-- 每经过一个真正的推理转折，增加纵向留白；同一层的证据与例子收紧在所属步骤附近。
-- 手写体只用于真正的可见转折、深度标记和短批注；正文使用本地中文 Sans。
-- 适用条件与证据限定放在对应步骤的 `.logic-evidence` 或 `.step-support` 中；原文确有独立承重的限制时，作为普通 `.logic-step` 沿主干呈现。结尾不追加阅读提示、制作说明或验收声明。
-- 承担首次辨认、易混对比或输入输出对应的材料使用 `.learning-material`，身份用 `.learning-label` 写明，正文保持主要阅读字号与深墨色。不要把关键判别藏进小号浅色附注；窄分支容不下时移到所属步骤附近的全宽位置，不缩字硬塞。
-- 换案问题按内容需要放在讲解之后，使用 `.transfer-check`；后置 `.transfer-feedback` 说明答案依据，并可自然结束正文。先判断再下滑的提示只能提供自测机会，不能保证答案未被看见；这一验证限制在交付回复中说明。
-- 整图缩小时应先看到一条连续向下的线、少数明显转折和最后的收束；原像素下正文必须轻松可读。
+- 1080px 寬度固定，高度由推理深度決定；不為接近某個模板高度刪節點。
+- 連續下潛線貫穿主幹；每個步驟帶深度編號、角色、判斷與支撐，只有真實未解壓力才增加 `residue`。
+- 鋪墊收緊，矛盾、轉折、分支迴流、結論放大；不要把所有節點做成等重卡片牆。
+- 每經過一個真正的推理轉折，增加縱向留白；同一層的證據與例子收緊在所屬步驟附近。
+- 手寫體只用於真正的可見轉折、深度標記和短批註；正文使用本地中文 Sans。
+- 適用條件與證據限定放在對應步驟的 `.logic-evidence` 或 `.step-support` 中；原文確有獨立承重的限制時，作為普通 `.logic-step` 沿主幹呈現。結尾不追加閱讀提示、製作說明或驗收宣告。
+- 承擔首次辨認、易混對比或輸入輸出對應的材料使用 `.learning-material`，身份用 `.learning-label` 寫明，正文保持主要閱讀字號與深墨色。不要把關鍵判別藏進小號淺色附註；窄分支容不下時移到所屬步驟附近的全寬位置，不縮字硬塞。
+- 換案問題按內容需要放在講解之後，使用 `.transfer-check`；後置 `.transfer-feedback` 說明答案依據，並可自然結束正文。先判斷再下滑的提示只能提供自測機會，不能保證答案未被看見；這一驗證限制在交付回覆中說明。
+- 整圖縮小時應先看到一條連續向下的線、少數明顯轉折和最後的收束；原畫素下正文必須輕鬆可讀。
 
-将最终账本写入 `{{LOGIC_LEDGER_JSON}}`，语义内容写入 `{{CONTENT_HTML}}`，只在必要时用 `{{CUSTOM_CSS}}` 做局部微调，并替换 `{{LOGO}}` 与 `{{SOURCE_LINE}}`。所有中间文件写入本任务独占的 `/tmp` 目录。
+將最終賬本寫入 `{{LOGIC_LEDGER_JSON}}`，語義內容寫入 `{{CONTENT_HTML}}`，只在必要時用 `{{CUSTOM_CSS}}` 做區域性微調，並替換 `{{LOGO}}` 與 `{{SOURCE_LINE}}`。所有中間檔案寫入本任務獨佔的 `/tmp` 目錄。
 
-## 六、截图与验收
+## 六、截圖與驗收
 
 ```bash
 bun assets/capture.ts /tmp/<task>/whiteboard.html ~/Downloads/{name}.png 1080 1600 fullpage /tmp/<task>/whiteboard-source-inventory.json /tmp/<task>/source.txt
 ```
 
-截图器会阻断：占位符残留、缺少来源清单或原文快照、原文哈希漂移、来源清单与论证账本段落不一致、缺少唯一主干、旧整卡 topology、账本 JSON 错误、源章节无去向、承重步骤遗漏或乱序、节点未绑定来源、关系端点悬空或文字漂移、静默关系仍带文案或箭头、可见关系缺少完整 bridge、同一条边同时使用 residue 与 bridge、分支不回流也不声明开放、生成图超过 4 幅或未绑定步骤、破图/空 alt、横向或隐藏溢出、超出支持高度。
+截圖器會阻斷：佔位符殘留、缺少來源清單或原文快照、原文雜湊漂移、來源清單與論證賬本段落不一致、缺少唯一主幹、舊整卡 topology、賬本 JSON 錯誤、源章節無去向、承重步驟遺漏或亂序、節點未繫結來源、關係端點懸空或文字漂移、靜默關係仍帶文案或箭頭、可見關係缺少完整 bridge、同一條邊同時使用 residue 與 bridge、分支不迴流也不宣告開放、生成圖超過 4 幅或未繫結步驟、破圖/空 alt、橫向或隱藏溢位、超出支援高度。
 
-最终验收分别检查：
+最終驗收分別檢查：
 
-1. **来源覆盖**：逐项核对 `source_sections`，每个章节都有步骤或具体省略理由。
-2. **论证复述**：只看 PNG，能够说出原文的问题、承重前提、后文怎样从前文自然发生、局部分支怎样回收、结论与边界；只能复述结论分类而不能解释推导时，判定失败。
-3. **朗读流畅**：隐藏角色名、深度编号和关系数据后，顺读标题与正文；如果像提纲旁白反复报幕，或删除某条可见转折后毫无损失，判定失败。
-4. **像素检查**：整图一次；长图再用有重叠的顶部/中段/底部切片覆盖全部高度，确认下潜线连续、关系方向正确、真正转折才形成停顿、文字无裁切、来源未漂移。
-5. **下上连接（知识讲解）**：只看成品，能指出关键对象、归类依据、关系条件与具体结果；能否在换案中判断适用或不适用。先审材料是否足够，再区分有无读者实测。来源对账和账本一致只验证结构，不裁定例子是否足以教会、删例是否合理、补例是否真实。
+1. **來源覆蓋**：逐項核對 `source_sections`，每個章節都有步驟或具體省略理由。
+2. **論證複述**：只看 PNG，能夠說出原文的問題、承重前提、後文怎樣從前文自然發生、區域性分支怎樣回收、結論與邊界；只能複述結論分類而不能解釋推導時，判定失敗。
+3. **朗讀流暢**：隱藏角色名、深度編號和關係資料後，順讀標題與正文；如果像提綱旁白反覆報幕，或刪除某條可見轉折後毫無損失，判定失敗。
+4. **畫素檢查**：整圖一次；長圖再用有重疊的頂部/中段/底部切片覆蓋全部高度，確認下潛線連續、關係方向正確、真正轉折才形成停頓、文字無裁切、來源未漂移。
+5. **下上連線（知識講解）**：只看成品，能指出關鍵物件、歸類依據、關係條件與具體結果；能否在換案中判斷適用或不適用。先審材料是否足夠，再區分有無讀者實測。來源對賬和賬本一致只驗證結構，不裁定例子是否足以教會、刪例是否合理、補例是否真實。

@@ -248,8 +248,8 @@ orgfile_to_md() {
 #      - File-extension refs: __qa.org → __qa.md, etc.
 #      - Keywords: org-mode → markdown
 #      - Org-style format instructions: *bold* rule, heading-level rule,
-#        "Org 文件头", #+title:-style example lines → YAML keys
-#      - Org emphasized bullet labels: - *标签*： → - **标签**：
+#        "Org 檔案頭", #+title:-style example lines → YAML keys
+#      - Org emphasized bullet labels: - *標籤*： → - **標籤**：
 # Does NOT touch: *bold* markers inside prose (markdown italics ambiguity).
 mdize_skill() {
   local skill_dir="$1"
@@ -299,46 +299,46 @@ mdize_skill() {
       -e 's/template\.org/template.md/g' \
       -e 's/org-mode/markdown/g' \
       -e 's/Org-mode/Markdown/g' \
-      -e 's/文件必须是 markdown，禁止 Markdown。/文件必须是 Markdown，禁止 Org 格式。/g' \
-      -e 's/markdown 格式，禁止 markdown 语法/Markdown 格式，禁止 Org 语法/g' \
+      -e 's/檔案必須是 markdown，禁止 Markdown。/檔案必須是 Markdown，禁止 Org 格式。/g' \
+      -e 's/markdown 格式，禁止 markdown 語法/Markdown 格式，禁止 Org 語法/g' \
       -e 's/Defaults to a saved org note/Defaults to a saved markdown note/g' \
       -e 's/Defaults to a saved Org note/Defaults to a saved Markdown note/g' \
       -e 's/Produces natural, content-led Org notes/Produces natural, content-led Markdown notes/g' \
-      -e 's/保存 org 笔记/保存 Markdown 笔记/g' \
-      -e 's/保存 Org 笔记/保存 Markdown 笔记/g' \
-      -e 's/保存为 org 文件/保存为 Markdown 文件/g' \
-      -e 's/保存 Org/保存 Markdown/g' \
-      -e 's/生成 Org 文件/生成 Markdown 文件/g' \
-      -e 's/写入 notes 里的 org 文件/写入 notes 里的 Markdown 文件/g' \
-      -e 's/写入 Org 文件/写入 Markdown 文件/g' \
-      -e 's/写入 org 文件/写入 Markdown 文件/g' \
-      -e 's/写成 org 笔记/写成 Markdown 笔记/g' \
-      -e 's/指定的 org 路径/指定的 Markdown 路径/g' \
-      -e 's/Org 文件结构/Markdown 文件结构/g' \
-      -e 's/org 文件结构/Markdown 文件结构/g' \
-      -e 's/存入 org 笔记/存入 Markdown 笔记/g' \
-      -e 's/写进 org 文件/写进 Markdown 文件/g' \
+      -e 's/儲存 org 筆記/儲存 Markdown 筆記/g' \
+      -e 's/儲存 Org 筆記/儲存 Markdown 筆記/g' \
+      -e 's/儲存為 org 檔案/儲存為 Markdown 檔案/g' \
+      -e 's/儲存 Org/儲存 Markdown/g' \
+      -e 's/生成 Org 檔案/生成 Markdown 檔案/g' \
+      -e 's/寫入 notes 裡的 org 檔案/寫入 notes 裡的 Markdown 檔案/g' \
+      -e 's/寫入 Org 檔案/寫入 Markdown 檔案/g' \
+      -e 's/寫入 org 檔案/寫入 Markdown 檔案/g' \
+      -e 's/寫成 org 筆記/寫成 Markdown 筆記/g' \
+      -e 's/指定的 org 路徑/指定的 Markdown 路徑/g' \
+      -e 's/Org 檔案結構/Markdown 檔案結構/g' \
+      -e 's/org 檔案結構/Markdown 檔案結構/g' \
+      -e 's/存入 org 筆記/存入 Markdown 筆記/g' \
+      -e 's/寫進 org 檔案/寫進 Markdown 檔案/g' \
       -e 's/不入 org/不入 Markdown/g' \
-      -e 's/生成由论文内容命名的 Org 笔记/生成由论文内容命名的 Markdown 笔记/g' \
-      -e 's/写 org 文件时/写 Markdown 文件时/g' \
-      -e 's/写 Org 文件时/写 Markdown 文件时/g' \
-      -e 's/写 Org 时/写 Markdown 时/g' \
+      -e 's/生成由論文內容命名的 Org 筆記/生成由論文內容命名的 Markdown 筆記/g' \
+      -e 's/寫 org 檔案時/寫 Markdown 檔案時/g' \
+      -e 's/寫 Org 檔案時/寫 Markdown 檔案時/g' \
+      -e 's/寫 Org 時/寫 Markdown 時/g' \
       -e 's/Org 使用/Markdown 使用/g' \
-      -e 's/所有生成的 Org 文件/所有生成的 Markdown 文件/g' \
-      -e 's/写入 Org 后运行/写入 Markdown 后运行/g' \
-      -e 's/保存一份由论文内容命名的 Org 与后台 paper-map/保存一份由论文内容命名的 Markdown 与后台 paper-map/g' \
-      -e 's/保存同一 Org 与 paper-map/保存同一 Markdown 与 paper-map/g' \
-      -e 's/保存 Org 与 paper-map/保存 Markdown 与 paper-map/g' \
-      -e 's/Org 笔记和 paper-map/Markdown 笔记和 paper-map/g' \
-      -e 's/Org 默认保存到/Markdown 默认保存到/g' \
-      -e 's/Denote\/consult-notes\/Org lint 与确定性 validator/Denote\/consult-notes 与确定性 validator/g' \
-      -e 's/、consult-notes 与 `org-lint`。/与 consult-notes。/g' \
-      -e 's/Org example 图块/Markdown 围栏图块/g' \
-      -e 's/Org example 图/Markdown 围栏图/g' \
-      -e 's/Org 解读/Markdown 解读/g' \
-      -e 's/Org 输出合同/Markdown 输出合同/g' \
-      -e 's/<Org 文件路径>/<Markdown 文件路径>/g' \
-      -e 's/Org 的后台检查/Markdown 的后台检查/g' \
+      -e 's/所有生成的 Org 檔案/所有生成的 Markdown 檔案/g' \
+      -e 's/寫入 Org 後執行/寫入 Markdown 後執行/g' \
+      -e 's/儲存一份由論文內容命名的 Org 與後臺 paper-map/儲存一份由論文內容命名的 Markdown 與後臺 paper-map/g' \
+      -e 's/儲存同一 Org 與 paper-map/儲存同一 Markdown 與 paper-map/g' \
+      -e 's/儲存 Org 與 paper-map/儲存 Markdown 與 paper-map/g' \
+      -e 's/Org 筆記和 paper-map/Markdown 筆記和 paper-map/g' \
+      -e 's/Org 預設儲存到/Markdown 預設儲存到/g' \
+      -e 's/Denote\/consult-notes\/Org lint 與確定性 validator/Denote\/consult-notes 與確定性 validator/g' \
+      -e 's/、consult-notes 與 `org-lint`。/與 consult-notes。/g' \
+      -e 's/Org example 圖塊/Markdown 圍欄圖塊/g' \
+      -e 's/Org example 圖/Markdown 圍欄圖/g' \
+      -e 's/Org 解讀/Markdown 解讀/g' \
+      -e 's/Org 輸出合同/Markdown 輸出合同/g' \
+      -e 's/<Org 檔案路徑>/<Markdown 檔案路徑>/g' \
+      -e 's/Org 的後臺檢查/Markdown 的後臺檢查/g' \
       -e 's/`#+DESCRIPTION`/`description`/g' \
       -e 's/`#+description`/`description`/g' \
       -e 's/`#+source`/`source`/g' \
@@ -349,10 +349,10 @@ mdize_skill() {
       -e 's/`#+guidance`/`guidance`/g' \
       -e 's/`#+basis`/`basis`/g' \
       -e 's/`#+falsifier`/`falsifier`/g' \
-      -e 's/Org 的 `#+begin_example` \/ `#+end_example`/Markdown 围栏代码块/g' \
-      -e 's/Org 的 #+begin_example \/ #+end_example/Markdown 围栏代码块/g' \
-      -e 's/Org example 块/Markdown 围栏代码块/g' \
-      -e 's/`#+begin_example` 块/Markdown 围栏代码块/g' \
+      -e 's/Org 的 `#+begin_example` \/ `#+end_example`/Markdown 圍欄程式碼塊/g' \
+      -e 's/Org 的 #+begin_example \/ #+end_example/Markdown 圍欄程式碼塊/g' \
+      -e 's/Org example 塊/Markdown 圍欄程式碼塊/g' \
+      -e 's/`#+begin_example` 塊/Markdown 圍欄程式碼塊/g' \
       -e 's/\/note\.org/\/note.md/g' \
       -e 's/<note\.org>/<note.md>/g' \
       -e 's/- \*x\*：/- **x**：/g' \
@@ -361,36 +361,36 @@ mdize_skill() {
       -e 's/`\* x：/`# x：/g' \
       -e 's/`\* f：/`# f：/g' \
       -e 's/`\* f(x)：/`# f(x)：/g' \
-      -e 's/`\* 资料校准/`# 资料校准/g' \
-      -e 's/org example ASCII 图/Markdown fenced ASCII 图/g' \
-      -e 's/org 的 `#+begin_example` \/ `#+end_example` 块/Markdown 的 fenced code block/g' \
-      -e 's/加粗用 `\*bold\*`（单星号），禁止 `\*\*bold\*\*`/加粗用 `**bold**`（双星号）/g' \
-      -e 's/加粗用 `\*bold\*`（markdown），不用 `\*\*bold\*\*`（markdown）/加粗用 `**bold**`（双星号）/g' \
-      -e 's/输出必须是纯 markdown 语法，禁止任何 markdown 语法/输出必须是纯 Markdown 语法，禁止 Org 语法/g' \
-      -e 's/格式：markdown（`\*bold\*`，禁 markdown 语法）/格式：Markdown（`**bold**`，禁 Org 语法）/g' \
-      -e 's/标题层级从 `\*` 开始/标题层级从 `#` 开始/g' \
-      -e 's/Org 加粗使用单星号，标题从 `\*` 开始且不跳级。/Markdown 加粗使用双星号，标题从 `#` 开始且不跳级。/g' \
-      -e 's/Org 文件头/Markdown 文件头/g' \
-      -e 's/Org 与 Denote/Markdown 与 Denote/g' \
-      -e 's/Org 标题/Markdown 标题/g' \
-      -e 's/Org 输出在可用的 Emacs\/Denote 环境中确认：文件名与 identifier 一致、Denote 接受、Notes 索引或 consult-notes 可见、`org-lint` 无阻断问题。Markdown 输出由同一校验器检查 YAML 元数据、标题顺序与 identifier。/Markdown 输出由同一校验器检查 YAML 元数据、标题顺序与 identifier，并在可用的 Emacs\/Denote 环境中确认文件名与 identifier 一致、Denote 接受、Notes 索引或 consult-notes 可见。/g' \
-      -e 's/格式校验、Denote 或 org-lint 不通过/格式校验或 Denote 不通过/g' \
-      -e 's/验证 Denote 接受与 `org-lint`/验证 Denote 接受/g' \
-      -e 's/再运行 Denote 接受检查和 `org-lint`/再运行 Denote 接受检查/g' \
-      -e 's/真实 Emacs 负责 Denote、consult-notes 与 Org lint/真实 Emacs 负责 Denote 与 consult-notes/g' \
-      -e 's/，并实际运行 `org-lint`。保留真实 lint 结果，不把未执行或非阻断提示说成零问题。/。/g' \
-      -e 's/，并实际运行 `org-lint`。若正在运行的 Emacs 服务不可用，就使用能加载本机 Denote、consult、consult-notes 与 Org 的批处理 Emacs；/。若正在运行的 Emacs 服务不可用，就使用能加载本机 Denote、consult 与 consult-notes 的批处理 Emacs；/g' \
-      -e 's/，并实际运行 `org-lint`。如实报告 lint 结果；/。如实报告检查结果；/g' \
-      -e 's/，并实际运行 `org-lint`。/。/g' \
-      -e 's/Denote、consult、consult-notes 与 Org 的批处理 Emacs/Denote、consult 与 consult-notes 的批处理 Emacs/g' \
-      -e 's/检查 Denote 与 org-lint/检查 Denote/g' \
+      -e 's/`\* 資料校準/`# 資料校準/g' \
+      -e 's/org example ASCII 圖/Markdown fenced ASCII 圖/g' \
+      -e 's/org 的 `#+begin_example` \/ `#+end_example` 塊/Markdown 的 fenced code block/g' \
+      -e 's/加粗用 `\*bold\*`（單星號），禁止 `\*\*bold\*\*`/加粗用 `**bold**`（雙星號）/g' \
+      -e 's/加粗用 `\*bold\*`（markdown），不用 `\*\*bold\*\*`（markdown）/加粗用 `**bold**`（雙星號）/g' \
+      -e 's/輸出必須是純 markdown 語法，禁止任何 markdown 語法/輸出必須是純 Markdown 語法，禁止 Org 語法/g' \
+      -e 's/格式：markdown（`\*bold\*`，禁 markdown 語法）/格式：Markdown（`**bold**`，禁 Org 語法）/g' \
+      -e 's/標題層級從 `\*` 開始/標題層級從 `#` 開始/g' \
+      -e 's/Org 加粗使用單星號，標題從 `\*` 開始且不跳級。/Markdown 加粗使用雙星號，標題從 `#` 開始且不跳級。/g' \
+      -e 's/Org 檔案頭/Markdown 檔案頭/g' \
+      -e 's/Org 與 Denote/Markdown 與 Denote/g' \
+      -e 's/Org 標題/Markdown 標題/g' \
+      -e 's/Org 輸出在可用的 Emacs\/Denote 環境中確認：檔名與 identifier 一致、Denote 接受、Notes 索引或 consult-notes 可見、`org-lint` 無阻斷問題。Markdown 輸出由同一校驗器檢查 YAML 元資料、標題順序與 identifier。/Markdown 輸出由同一校驗器檢查 YAML 元資料、標題順序與 identifier，並在可用的 Emacs\/Denote 環境中確認檔名與 identifier 一致、Denote 接受、Notes 索引或 consult-notes 可見。/g' \
+      -e 's/格式校驗、Denote 或 org-lint 不通過/格式校驗或 Denote 不通過/g' \
+      -e 's/驗證 Denote 接受與 `org-lint`/驗證 Denote 接受/g' \
+      -e 's/再執行 Denote 接受檢查和 `org-lint`/再執行 Denote 接受檢查/g' \
+      -e 's/真實 Emacs 負責 Denote、consult-notes 與 Org lint/真實 Emacs 負責 Denote 與 consult-notes/g' \
+      -e 's/，並實際執行 `org-lint`。保留真實 lint 結果，不把未執行或非阻斷提示說成零問題。/。/g' \
+      -e 's/，並實際執行 `org-lint`。若正在執行的 Emacs 服務不可用，就使用能載入本機 Denote、consult、consult-notes 與 Org 的批處理 Emacs；/。若正在執行的 Emacs 服務不可用，就使用能載入本機 Denote、consult 與 consult-notes 的批處理 Emacs；/g' \
+      -e 's/，並實際執行 `org-lint`。如實報告 lint 結果；/。如實報告檢查結果；/g' \
+      -e 's/，並實際執行 `org-lint`。/。/g' \
+      -e 's/Denote、consult、consult-notes 與 Org 的批處理 Emacs/Denote、consult 與 consult-notes 的批處理 Emacs/g' \
+      -e 's/檢查 Denote 與 org-lint/檢查 Denote/g' \
       "$file"
     if [ "$skill_name" = "ljg-is" ]; then
       sed -i '' \
-        -e 's/Org 笔记/Markdown 笔记/g' \
+        -e 's/Org 筆記/Markdown 筆記/g' \
         -e 's/Denote\/Org/Denote\/Markdown/g' \
         -e 's/`#+schema: ljg-is-v2`/`schema: ljg-is-v2`/g' \
-        -e 's/标签包含 `:is:act:`/tags 同时包含 `is` 与 `act`/g' \
+        -e 's/標籤包含 `:is:act:`/tags 同時包含 `is` 與 `act`/g' \
         "$file"
     fi
     if [ "$skill_name" = "ljg-invest" ]; then
@@ -401,26 +401,26 @@ mdize_skill() {
     fi
     if [ "$skill_name" = "ljg-blind" ]; then
       sed -i '' \
-        -e 's/## org 严格语法（禁混 markdown）/## Markdown 严格语法（禁混 Org）/g' \
-        -e 's/标题用 `\*` \/ `\*\*` \/ `\*\*\*`，不要 `#`/标题用 `#` \/ `##` \/ `###`，不要用星号充当标题/g' \
-        -e 's/加粗 `\*字\*`，斜体 `\/字\/`，等宽 `~code~`/加粗 `**字**`，斜体 `*字*`，等宽 `code`/g' \
-        -e 's/列表用 `-`，不要 `\*`（`\*` 在 org 是标题）/列表用 `-`；标题使用 `#`/g' \
-        -e 's/链接 `\[\[url\]\[text\]\]`，不要 `\[text\](url)`/链接使用 `[text](url)`/g' \
-        -e 's/分隔线 `-----`，不要 `---`；不要 markdown 的 `>` 引用/分隔线使用 `---`；引用使用 `>`/g' \
+        -e 's/## org 嚴格語法（禁混 markdown）/## Markdown 嚴格語法（禁混 Org）/g' \
+        -e 's/標題用 `\*` \/ `\*\*` \/ `\*\*\*`，不要 `#`/標題用 `#` \/ `##` \/ `###`，不要用星號充當標題/g' \
+        -e 's/加粗 `\*字\*`，斜體 `\/字\/`，等寬 `~code~`/加粗 `**字**`，斜體 `*字*`，等寬 `code`/g' \
+        -e 's/列表用 `-`，不要 `\*`（`\*` 在 org 是標題）/列表用 `-`；標題使用 `#`/g' \
+        -e 's/連結 `\[\[url\]\[text\]\]`，不要 `\[text\](url)`/連結使用 `[text](url)`/g' \
+        -e 's/分隔線 `-----`，不要 `---`；不要 markdown 的 `>` 引用/分隔線使用 `---`；引用使用 `>`/g' \
         "$file"
     fi
     if [ "$skill_name" = "ljg-learn" ]; then
       sed -i '' \
-        -e 's/分隔线用空行或 org 标题层级区分，不用 `---`（markdown 分隔符）/分隔线用空行或 Markdown 标题层级区分；需要分隔线时使用 `---`/g' \
-        -e 's/列表用 `- item` 或 `1. item`，不用 markdown 的 `\* item`（因为 `\*` 在 org 中是标题）/列表用 `- item` 或 `1. item`；标题使用 `#`/g' \
-        -e 's/代码用 `~code~` 或 `=code=`，不用反引号/代码使用反引号包裹/g' \
-        -e 's/整合为 markdown/整合为 Markdown/g' \
+        -e 's/分隔線用空行或 org 標題層級區分，不用 `---`（markdown 分隔符）/分隔線用空行或 Markdown 標題層級區分；需要分隔線時使用 `---`/g' \
+        -e 's/列表用 `- item` 或 `1. item`，不用 markdown 的 `\* item`（因為 `\*` 在 org 中是標題）/列表用 `- item` 或 `1. item`；標題使用 `#`/g' \
+        -e 's/程式碼用 `~code~` 或 `=code=`，不用反引號/程式碼使用反引號包裹/g' \
+        -e 's/整合為 markdown/整合為 Markdown/g' \
         "$file"
     fi
     if [ "$skill_name" = "ljg-qa" ]; then
       sed -i '' \
-        -e 's/列表用 `- item`，不用 `\* item`（`\*` 在 org 是标题）/列表用 `- item`；标题使用 `#`/g' \
-        -e 's/代码用 `~code~` 或 `=code=`，不用反引号/代码使用反引号包裹/g' \
+        -e 's/列表用 `- item`，不用 `\* item`（`\*` 在 org 是標題）/列表用 `- item`；標題使用 `#`/g' \
+        -e 's/程式碼用 `~code~` 或 `=code=`，不用反引號/程式碼使用反引號包裹/g' \
         "$file"
     fi
     sed -E -i '' \
@@ -464,10 +464,10 @@ mdize_skill() {
     # require an Org deliverable; mentions of Org as accepted input stay intact.
     if [[ "$file" == */evals/*.json ]]; then
       sed -i '' \
-        -e 's/把 Org 与 coverage/把 Markdown 与 coverage/g' \
-        -e 's/保存 Org 与 coverage/保存 Markdown 与 coverage/g' \
-        -e 's/保存同一 Org 与 paper-map/保存同一 Markdown 与 paper-map/g' \
-        -e 's/保存 Org 与 paper-map/保存 Markdown 与 paper-map/g' \
+        -e 's/把 Org 與 coverage/把 Markdown 與 coverage/g' \
+        -e 's/儲存 Org 與 coverage/儲存 Markdown 與 coverage/g' \
+        -e 's/儲存同一 Org 與 paper-map/儲存同一 Markdown 與 paper-map/g' \
+        -e 's/儲存 Org 與 paper-map/儲存 Markdown 與 paper-map/g' \
         -e 's/不要求生成 Org 或 paper-map/不要求生成 Markdown 或 paper-map/g' \
         -e 's/的 Org；/的 Markdown；/g' \
         -e 's/的 Org：/的 Markdown：/g' \
@@ -477,7 +477,7 @@ mdize_skill() {
     # Runtime-facing usage and validation messages must describe the generated
     # branch contract while explicit Org compatibility fixtures remain intact.
     sed -i '' \
-      -e 's/最多保留一个 Org example 图块/最多保留一个 Markdown 围栏图块/g' \
+      -e 's/最多保留一個 Org example 圖塊/最多保留一個 Markdown 圍欄圖塊/g' \
       -e 's/<note\.org>/<note.md>/g' \
       "$file"
     # A stdin default controls which parser the validator selects. On the md
@@ -507,13 +507,13 @@ audit_md_skill() {
   fi
   output_residuals=$(find "$skill_dir" -type f -name '*.md' -not -path '*/assets/*' -print0 \
     | xargs -0 grep -En \
-      'Defaults to a saved Org note|Produces natural, content-led Org notes|生成 Org 文件|保存(为)? (Org|org)(笔记|文件)?|保存(一份由[^[:cntrl:]]+|同一 )?Org 与(后台 )?paper-map|存入 (Org|org)|写进 (Org|org)|写入 (Org|org) 文件|写成 org 笔记|(Org|org) 文件结构|指定的 org 路径|不入 org|Org 默认保存到|Org 严格语法|org 严格语法|Org 解读|Org 输出合同|Org 的后台检查|<Org 文件路径>|标签包含 `:[^`]+:`|禁混 markdown|禁 markdown 语法|禁止任何 markdown 语法|__[a-z0-9_-]+\.org|命名按 denote[^[:cntrl:]]*\.org|生成由论文内容命名的 Org 笔记|写 Org 文件时|写 Org 时|Org 使用|所有生成的 Org 文件|Org 文件统一保存|写入 Org 后运行|Org lint|org-lint|文件必须是 (markdown|Markdown)，禁止 Markdown|(markdown|Markdown) 格式，禁止 (markdown|Markdown) 语法|加粗用 `\*bold\*`|代码用 `~code~`|不用反引号|`#\+(DESCRIPTION|description|source|IDENTIFIER|identifier|schema|definition|operation|recognition|guidance|basis|falsifier)`|(嵌入|ASCII 图)[^[:cntrl:]]*#\+begin_example|Org 的 (`)?#\+begin_example|Org example (块|图块)' \
+      'Defaults to a saved Org note|Produces natural, content-led Org notes|生成 Org 檔案|儲存(為)? (Org|org)(筆記|檔案)?|儲存(一份由[^[:cntrl:]]+|同一 )?Org 與(後臺 )?paper-map|存入 (Org|org)|寫進 (Org|org)|寫入 (Org|org) 檔案|寫成 org 筆記|(Org|org) 檔案結構|指定的 org 路徑|不入 org|Org 預設儲存到|Org 嚴格語法|org 嚴格語法|Org 解讀|Org 輸出合同|Org 的後臺檢查|<Org 檔案路徑>|標籤包含 `:[^`]+:`|禁混 markdown|禁 markdown 語法|禁止任何 markdown 語法|__[a-z0-9_-]+\.org|命名按 denote[^[:cntrl:]]*\.org|生成由論文內容命名的 Org 筆記|寫 Org 檔案時|寫 Org 時|Org 使用|所有生成的 Org 檔案|Org 檔案統一儲存|寫入 Org 後執行|Org lint|org-lint|檔案必須是 (markdown|Markdown)，禁止 Markdown|(markdown|Markdown) 格式，禁止 (markdown|Markdown) 語法|加粗用 `\*bold\*`|程式碼用 `~code~`|不用反引號|`#\+(DESCRIPTION|description|source|IDENTIFIER|identifier|schema|definition|operation|recognition|guidance|basis|falsifier)`|(嵌入|ASCII 圖)[^[:cntrl:]]*#\+begin_example|Org 的 (`)?#\+begin_example|Org example (塊|圖塊)' \
       2>/dev/null || true)
   markup_residuals=$(find "$skill_dir" -type f -name '*.md' -not -path '*/assets/*' -print0 \
     | xargs -0 grep -En '^[[:space:]]*#\+[A-Za-z_]+:|^[[:space:]]*#\+(begin|end)_(example|src|quote)([[:space:]]|$)|^[[:space:]]*```org[[:space:]]*$|^- \*[^*]+\*：|\[\[[^]]+\]\[[^]]+\]\]' \
       2>/dev/null || true)
   eval_residuals=$(find "$skill_dir" -type f -path '*/evals/*.json' -print0 \
-    | xargs -0 grep -En '把 Org 与 coverage|保存 Org 与 coverage|保存(同一)? Org 与 paper-map|的 Org(；|：)|Org[[:space:]]*及[[:space:]]*coverage' \
+    | xargs -0 grep -En '把 Org 與 coverage|儲存 Org 與 coverage|儲存(同一)? Org 與 paper-map|的 Org(；|：)|Org[[:space:]]*及[[:space:]]*coverage' \
       2>/dev/null || true)
   runtime_default_residuals=$(find "$skill_dir" -type f -not -path '*/assets/*' \
     \( -name '*.ts' -o -name '*.tsx' -o -name '*.js' -o -name '*.mjs' \
@@ -523,7 +523,7 @@ audit_md_skill() {
   runtime_output_residuals=$(find "$skill_dir" -type f -not -path '*/assets/*' \
     \( -name '*.ts' -o -name '*.tsx' -o -name '*.js' -o -name '*.mjs' \
        -o -name '*.cjs' -o -name '*.json' -o -name '*.sh' \) -print0 \
-    | xargs -0 grep -En '用法：[^[:cntrl:]]*<note\.org>|最多保留一个 Org example 图块' \
+    | xargs -0 grep -En '用法：[^[:cntrl:]]*<note\.org>|最多保留一個 Org example 圖塊' \
       2>/dev/null || true)
 
   if [ -n "$org_files$output_residuals$markup_residuals$eval_residuals$runtime_default_residuals$runtime_output_residuals" ]; then
@@ -658,9 +658,9 @@ check_readme() {
   echo "$missing" | sed 's/^/    - /'
   echo ""
   warn "Each push is a chance to refresh README. Ask yourself:"
-  echo "    - 新增 skill 了吗？ → README 的 skill 清单 / 安装命令需要加一行"
-  echo "    - 删了 skill 吗？ → README 对应行要删"
-  echo "    - skill 描述大改了吗？ → README 的简介可能要同步"
+  echo "    - 新增 skill 了嗎？ → README 的 skill 清單 / 安裝命令需要加一行"
+  echo "    - 刪了 skill 嗎？ → README 對應行要刪"
+  echo "    - skill 描述大改了嗎？ → README 的簡介可能要同步"
   echo ""
   if [ "$SKIP_README_CHECK" = "1" ]; then
     warn "--skip-readme-check passed: ignoring above and continuing."

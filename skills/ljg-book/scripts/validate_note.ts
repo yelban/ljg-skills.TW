@@ -6,7 +6,7 @@ import { basename } from "node:path";
 export type Result = {
   /** ok only reports the structural checks below, never reading quality. */
   ok: boolean;
-  assessment_scope: "结构与记录完整性；不证明来源准确、阅读连续或理解效果";
+  assessment_scope: "結構與記錄完整性；不證明來源準確、閱讀連續或理解效果";
   semantic_assessment: "not_performed";
   file: string;
   errors: string[];
@@ -14,145 +14,145 @@ export type Result = {
   checks: Record<string, number | string | boolean>;
 };
 
-const validMaterialGrades = ["完整拆书", "初拆", "假设版"] as const;
-const essenceHeading = "读完后应发生的变化";
+const validMaterialGrades = ["完整拆書", "初拆", "假設版"] as const;
+const essenceHeading = "讀完後應發生的變化";
 const legacyCoverageLoopFields = [
-  "处境",
-  "贯穿张力",
-  "最自然的理解或反应",
-  "得到的结果",
-  "证据或事件暴露的缺口",
-  "被改写的是 x / R / f / E 中哪一项",
-  "改写后的结果",
-  "下一场景",
-  "最后回到哪里",
+  "處境",
+  "貫穿張力",
+  "最自然的理解或反應",
+  "得到的結果",
+  "證據或事件暴露的缺口",
+  "被改寫的是 x / R / f / E 中哪一項",
+  "改寫後的結果",
+  "下一場景",
+  "最後回到哪裡",
 ];
 const legacyConcretizationFields = [
-  "核心动作或变化",
-  "原状态",
-  "只改变的关键条件或动作",
-  "可见结果",
-  "角色、动作、方向与结果怎样对应",
-  "失败或反例怎样划出边界",
-  "删掉解释后，场景本身还能看见什么",
+  "核心動作或變化",
+  "原狀態",
+  "只改變的關鍵條件或動作",
+  "可見結果",
+  "角色、動作、方向與結果怎樣對應",
+  "失敗或反例怎樣劃出邊界",
+  "刪掉解釋後，場景本身還能看見什麼",
 ];
 const legacyEmbodimentFields = [
-  "镜头站在哪里",
-  "读者或人物先看见什么",
-  "解释出现前会怎样判断或行动",
-  "这个判断先产生什么可见结果",
-  "哪条证据、事件或对象反馈打断它",
-  "命名以后回到哪一幕重跑",
-  "原书依据与简化边界",
+  "鏡頭站在哪裡",
+  "讀者或人物先看見什麼",
+  "解釋出現前會怎樣判斷或行動",
+  "這個判斷先產生什麼可見結果",
+  "哪條證據、事件或物件反饋打斷它",
+  "命名以後回到哪一幕重跑",
+  "原書依據與簡化邊界",
 ];
 const legacyRunnableFields = [
-  "读者先问什么",
-  "稳定对象或最小模型",
-  "读者第一次会猜什么",
-  "最小动作或变化",
-  "立刻出现的结果",
-  "结果紧接着叫什么",
-  "同一对象怎样再运行",
-  "陌生读者能怎样复述",
-  "原书依据与简化边界",
+  "讀者先問什麼",
+  "穩定物件或最小模型",
+  "讀者第一次會猜什麼",
+  "最小動作或變化",
+  "立刻出現的結果",
+  "結果緊接著叫什麼",
+  "同一物件怎樣再執行",
+  "陌生讀者能怎樣複述",
+  "原書依據與簡化邊界",
 ];
 const understandingPathFields = [
-  "读者进入什么具体处境",
-  "最初最自然会怎样理解",
-  "哪个事实、事件或结果让它不够",
-  "作者增加了什么关系或条件",
-  "回看原处境，什么已经改变",
-  "新结果自然带出什么问题",
-  "贯穿全文的扶手",
-  "结尾回到哪里",
-  "陌生读者能怎样复述",
-  "原书依据与简化边界",
+  "讀者進入什麼具體處境",
+  "最初最自然會怎樣理解",
+  "哪個事實、事件或結果讓它不夠",
+  "作者增加了什麼關係或條件",
+  "回看原處境，什麼已經改變",
+  "新結果自然帶出什麼問題",
+  "貫穿全文的扶手",
+  "結尾回到哪裡",
+  "陌生讀者能怎樣複述",
+  "原書依據與簡化邊界",
 ];
 const wholeBookIdentityFields = [
-  "这是什么类型或形态的书",
-  "字面上跟着谁、什么对象或什么问题展开",
-  "起点、主要变化与终点",
-  "不可省略的主线",
-  "主线为什么属于同一本书",
-  "正文必须出现的整书锚点",
-  "三十秒整书复述",
-  "可迁移性反测",
+  "這是什麼型別或形態的書",
+  "字面上跟著誰、什麼物件或什麼問題展開",
+  "起點、主要變化與終點",
+  "不可省略的主線",
+  "主線為什麼屬於同一本書",
+  "正文必須出現的整書錨點",
+  "三十秒整書複述",
+  "可遷移性反測",
 ];
 const genericWholeBookAnchors = new Set([
-  "问题",
-  "关系",
-  "变化",
-  "结果",
+  "問題",
+  "關係",
+  "變化",
+  "結果",
   "理解",
-  "判断",
-  "结论",
-  "主题",
+  "判斷",
+  "結論",
+  "主題",
   "作者",
-  "本书",
-  "读者",
-  "证据",
-  "边界",
+  "本書",
+  "讀者",
+  "證據",
+  "邊界",
   "方法",
   "概念",
 ]);
 const bookSelectionFields = [
-  "贯穿全书的困惑或张力",
-  "正文保留哪些必要转折",
-  "为什么这些转折足以让读者理解全书主干",
-  "哪些重要内容留在后台而不进入正文",
-  "每次转折怎样由前一结果带出下一问题",
+  "貫穿全書的困惑或張力",
+  "正文保留哪些必要轉折",
+  "為什麼這些轉折足以讓讀者理解全書主幹",
+  "哪些重要內容留在後臺而不進入正文",
+  "每次轉折怎樣由前一結果帶出下一問題",
 ];
 const narrativeContinuityFields = [
-  "开篇留下的真实问题",
-  "转折链",
-  "每次换场为什么不可提前",
-  "换序测试",
-  "摘句拼接反测",
+  "開篇留下的真實問題",
+  "轉折鏈",
+  "每次換場為什麼不可提前",
+  "換序測試",
+  "摘句拼接反測",
 ];
 const generatorFields = [
-  "全书生成器",
-  "输入、起点或当前状态",
-  "结果方向或终点",
-  "生成器怎样贯穿至少两个远距转折",
-  "生成器在哪些条件、范围或层级失效",
-  "正文生成器锚点",
-  "生成器是否需要在前两个一级标题内运行",
-  "是否需要视觉表示",
+  "全書生成器",
+  "輸入、起點或當前狀態",
+  "結果方向或終點",
+  "生成器怎樣貫穿至少兩個遠距轉折",
+  "生成器在哪些條件、範圍或層級失效",
+  "正文生成器錨點",
+  "生成器是否需要在前兩個一級標題內執行",
+  "是否需要視覺表示",
 ];
 const frontstageFields = [
-  "名称",
-  "唯一职责",
-  "设置或起点",
-  "结果或后果",
-  "改变的关系",
-  "下一问",
+  "名稱",
+  "唯一職責",
+  "設定或起點",
+  "結果或後果",
+  "改變的關係",
+  "下一問",
 ];
 const v3WholeBookFields = [
-  "这是什么类型或形态的书", "起点、主要变化与终点", "核心理解",
-  "各部分怎样相连", "作者最想纠正或保留什么", "正文必须出现的整书锚点",
+  "這是什麼型別或形態的書", "起點、主要變化與終點", "核心理解",
+  "各部分怎樣相連", "作者最想糾正或保留什麼", "正文必須出現的整書錨點",
 ];
-const v3ThreadFields = ["名称", "起点", "关键推进", "前后变化", "换场理由", "依据与边界"];
+const v3ThreadFields = ["名稱", "起點", "關鍵推進", "前後變化", "換場理由", "依據與邊界"];
 const v3ReviewFields = [
-  "反证与取舍", "整书复述与关系重建", "阅读断点与修订",
-  "遮住末节后能否理解作者关切", "正文中哪两个相隔较远的转折共同托住它",
+  "反證與取捨", "整書複述與關係重建", "閱讀斷點與修訂",
+  "遮住末節後能否理解作者關切", "正文中哪兩個相隔較遠的轉折共同托住它",
 ];
 const v3GeneratorFields = [
-  "全书生成器", "生成器怎样贯穿至少两个远距转折", "生成器在哪些条件、范围或层级失效",
+  "全書生成器", "生成器怎樣貫穿至少兩個遠距轉折", "生成器在哪些條件、範圍或層級失效",
 ];
 const legacyBookSelectionFields = [
-  "贯穿全书的普通问题",
-  "正文保留哪两到四个关系",
-  "为什么这些关系足以让读者理解全书主干",
-  "哪些重要内容留在后台而不进入正文",
-  "各模块如何继续使用同一对象，或为什么必须换对象",
+  "貫穿全書的普通問題",
+  "正文保留哪兩到四個關係",
+  "為什麼這些關係足以讓讀者理解全書主幹",
+  "哪些重要內容留在後臺而不進入正文",
+  "各模組如何繼續使用同一物件，或為什麼必須換物件",
 ];
 const legacyNarrativeSelectionFields = [
-  "开头用哪件具体事情",
-  "为什么它能承载贯穿张力",
-  "一个场景是否够用",
-  "若不够，前一个结果怎样产生下一个场景",
-  "标题将用哪些事件、变化或条件命名",
-  "返程后，原来的看法在哪里改变",
+  "開頭用哪件具體事情",
+  "為什麼它能承載貫穿張力",
+  "一個場景是否夠用",
+  "若不夠，前一個結果怎樣產生下一個場景",
+  "標題將用哪些事件、變化或條件命名",
+  "返程後，原來的看法在哪裡改變",
 ];
 
 function displayWidth(line: string): number {
@@ -199,7 +199,7 @@ export function validate(content: string, file: string, coverage?: string): Resu
       ? new RegExp(`^${header}:\\s*\\S`, "mi")
       : new RegExp(`^#\\+${header}:\\s*\\S`, "mi");
     if (!pattern.test(content)) {
-      errors.push(`缺少或为空的 ${markdownMode ? header : `#+${header}`}`);
+      errors.push(`缺少或為空的 ${markdownMode ? header : `#+${header}`}`);
     }
   }
 
@@ -208,9 +208,9 @@ export function validate(content: string, file: string, coverage?: string): Resu
     : content.match(/^#\+IDENTIFIER:\s*(\S+)/mi)?.[1] ?? "";
   const filenameIdentifier = basename(file).match(/^(\d{8}T\d{6})--/)?.[1] ?? "";
   if (!filenameIdentifier) {
-    errors.push("文件名不是 Denote 时间戳格式");
+    errors.push("檔名不是 Denote 時間戳格式");
   } else if (identifier !== filenameIdentifier) {
-    errors.push(`IDENTIFIER ${identifier || "为空"} 与文件名 ${filenameIdentifier} 不一致`);
+    errors.push(`IDENTIFIER ${identifier || "為空"} 與檔名 ${filenameIdentifier} 不一致`);
   }
 
   const headingPattern = markdownMode ? /^# ([^#].*)$/gm : /^\* ([^*].*)$/gm;
@@ -226,15 +226,15 @@ export function validate(content: string, file: string, coverage?: string): Resu
     : "";
   const headings = allHeadings.filter((heading) => heading !== essenceHeading);
   if (headings.length < 1) {
-    errors.push("末节以前至少需要 1 个正文一级标题");
+    errors.push("末節以前至少需要 1 個正文一級標題");
   }
 
   if (essenceHeadingIndexes.length === 0) {
-    errors.push(`成品最后必须有一级标题“${essenceHeading}”`);
+    errors.push(`成品最後必須有一級標題“${essenceHeading}”`);
   } else if (essenceHeadingIndexes.length > 1) {
-    errors.push(`一级标题“${essenceHeading}”只能出现一次`);
+    errors.push(`一級標題“${essenceHeading}”只能出現一次`);
   } else if (essenceHeadingIndex !== allHeadings.length - 1) {
-    errors.push(`“${essenceHeading}”必须是成品最后一个一级标题`);
+    errors.push(`“${essenceHeading}”必須是成品最後一個一級標題`);
   }
 
   const essenceParagraphs = essenceSection
@@ -250,12 +250,12 @@ export function validate(content: string, file: string, coverage?: string): Resu
   const essenceFormatLineHits = [...essenceSection.matchAll(/^(?:[-+] |\d+[.)] |(?:\*{2,}|#{2,}) )/gm)].length;
   if (essenceHeadingIndexes.length === 1) {
     if (essenceParagraphs.length !== 1) {
-      errors.push(`“${essenceHeading}”只写一个自然段，当前为 ${essenceParagraphs.length} 段`);
+      errors.push(`“${essenceHeading}”只寫一個自然段，當前為 ${essenceParagraphs.length} 段`);
     }
     if (essenceFormatLineHits > 0) {
-      errors.push(`“${essenceHeading}”不能写成分类清单或子标题；结构、洞见、模型等只在后台帮助寻找精神内核`);
+      errors.push(`“${essenceHeading}”不能寫成分類清單或子標題；結構、洞見、模型等只在後臺幫助尋找精神核心`);
     }
-    if (essenceChars === 0) errors.push(`“${essenceHeading}”不能为空`);
+    if (essenceChars === 0) errors.push(`“${essenceHeading}”不能為空`);
   }
 
   const legacyTriadPattern = markdownMode
@@ -267,34 +267,34 @@ export function validate(content: string, file: string, coverage?: string): Resu
     : /^\* (?:x|R|f|E|f\(x\))[：:].+$/gmi;
   const internalHeadingHits = [...content.matchAll(internalHeadingPattern)];
   if (legacyTriadHits.length > 0 || internalHeadingHits.length > 0) {
-    errors.push("成品不能暴露 x/R/f/E 或旧 x/f/f(x) 分析标签");
+    errors.push("成品不能暴露 x/R/f/E 或舊 x/f/f(x) 分析標籤");
   }
 
-  const calibrationHits = [...content.matchAll(/资料校准/g)].length;
+  const calibrationHits = [...content.matchAll(/資料校準/g)].length;
   if (calibrationHits > 0) {
-    errors.push("成品不能出现独立的研究校准章节或标签");
+    errors.push("成品不能出現獨立的研究校準章節或標籤");
   }
-  const visibleMaterialGradeHits = [...content.matchAll(/材料等级[：:]/g)].length;
+  const visibleMaterialGradeHits = [...content.matchAll(/材料等級[：:]/g)].length;
   if (visibleMaterialGradeHits > 0) {
-    errors.push("材料等级只能写在后台覆盖记录，不能出现在成品");
+    errors.push("材料等級只能寫在後臺覆蓋記錄，不能出現在成品");
   }
 
   const bodyStart = headingMatches[0]?.index ?? -1;
   const narrativeBody = bodyStart >= 0 ? content.slice(bodyStart) : "";
   const beforeEssence = bodyStart >= 0 ? content.slice(bodyStart, essenceHeadingMatch?.index ?? content.length) : "";
   const bodyText = beforeEssence.replace(markdownMode ? /^#{1,6} .*$/gm : /^\*+ .*$/gm, "").trim();
-  if (!bodyText) errors.push("末节以前必须有非空正文");
+  if (!bodyText) errors.push("末節以前必須有非空正文");
   // Only explicit run/accounting language is checked. Ordinary author attribution,
   // source structure, model descriptions and limitations require human reading.
   const backstageAccountingPatterns = [
-    /本轮[^。！？\n]{0,24}(?:核验|核到|读取|提取|查到|验证|未核|未查|不替|未替|补写|补充)[^。！？\n]*/g,
-    /本轮(?:真实|现有|已有)?材料(?:测试|核验|读取|提取|检查|验证)[^。！？\n]*/g,
+    /本輪[^。！？\n]{0,24}(?:核驗|核到|讀取|提取|查到|驗證|未核|未查|不替|未替|補寫|補充)[^。！？\n]*/g,
+    /本輪(?:真實|現有|已有)?材料(?:測試|核驗|讀取|提取|檢查|驗證)[^。！？\n]*/g,
   ];
   const backstageAccountingHits = backstageAccountingPatterns.flatMap((pattern) =>
     [...narrativeBody.matchAll(pattern)].map((match) => match[0]),
   );
   if (backstageAccountingHits.length > 0) {
-    errors.push(`正文含后台核验语言：${[...new Set(backstageAccountingHits)].join("、")}；请将本轮核验记录移回 coverage`);
+    errors.push(`正文含後臺核驗語言：${[...new Set(backstageAccountingHits)].join("、")}；請將本輪核驗記錄移回 coverage`);
   }
 
   const proseParagraphs = narrativeBody
@@ -349,96 +349,96 @@ export function validate(content: string, file: string, coverage?: string): Resu
   let frontstageMissingInBody: string[] = [];
   let frontstageDuplicateResponsibilities: string[] = [];
   if (!coverage) {
-    errors.push("所有拆书都必须提供 --coverage 后台覆盖记录");
+    errors.push("所有拆書都必須提供 --coverage 後臺覆蓋記錄");
   } else {
-    const declaredCoverageVersion = lineField(coverage, "覆盖合同版本");
+    const declaredCoverageVersion = lineField(coverage, "覆蓋合同版本");
     coverageContractVersion = declaredCoverageVersion || "legacy";
     if (declaredCoverageVersion && !["2", "3", "legacy"].includes(declaredCoverageVersion)) {
-      errors.push(`覆盖记录版本 ${declaredCoverageVersion} 不受支持；当前版本为 3，兼容 2 与 legacy`);
+      errors.push(`覆蓋記錄版本 ${declaredCoverageVersion} 不受支援；當前版本為 3，相容 2 與 legacy`);
     }
 
-    materialGrade = lineField(coverage, "材料等级");
+    materialGrade = lineField(coverage, "材料等級");
     if (!validMaterialGrades.includes(materialGrade as (typeof validMaterialGrades)[number])) {
-      errors.push("覆盖记录的材料等级必须是：完整拆书 / 初拆 / 假设版");
+      errors.push("覆蓋記錄的材料等級必須是：完整拆書 / 初拆 / 假設版");
     }
 
-    const sourceBoundaryFields = ["主要材料", "能支持到"].filter((field) => substantive(lineField(coverage, field))).length;
+    const sourceBoundaryFields = ["主要材料", "能支援到"].filter((field) => substantive(lineField(coverage, field))).length;
     if (sourceBoundaryFields !== 2) {
-      errors.push("覆盖记录必须写明主要材料与能支持到哪里");
+      errors.push("覆蓋記錄必須寫明主要材料與能支援到哪裡");
     }
     if (coverageContractVersion === "3") {
       const requireFields = (fields: string[]) => {
         for (const field of fields) {
-          if (!substantive(lineField(coverage, field))) errors.push(`覆盖记录版本 3 缺少或为空的字段：${field}`);
+          if (!substantive(lineField(coverage, field))) errors.push(`覆蓋記錄版本 3 缺少或為空的欄位：${field}`);
         }
       };
-      understandingPathSupport = lineField(coverage, "材料能否支撑认识更新路径");
+      understandingPathSupport = lineField(coverage, "材料能否支撐認識更新路徑");
       if (!yesNoDecision(understandingPathSupport)) {
-        errors.push("“材料能否支撑认识更新路径”必须明确写是或否，并说明依据");
+        errors.push("“材料能否支撐認識更新路徑”必須明確寫是或否，並說明依據");
       }
       const supported = /^是/.test(understandingPathSupport);
-      const complete = materialGrade === "完整拆书";
-      if (!supported && complete) errors.push("完整拆书不能通过：材料不足以支撑认识更新路径");
+      const complete = materialGrade === "完整拆書";
+      if (!supported && complete) errors.push("完整拆書不能通過：材料不足以支撐認識更新路徑");
       if (/^否/.test(understandingPathSupport) && !complete) {
-        warnings.push("材料不足以支撑认识更新路径；仅检查材料能支持的记录，未支持的理解可写未确定，不能虚构经历");
+        warnings.push("材料不足以支撐認識更新路徑；僅檢查材料能支援的記錄，未支援的理解可寫未確定，不能虛構經歷");
       }
       // Partial unsupported records still identify the book and state the core's uncertainty.
-      requireFields(supported || complete ? v3WholeBookFields : ["这是什么类型或形态的书", "核心理解", "正文必须出现的整书锚点"]);
+      requireFields(supported || complete ? v3WholeBookFields : ["這是什麼型別或形態的書", "核心理解", "正文必須出現的整書錨點"]);
       coverageWholeBookIdentityFields = v3WholeBookFields.filter((field) => substantive(lineField(coverage, field))).length;
-      requiredWholeBookAnchors = parseWholeBookAnchors(lineField(coverage, "正文必须出现的整书锚点"));
+      requiredWholeBookAnchors = parseWholeBookAnchors(lineField(coverage, "正文必須出現的整書錨點"));
       missingWholeBookAnchors = requiredWholeBookAnchors.filter((anchor) => !narrativeBody.includes(anchor));
       requiredWholeBookAnchorHits = requiredWholeBookAnchors.length - missingWholeBookAnchors.length;
       genericWholeBookAnchorHits = requiredWholeBookAnchors.filter((anchor) => genericWholeBookAnchors.has(anchor));
-      if (genericWholeBookAnchorHits.length) errors.push(`整书锚点过于通用：${genericWholeBookAnchorHits.join("、")}`);
+      if (genericWholeBookAnchorHits.length) errors.push(`整書錨點過於通用：${genericWholeBookAnchorHits.join("、")}`);
       const minimumAnchors = complete ? 3 : 1;
-      if (requiredWholeBookAnchors.length < minimumAnchors) errors.push(`${materialGrade || "拆书"}必须声明至少 ${minimumAnchors} 个正文整书锚点`);
-      if (missingWholeBookAnchors.length) errors.push(`这些整书锚点没有出现在正文：${missingWholeBookAnchors.join("、")}`);
+      if (requiredWholeBookAnchors.length < minimumAnchors) errors.push(`${materialGrade || "拆書"}必須宣告至少 ${minimumAnchors} 個正文整書錨點`);
+      if (missingWholeBookAnchors.length) errors.push(`這些整書錨點沒有出現在正文：${missingWholeBookAnchors.join("、")}`);
 
       const threads = [...coverage.matchAll(/^- \[thread\]\s*.*$/gm)];
       threadCount = threads.length;
       threadCompleteCount = threads.filter((entry) => v3ThreadFields.every((field) => substantive(segmentField(entry[0], field)))).length;
-      threadMissingInBody = threads.map((entry) => segmentField(entry[0], "名称")).filter(substantive).filter((name) => !narrativeBody.includes(name));
-      if (supported && threadCount < 1) errors.push("覆盖记录版本 3 必须声明至少 1 条 [thread] 认识线索");
-      if (threadCompleteCount !== threadCount) errors.push("[thread] 必须填完名称、起点、关键推进、前后变化、换场理由、依据与边界");
-      if (threadMissingInBody.length) errors.push(`这些认识线索名称没有出现在正文：${threadMissingInBody.join("、")}`);
+      threadMissingInBody = threads.map((entry) => segmentField(entry[0], "名稱")).filter(substantive).filter((name) => !narrativeBody.includes(name));
+      if (supported && threadCount < 1) errors.push("覆蓋記錄版本 3 必須宣告至少 1 條 [thread] 認識線索");
+      if (threadCompleteCount !== threadCount) errors.push("[thread] 必須填完名稱、起點、關鍵推進、前後變化、換場理由、依據與邊界");
+      if (threadMissingInBody.length) errors.push(`這些認識線索名稱沒有出現在正文：${threadMissingInBody.join("、")}`);
 
-      generatorExists = lineField(coverage, "是否存在全书生成器");
+      generatorExists = lineField(coverage, "是否存在全書生成器");
       coverageGeneratorGatePresent = substantive(generatorExists);
-      representationRequired = lineField(coverage, "是否需要视觉表示");
-      representationPurpose = lineField(coverage, "使用图表的位置与目的");
-      for (const [field, value] of [["是否存在全书生成器", generatorExists], ["是否需要视觉表示", representationRequired]]) {
-        if ((supported || complete || substantive(value)) && !yesNoDecision(value)) errors.push(`“${field}”必须明确写是或否`);
+      representationRequired = lineField(coverage, "是否需要視覺表示");
+      representationPurpose = lineField(coverage, "使用圖表的位置與目的");
+      for (const [field, value] of [["是否存在全書生成器", generatorExists], ["是否需要視覺表示", representationRequired]]) {
+        if ((supported || complete || substantive(value)) && !yesNoDecision(value)) errors.push(`“${field}”必須明確寫是或否`);
       }
       if (/^是/.test(generatorExists)) requireFields(v3GeneratorFields);
       coverageGeneratorFields = v3GeneratorFields.filter((field) => substantive(lineField(coverage, field))).length;
-      if (/^是/.test(representationRequired)) requireFields(["使用图表的位置与目的"]);
+      if (/^是/.test(representationRequired)) requireFields(["使用圖表的位置與目的"]);
       const zones = ["starting-point", "pressure", "revision", "boundary"];
       coverageZones = zones.filter((zone) => substantive(locationForZone(coverage, zone))).length;
       const evidenceRows = [...coverage.matchAll(/^- \[(?:starting-point|pressure|revision|boundary)\][^\n]*$/gm)];
       if (evidenceRows.some((entry) => !substantive(segmentField(entry[0], "位置")))) {
-        errors.push("已声明的来源证据必须写明位置；材料不支持的证据行应删除");
+        errors.push("已宣告的來源證據必須寫明位置；材料不支援的證據行應刪除");
       }
       if (supported || complete) {
         requireFields(v3ReviewFields);
-        if (complete && coverageZones !== zones.length) errors.push("覆盖记录版本 3 没有填完起点、压力、改写与边界四类证据的位置");
+        if (complete && coverageZones !== zones.length) errors.push("覆蓋記錄版本 3 沒有填完起點、壓力、改寫與邊界四類證據的位置");
       }
       const candidates = [...coverage.matchAll(/^- \[candidate\]\s*.*$/gm)];
       coverageCandidateCount = candidates.length;
-      const candidateFields = ["名称", "位置", "解决的问题", "与其他部件的关系", "决定", "删除测试"];
-      if (complete && coverageCandidateCount < 5) errors.push(`完整拆书的覆盖记录必须有至少 5 个候选部件，当前为 ${coverageCandidateCount}`);
+      const candidateFields = ["名稱", "位置", "解決的問題", "與其他部件的關係", "決定", "刪除測試"];
+      if (complete && coverageCandidateCount < 5) errors.push(`完整拆書的覆蓋記錄必須有至少 5 個候選部件，當前為 ${coverageCandidateCount}`);
       for (const candidate of candidates) {
-        if (!candidateFields.every((field) => substantive(segmentField(candidate[0], field))) || !["保留", "合并", "删除"].includes(segmentField(candidate[0], "决定"))) {
-          errors.push("候选部件必须填完名称、位置、作用、关系、决定与删除测试；决定为保留/合并/删除");
+        if (!candidateFields.every((field) => substantive(segmentField(candidate[0], field))) || !["保留", "合併", "刪除"].includes(segmentField(candidate[0], "決定"))) {
+          errors.push("候選部件必須填完名稱、位置、作用、關係、決定與刪除測試；決定為保留/合併/刪除");
         }
       }
     } else {
-      const currentSupport = lineField(coverage, "材料能否支撑认识更新路径");
-      const legacyRunnableSupport = lineField(coverage, "材料能否支撑具体运行");
+      const currentSupport = lineField(coverage, "材料能否支撐認識更新路徑");
+      const legacyRunnableSupport = lineField(coverage, "材料能否支撐具體執行");
       understandingPathSupport = currentSupport || legacyRunnableSupport;
       coverageUnderstandingFields = understandingPathFields.filter((field) => substantive(lineField(coverage, field))).length;
       coverageWholeBookIdentityFields = wholeBookIdentityFields
         .filter((field) => substantive(lineField(coverage, field))).length;
-      requiredWholeBookAnchors = parseWholeBookAnchors(lineField(coverage, "正文必须出现的整书锚点"));
+      requiredWholeBookAnchors = parseWholeBookAnchors(lineField(coverage, "正文必須出現的整書錨點"));
       missingWholeBookAnchors = requiredWholeBookAnchors
         .filter((anchor) => !narrativeBody.includes(anchor));
       requiredWholeBookAnchorHits = requiredWholeBookAnchors.length - missingWholeBookAnchors.length;
@@ -447,84 +447,84 @@ export function validate(content: string, file: string, coverage?: string): Resu
       coverageRunnableFields = legacyRunnableFields.filter((field) => substantive(lineField(coverage, field))).length;
       coverageEmbodimentFields = legacyEmbodimentFields.filter((field) => substantive(lineField(coverage, field))).length;
       if (substantive(currentSupport)) {
-        const essenceCoverageFields = ["作者最后只想留下什么", "正文中哪两个相隔较远的转折共同托住它", "是否需要回答书名", "精神内核可替换性反测"];
+        const essenceCoverageFields = ["作者最後只想留下什麼", "正文中哪兩個相隔較遠的轉折共同托住它", "是否需要回答書名", "精神核心可替換性反測"];
         coverageEssenceFields = essenceCoverageFields
           .filter((field) => substantive(lineField(coverage, field))).length;
-        coverageTitleAnswer = lineField(coverage, "是否需要回答书名");
+        coverageTitleAnswer = lineField(coverage, "是否需要回答書名");
         if (coverageEssenceFields !== essenceCoverageFields.length) {
-          errors.push("当前版覆盖记录必须填完精神内核、两个相隔转折、书名判断与可替换性反测");
+          errors.push("當前版覆蓋記錄必須填完精神核心、兩個相隔轉折、書名判斷與可替換性反測");
         }
         if (substantive(coverageTitleAnswer) && !/^(?:是|否)(?:\b|[—：:，,。\s]|$)/.test(coverageTitleAnswer)) {
-          errors.push("“是否需要回答书名”必须明确写是或否，并说明书名是否承载精神内核");
+          errors.push("“是否需要回答書名”必須明確寫是或否，並說明書名是否承載精神核心");
         }
         if (!/^(?:是|否)(?:\b|[—：:，,。\s]|$)/.test(currentSupport)) {
-          errors.push("“材料能否支撑认识更新路径”必须明确写是或否，并说明依据");
+          errors.push("“材料能否支撐認識更新路徑”必須明確寫是或否，並說明依據");
         } else if (/^是/.test(currentSupport) && coverageUnderstandingFields !== understandingPathFields.length) {
-          errors.push("材料声明能够支撑认识更新路径，但覆盖记录没有填完具体处境、自然理解、压力、新关系、回看、下一问、扶手、返程、复述与来源边界");
+          errors.push("材料宣告能夠支撐認識更新路徑，但覆蓋記錄沒有填完具體處境、自然理解、壓力、新關係、回看、下一問、扶手、返程、複述與來源邊界");
         } else if (/^否/.test(currentSupport)) {
-          const message = "材料不足以支撑认识更新路径；成品应缩成局部理解或先补材料，不能用泛化场景冒充现场";
-          if (materialGrade === "完整拆书") {
-            errors.push(`完整拆书不能通过：${message}`);
+          const message = "材料不足以支撐認識更新路徑；成品應縮成區域性理解或先補材料，不能用泛化場景冒充現場";
+          if (materialGrade === "完整拆書") {
+            errors.push(`完整拆書不能通過：${message}`);
           } else {
             warnings.push(message);
           }
         }
       } else if (substantive(legacyRunnableSupport)) {
         if (!/^(?:是|否)(?:\b|[—：:，,。\s]|$)/.test(legacyRunnableSupport)) {
-          errors.push("旧版“材料能否支撑具体运行”必须明确写是或否，并说明依据");
+          errors.push("舊版“材料能否支撐具體執行”必須明確寫是或否，並說明依據");
         } else if (/^是/.test(legacyRunnableSupport) && coverageRunnableFields !== legacyRunnableFields.length) {
-          errors.push("旧版材料声明可运行，但读者运行门没有填完");
+          errors.push("舊版材料宣告可執行，但讀者執行門沒有填完");
         } else if (/^否/.test(legacyRunnableSupport)) {
-          warnings.push("材料不足以支撑具体运行；成品应缩成局部理解或先补材料，不能用泛化场景冒充现场");
+          warnings.push("材料不足以支撐具體執行；成品應縮成區域性理解或先補材料，不能用泛化場景冒充現場");
         }
-        warnings.push("覆盖记录仍使用旧版读者运行门；本次兼容通过，下次重跑时请改用认识更新门");
+        warnings.push("覆蓋記錄仍使用舊版讀者執行門；本次相容通過，下次重跑時請改用認識更新門");
       } else if (coverageEmbodimentFields === legacyEmbodimentFields.length) {
         understandingPathSupport = "legacy";
-        warnings.push("覆盖记录仍使用旧版现场化门；本次兼容通过，下次重跑时请改用认识更新门");
+        warnings.push("覆蓋記錄仍使用舊版現場化門；本次相容通過，下次重跑時請改用認識更新門");
       } else {
-        errors.push("覆盖记录必须填写认识更新门，或提供完整的旧版读者运行门/现场化门以便兼容读取");
+        errors.push("覆蓋記錄必須填寫認識更新門，或提供完整的舊版讀者執行門/現場化門以便相容讀取");
       }
 
       if (coverageContractVersion === "2") {
-        coverageGeneratorGatePresent = /^- 是否存在全书生成器[：:]/m.test(coverage);
-        generatorExists = lineField(coverage, "是否存在全书生成器");
-        generatorEarlyDecision = lineField(coverage, "生成器是否需要在前两个一级标题内运行");
-        representationRequired = lineField(coverage, "是否需要视觉表示");
-        representationRunAnchor = lineField(coverage, "视觉表示后用哪个载体运行");
+        coverageGeneratorGatePresent = /^- 是否存在全書生成器[：:]/m.test(coverage);
+        generatorExists = lineField(coverage, "是否存在全書生成器");
+        generatorEarlyDecision = lineField(coverage, "生成器是否需要在前兩個一級標題內執行");
+        representationRequired = lineField(coverage, "是否需要視覺表示");
+        representationRunAnchor = lineField(coverage, "視覺表示後用哪個載體執行");
 
         if (!coverageGeneratorGatePresent || !yesNoDecision(generatorExists)) {
-          errors.push("覆盖记录版本 2 必须明确“是否存在全书生成器”：是或否，并说明理由");
+          errors.push("覆蓋記錄版本 2 必須明確“是否存在全書生成器”：是或否，並說明理由");
         }
 
         if (!yesNoDecision(representationRequired)) {
-          errors.push("覆盖记录版本 2 必须明确“是否需要视觉表示”：是或否，并说明理由");
+          errors.push("覆蓋記錄版本 2 必須明確“是否需要視覺表示”：是或否，並說明理由");
         }
 
         if (/^是/.test(generatorExists)) {
           coverageGeneratorFields = generatorFields
             .filter((field) => substantive(lineField(coverage, field))).length;
           if (coverageGeneratorFields !== generatorFields.length) {
-            errors.push("解释生成器门没有填完：生成器、输入/起点、结果方向、远距转折、失效边界、正文锚点、前置判断与视觉判断缺一不可");
+            errors.push("解釋生成器門沒有填完：生成器、輸入/起點、結果方向、遠距轉折、失效邊界、正文錨點、前置判斷與視覺判斷缺一不可");
           }
 
-          const generatorAnchors = parseWholeBookAnchors(lineField(coverage, "正文生成器锚点"));
+          const generatorAnchors = parseWholeBookAnchors(lineField(coverage, "正文生成器錨點"));
           generatorAnchorCount = generatorAnchors.length;
           generatorAnchorHits = generatorAnchors.filter((anchor) => narrativeBody.includes(anchor)).length;
           if (generatorAnchorCount === 0) {
-            errors.push("声明存在全书生成器时，必须提供至少 1 个正文生成器锚点");
+            errors.push("宣告存在全書生成器時，必須提供至少 1 個正文生成器錨點");
           } else if (generatorAnchorHits !== generatorAnchorCount) {
             const missing = generatorAnchors.filter((anchor) => !narrativeBody.includes(anchor));
-            errors.push(`这些生成器锚点没有出现在正文：${missing.join("、")}`);
+            errors.push(`這些生成器錨點沒有出現在正文：${missing.join("、")}`);
           }
 
           if (!yesNoDecision(generatorEarlyDecision)) {
-            errors.push("“生成器是否需要在前两个一级标题内运行”必须明确写是或否，并说明理由");
+            errors.push("“生成器是否需要在前兩個一級標題內執行”必須明確寫是或否，並說明理由");
           } else if (/^是/.test(generatorEarlyDecision)) {
             const thirdHeadingStart = headingMatches[2]?.index ?? content.length;
             const earlyBody = bodyStart >= 0 ? content.slice(bodyStart, thirdHeadingStart) : "";
             generatorEarlyAnchorHits = generatorAnchors.filter((anchor) => earlyBody.includes(anchor)).length;
             if (generatorEarlyAnchorHits !== generatorAnchorCount) {
-              errors.push("声明生成器需要前置，但正文生成器锚点没有全部出现在前两个一级标题内");
+              errors.push("宣告生成器需要前置，但正文生成器錨點沒有全部出現在前兩個一級標題內");
             }
           }
         } else if (/^否/.test(generatorExists)) {
@@ -534,8 +534,8 @@ export function validate(content: string, file: string, coverage?: string): Resu
 
         const frontstage = [...coverage.matchAll(/^- \[frontstage\]\s+.+$/gm)];
         frontstageCount = frontstage.length;
-        const frontstageNames = frontstage.map((item) => segmentField(item[0], "名称"));
-        const frontstageResponsibilities = frontstage.map((item) => segmentField(item[0], "唯一职责"));
+        const frontstageNames = frontstage.map((item) => segmentField(item[0], "名稱"));
+        const frontstageResponsibilities = frontstage.map((item) => segmentField(item[0], "唯一職責"));
         frontstageCompleteCount = frontstage.filter((item) =>
           frontstageFields.every((field) => substantive(segmentField(item[0], field))),
         ).length;
@@ -547,26 +547,26 @@ export function validate(content: string, file: string, coverage?: string): Resu
         ))];
 
         if (/^是/.test(currentSupport) && frontstageCount === 0) {
-          errors.push("覆盖记录版本 2 必须声明至少 1 个 [frontstage] 前台载体");
+          errors.push("覆蓋記錄版本 2 必須宣告至少 1 個 [frontstage] 前臺載體");
         } else if (frontstageCompleteCount !== frontstageCount) {
-          errors.push("前台载体必须填完名称、唯一职责、设置或起点、结果或后果、改变的关系与下一问");
+          errors.push("前臺載體必須填完名稱、唯一職責、設定或起點、結果或後果、改變的關係與下一問");
         }
         if (frontstageMissingInBody.length > 0) {
-          errors.push(`这些前台载体没有出现在正文：${frontstageMissingInBody.join("、")}`);
+          errors.push(`這些前臺載體沒有出現在正文：${frontstageMissingInBody.join("、")}`);
         }
         if (frontstageDuplicateResponsibilities.length > 0) {
-          errors.push(`前台载体的唯一职责不能重复：${frontstageDuplicateResponsibilities.join("、")}`);
+          errors.push(`前臺載體的唯一職責不能重複：${frontstageDuplicateResponsibilities.join("、")}`);
         }
       }
 
-      if (substantive(currentSupport) && materialGrade !== "完整拆书" && requiredWholeBookAnchors.length < 1) {
-        errors.push("初拆或假设版也必须声明至少 1 个材料真正支持的整书锚点，精神内核不能只剩通用主题");
+      if (substantive(currentSupport) && materialGrade !== "完整拆書" && requiredWholeBookAnchors.length < 1) {
+        errors.push("初拆或假設版也必須宣告至少 1 個材料真正支援的整書錨點，精神核心不能只剩通用主題");
       }
 
-      if (materialGrade === "完整拆书") {
-        const authorFields = ["作者一直在追问什么", "作者用什么材料或经历逼近", "最终改变了什么判断"]
+      if (materialGrade === "完整拆書") {
+        const authorFields = ["作者一直在追問什麼", "作者用什麼材料或經歷逼近", "最終改變了什麼判斷"]
           .filter((field) => substantive(lineField(coverage, field))).length;
-        const legacyAuthorFields = ["问题", "对象", "方法"]
+        const legacyAuthorFields = ["問題", "物件", "方法"]
           .filter((field) => substantive(lineField(coverage, field))).length;
         const zones = ["starting-point", "pressure", "revision", "boundary"];
         const legacyZones = ["question", "setup", "mechanism", "boundary"];
@@ -575,10 +575,10 @@ export function validate(content: string, file: string, coverage?: string): Resu
         coverageZones = Math.max(currentZoneCount, legacyZoneCount);
         const candidates = [...coverage.matchAll(/^- \[candidate\]\s+.+$/gm)];
         coverageCandidateCount = candidates.length;
-        const candidateFields = ["名称", "位置", "解决的问题", "与其他部件的关系", "决定", "删除测试"];
+        const candidateFields = ["名稱", "位置", "解決的問題", "與其他部件的關係", "決定", "刪除測試"];
         const completeCandidates = candidates.filter((candidate) =>
           candidateFields.every((field) => substantive(segmentField(candidate[0], field)))
-          && /决定[：:]\s*(?:保留|合并|删除)(?:｜|\||$)/.test(candidate[0]),
+          && /決定[：:]\s*(?:保留|合併|刪除)(?:｜|\||$)/.test(candidate[0]),
         ).length;
         coverageLoopFields = legacyCoverageLoopFields.filter((field) => substantive(lineField(coverage, field))).length;
         coverageConcretizationFields = legacyConcretizationFields.filter((field) => substantive(lineField(coverage, field))).length;
@@ -591,40 +591,40 @@ export function validate(content: string, file: string, coverage?: string): Resu
           .filter((field) => substantive(lineField(coverage, field))).length;
         coverageLegacyNarrativeSelectionFields = legacyNarrativeSelectionFields
           .filter((field) => substantive(lineField(coverage, field))).length;
-        const challengeFields = ["当前理解", "反证", "处理"].filter((field) => substantive(lineField(coverage, field))).length;
+        const challengeFields = ["當前理解", "反證", "處理"].filter((field) => substantive(lineField(coverage, field))).length;
         const legacyFullNarrativeComplete = coverageLoopFields === legacyCoverageLoopFields.length
           && coverageConcretizationFields === legacyConcretizationFields.length;
 
         if (coverageWholeBookIdentityFields !== wholeBookIdentityFields.length) {
-          errors.push("完整拆书的覆盖记录没有填完整书身份：书的形态、字面对象、起点变化终点、必要主线、共同关系、正文锚点、三十秒复述与可迁移性反测缺一不可");
+          errors.push("完整拆書的覆蓋記錄沒有填完整書身份：書的形態、字面物件、起點變化終點、必要主線、共同關係、正文錨點、三十秒複述與可遷移性反測缺一不可");
         }
         if (requiredWholeBookAnchors.length < 3) {
-          errors.push(`完整拆书必须声明至少 3 个正文整书锚点，当前为 ${requiredWholeBookAnchors.length}`);
+          errors.push(`完整拆書必須宣告至少 3 個正文整書錨點，當前為 ${requiredWholeBookAnchors.length}`);
         }
         if (genericWholeBookAnchorHits.length > 0) {
-          errors.push(`整书锚点过于通用，不能唯一指向这本书：${genericWholeBookAnchorHits.join("、")}`);
+          errors.push(`整書錨點過於通用，不能唯一指向這本書：${genericWholeBookAnchorHits.join("、")}`);
         }
         if (missingWholeBookAnchors.length > 0) {
-          errors.push(`这些整书锚点没有出现在正文：${missingWholeBookAnchors.join("、")}`);
+          errors.push(`這些整書錨點沒有出現在正文：${missingWholeBookAnchors.join("、")}`);
         }
         if (authorFields !== 3 && legacyAuthorFields !== 3) {
-          errors.push("完整拆书的覆盖记录没有填完作者的追问、逼近材料与最终判断");
+          errors.push("完整拆書的覆蓋記錄沒有填完作者的追問、逼近材料與最終判斷");
         }
-        if (coverageZones !== 4) errors.push("完整拆书的覆盖记录没有填完起点、压力、改写与边界四类证据的位置");
+        if (coverageZones !== 4) errors.push("完整拆書的覆蓋記錄沒有填完起點、壓力、改寫與邊界四類證據的位置");
         if (candidates.length < 5) {
-          errors.push(`完整拆书的覆盖记录必须有至少 5 个候选部件，当前为 ${candidates.length}`);
+          errors.push(`完整拆書的覆蓋記錄必須有至少 5 個候選部件，當前為 ${candidates.length}`);
         } else if (completeCandidates !== candidates.length) {
-          errors.push("完整拆书的候选部件必须填完名称、位置、作用、关系、决定与删除测试");
+          errors.push("完整拆書的候選部件必須填完名稱、位置、作用、關係、決定與刪除測試");
         }
         if (substantive(understandingPathSupport)
             && coverageBookSelectionFields !== bookSelectionFields.length
             && !legacyFullNarrativeComplete) {
-          errors.push("完整拆书的覆盖记录没有填完贯穿张力、必要转折、正文取舍、后台留存与转折连接");
+          errors.push("完整拆書的覆蓋記錄沒有填完貫穿張力、必要轉折、正文取捨、後臺留存與轉折連線");
         }
         if (coverageNarrativeContinuityFields !== narrativeContinuityFields.length) {
-          errors.push("完整拆书的覆盖记录没有填完叙事连续性门：开篇真实问题、转折链、换场必要性、换序测试与摘句拼接反测缺一不可");
+          errors.push("完整拆書的覆蓋記錄沒有填完敘事連續性門：開篇真實問題、轉折鏈、換場必要性、換序測試與摘句拼接反測缺一不可");
         }
-        if (challengeFields !== 3) errors.push("完整拆书的覆盖记录没有完成当前理解、反证与处理");
+        if (challengeFields !== 3) errors.push("完整拆書的覆蓋記錄沒有完成當前理解、反證與處理");
       }
     }
   }
@@ -647,22 +647,22 @@ export function validate(content: string, file: string, coverage?: string): Resu
   const maxDiagramWidth = Math.max(0, ...diagramWidths);
   const maxTableWidth = Math.max(0, ...tableWidths);
   diagramWidths.forEach((width, index) => {
-    if (width > 80) errors.push(`第 ${index + 1} 个 ASCII 图宽度 ${width}，超过 80`);
+    if (width > 80) errors.push(`第 ${index + 1} 個 ASCII 圖寬度 ${width}，超過 80`);
   });
   tableWidths.forEach((width, index) => {
-    if (width > 80) errors.push(`第 ${index + 1} 个表格宽度 ${width}，超过 80`);
+    if (width > 80) errors.push(`第 ${index + 1} 個表格寬度 ${width}，超過 80`);
   });
   if (["2", "3"].includes(coverageContractVersion) && /^是/.test(representationRequired)) {
-    if (exampleBlocks.length + tableBlocks.length === 0) errors.push("覆盖记录声明需要视觉表示，正文必须至少有 1 个实际 example 图块或表格");
+    if (exampleBlocks.length + tableBlocks.length === 0) errors.push("覆蓋記錄宣告需要視覺表示，正文必須至少有 1 個實際 example 圖塊或表格");
     // Version 2's carrier is readable as a recorded field, never proof of an explanation.
-    if (coverageContractVersion === "2" && !substantive(representationRunAnchor)) errors.push("覆盖记录声明需要视觉表示时，必须写明图后运行载体");
+    if (coverageContractVersion === "2" && !substantive(representationRunAnchor)) errors.push("覆蓋記錄宣告需要視覺表示時，必須寫明圖後執行載體");
   }
 
   const bodyChars = [...narrativeBody.replace(/\s/g, "")].length;
 
   return {
     ok: errors.length === 0,
-    assessment_scope: "结构与记录完整性；不证明来源准确、阅读连续或理解效果",
+    assessment_scope: "結構與記錄完整性；不證明來源準確、閱讀連續或理解效果",
     semantic_assessment: "not_performed",
     file,
     errors,
@@ -754,7 +754,7 @@ function main(): never {
   }
 
   if (coverageFlag >= 0 && !coveragePath) {
-    console.error("--coverage 后必须提供覆盖记录路径");
+    console.error("--coverage 後必須提供覆蓋記錄路徑");
     process.exit(2);
   }
 

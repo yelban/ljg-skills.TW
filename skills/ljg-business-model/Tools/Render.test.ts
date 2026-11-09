@@ -3,55 +3,55 @@ import { BLOCKS, renderModel, validateModel } from "./Render";
 import example from "../Example.json";
 
 const copy = () => structuredClone(example);
-describe("ljg-business-model 内容与输出边界", () => {
-  test("完整案例包含经典九模块、来源与署名", () => {
+describe("ljg-business-model 內容與輸出邊界", () => {
+  test("完整案例包含經典九模組、來源與署名", () => {
     const html = renderModel(copy());
     expect((html.match(/data-block="/g) ?? []).length).toBe(9);
     for (const b of BLOCKS) expect(html).toContain(`data-block="${b.key}"`);
     expect(html).toContain("Strategyzer.com");
     expect(html).toContain("CC BY-SA 3.0");
   });
-  test("九格允许空白且全部显式标记待补充", () => {
+  test("九格允許空白且全部顯式標記待補充", () => {
     const model = copy();
     for (const b of BLOCKS) (model.blocks[b.key] as unknown[]) = [];
     model.sources = [];
     const html = renderModel(model);
     expect((html.match(/class="item unknown"/g) ?? []).length).toBe(9);
-    expect(html).toContain("9 项待补充");
+    expect(html).toContain("9 項待補充");
   });
-  test("缺失模块、Lean Canvas 替换、超载文本均被拒绝", () => {
+  test("缺失模組、Lean Canvas 替換、超載文本均被拒絕", () => {
     const model: any = copy();
     delete model.blocks.key_resources;
     expect(() => validateModel(model)).toThrow("key_resources");
     const lean: any = copy(); lean.blocks.problem = [];
     expect(() => validateModel(lean)).toThrow("problem");
-    const long = copy(); long.blocks.key_partners[0].text = "长".repeat(91);
+    const long = copy(); long.blocks.key_partners[0].text = "長".repeat(91);
     expect(() => validateModel(long)).toThrow("90");
   });
-  test("事实引用、推测依据与客户对应不可静默缺失", () => {
+  test("事實引用、推測依據與客戶對應不可靜默缺失", () => {
     const missingRef: any = copy(); missingRef.blocks.key_partners[0].source_refs = [];
     expect(() => validateModel(missingRef)).toThrow("source_refs");
     const wrongRef: any = copy(); wrongRef.blocks.key_partners[0].source_refs = ["S2"];
-    expect(() => validateModel(wrongRef)).toThrow("来源");
+    expect(() => validateModel(wrongRef)).toThrow("來源");
     const inferred: any = copy(); delete inferred.blocks.value_propositions[1].reason;
     expect(() => validateModel(inferred)).toThrow("reason");
     const segment: any = copy(); segment.blocks.customer_segments[0].segment = "C9";
-    expect(() => validateModel(segment)).toThrow("客户编号");
+    expect(() => validateModel(segment)).toThrow("客戶編號");
   });
-  test("输入文字不会成为可执行 HTML 或属性", () => {
+  test("輸入文字不會成為可執行 HTML 或屬性", () => {
     const model = copy(); model.blocks.key_partners[0].text = '<img src=x onerror="alert(1)">';
     const html = renderModel(model);
     expect(html).toContain("&lt;img src=x onerror=&quot;alert(1)&quot;&gt;");
     expect(html).not.toContain('<img src=x');
-    expect(html).not.toContain("虚构案例：社区咖啡店提供");
+    expect(html).not.toContain("虛構案例：社群咖啡店提供");
   });
-  test("支持多个客户群且保留对应标记", () => {
-    const model = copy(); model.segments.push({ id: "C2", label: "团队采购者" });
+  test("支援多個客戶群且保留對應標記", () => {
+    const model = copy(); model.segments.push({ id: "C2", label: "團隊採購者" });
     model.blocks.customer_segments[0].segment = "C2";
     const html = renderModel(model);
     expect(html).toContain('class="segment s1">C2</span>');
   });
-  test("不允许错误日期或不可读的过小画布", () => {
+  test("不允許錯誤日期或不可讀的過小畫布", () => {
     const model = copy(); model.date = "2026-02-30";
     expect(() => validateModel(model)).toThrow();
     expect(() => renderModel(copy(), 600)).toThrow("width");

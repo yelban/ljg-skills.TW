@@ -1,45 +1,45 @@
 ---
 name: ljg-qa
-description: 信息提问机。给一篇文章/论文/书，把核心观点抽成 Q-A 对——Question 切要害，不教科书；Answer 简洁清晰，有形式化收口，逻辑链完整。读者顺 Q 链走过，每个 A 砸下一枚钉子，复现作者整套推理。Use when user says '问答', 'Q&A', 'QA', '提问', '抽取问题', '/ljg-qa', or shares an article/paper/book and asks for Q-A extraction. Triggers when the user wants ideas extracted not as a summary but as a sequence of incisive questions with answered. NOT FOR FAQ generation, glossary creation, or comprehension quizzes — this is intellectual scaffolding, not study aids.
+description: 資訊提問機。給一篇文章/論文/書，把核心觀點抽成 Q-A 對——Question 切要害，不教科書；Answer 簡潔清晰，有形式化收口，邏輯鏈完整。讀者順 Q 鏈走過，每個 A 砸下一枚釘子，復現作者整套推理。Use when user says '問答', 'Q&A', 'QA', '提問', '抽取問題', '/ljg-qa', or shares an article/paper/book and asks for Q-A extraction. Triggers when the user wants ideas extracted not as a summary but as a sequence of incisive questions with answered. NOT FOR FAQ generation, glossary creation, or comprehension quizzes — this is intellectual scaffolding, not study aids.
 user_invocable: true
 ---
 
-# ljg-qa: 问答提取
+# ljg-qa: 問答提取
 
-读一份东西，把它的思想拆成「为什么—怎么—边界」的问答链。
+讀一份東西，把它的思想拆成「為什麼—怎麼—邊界」的問答鏈。
 
-读者顺着 Q 走过去，每个 A 砸下来一枚钉子。
+讀者順著 Q 走過去，每個 A 砸下來一枚釘子。
 
 ## 你不是
 
-- 不是 FAQ 生成器（"什么是 X"——读者一看就跳过）
-- 不是摘要换皮（把段落拆成"问/答"两半还是摘要）
-- 不是知识点列表（孤立的事实碰撞不出洞察）
-- 不是阅读理解题（提问不是为了考读者，是为了切中作者）
+- 不是 FAQ 生成器（"什麼是 X"——讀者一看就跳過）
+- 不是摘要換皮（把段落拆成"問/答"兩半還是摘要）
+- 不是知識點列表（孤立的事實碰撞不出洞察）
+- 不是閱讀理解題（提問不是為了考讀者，是為了切中作者）
 
 ## 你是
 
-把作者的论证骨架翻出来，每根骨头长成一个尖锐的问题。读者沿着 Q 链读，能复现作者的整套思路——而不是被告知结论。
+把作者的論證骨架翻出來，每根骨頭長成一個尖銳的問題。讀者沿著 Q 鏈讀，能復現作者的整套思路——而不是被告知結論。
 
-## 三条铁律
+## 三條鐵律
 
-1. *Q 切要害* —— 问的是「为什么这个解法成立」「它跟另一种做法差在哪」「它的代价是什么」「它在哪里失效」，不是「它定义是什么」。一个 Q 必须能让答案承重，不能被一句话敷衍过去。
+1. *Q 切要害* —— 問的是「為什麼這個解法成立」「它跟另一種做法差在哪」「它的代價是什麼」「它在哪裡失效」，不是「它定義是什麼」。一個 Q 必須能讓答案承重，不能被一句話敷衍過去。
 
-2. *A 有形式化收口* —— 每个 A 严格四段：*结论*（一句话）+ *形式化*（用文字 + 简单符号把思想压成一行可视关系，如 `A = B + C`、`旧: X → 新: Y`）+ *论证步*（怎么想到的）+ *边界*（不成立的条件）。形式化是"思想的几何"，让读者一眼看出关系。
+2. *A 有形式化收口* —— 每個 A 嚴格四段：*結論*（一句話）+ *形式化*（用文字 + 簡單符號把思想壓成一行可視關係，如 `A = B + C`、`舊: X → 新: Y`）+ *論證步*（怎麼想到的）+ *邊界*（不成立的條件）。形式化是"思想的幾何"，讓讀者一眼看出關係。
 
-3. *Q 链有方向* —— Q 之间不是并列罗列，是「Q1 答完→Q2 自然冒出来」。读者读完整串 Q，相当于走了一遍作者的推理路径。
+3. *Q 鏈有方向* —— Q 之間不是並列羅列，是「Q1 答完→Q2 自然冒出來」。讀者讀完整串 Q，相當於走了一遍作者的推理路徑。
 
 ## 工作流
 
-按 `Workflows/Extract.md` 的步骤执行。
+按 `Workflows/Extract.md` 的步驟執行。
 
-## 设计参考
+## 設計參考
 
-Q 怎么提、A 怎么收口的具体模式见 `References/QuestionDesign.md`。
+Q 怎麼提、A 怎麼收口的具體模式見 `References/QuestionDesign.md`。
 
 ## Voice Notification
 
-执行 workflow 时：
+執行 workflow 時：
 
 ```bash
 curl -s -X POST http://localhost:31337/notify \
@@ -48,17 +48,17 @@ curl -s -X POST http://localhost:31337/notify \
   > /dev/null 2>&1 &
 ```
 
-输出文本：
+輸出文本：
 
 ```
 Running **Extract** in **ljg-qa**...
 ```
 
-## 输出
+## 輸出
 
-- 格式：Markdown（`**bold**`，禁 Org 语法）
-- 路径：`~/Documents/notes/`
-- denote 文件名：`{YYYYMMDDTHHMMSS}--qa-{核心主题 5-10 字}__qa.md`
+- 格式：Markdown（`**bold**`，禁 Org 語法）
+- 路徑：`~/Documents/notes/`
+- denote 檔名：`{YYYYMMDDTHHMMSS}--qa-{核心主題 5-10 字}__qa.md`
 
 ## Examples
 
@@ -66,33 +66,33 @@ Running **Extract** in **ljg-qa**...
 
 ```
 User: /ljg-qa https://example.com/article
-→ WebFetch 获取
-→ 找观点骨架 → 设计 Q 链 → 写 A 三段
-→ markdown 输出到 ~/Documents/notes/
+→ WebFetch 獲取
+→ 找觀點骨架 → 設計 Q 鏈 → 寫 A 三段
+→ markdown 輸出到 ~/Documents/notes/
 ```
 
-*Example 2: 论文 PDF*
+*Example 2: 論文 PDF*
 
 ```
 User: /ljg-qa ~/Downloads/paper.pdf
-→ Read PDF（注意 pages 参数）
-→ Q 抽出方法的「为什么」「代价」「边界」
-→ 输出 markdown
+→ Read PDF（注意 pages 引數）
+→ Q 抽出方法的「為什麼」「代價」「邊界」
+→ 輸出 markdown
 ```
 
 *Example 3: 直接文本*
 
 ```
-User: 把这段抽成 Q-A: [text]
-→ 跳过获取，直接抽
-→ 输出
+User: 把這段抽成 Q-A: [text]
+→ 跳過獲取，直接抽
+→ 輸出
 ```
 
 ## Gotchas
 
-- *AI 默认会写「什么是 X」型问题* —— 教科书腔。生成后扫一遍，凡是 Q 能用一句定义打发的，重写
-- *AI 默认会让 A 散掉* —— 没有结论句、没有边界、写成一段散文。每个 A 必须严格四段（结论 / 形式化 / 步骤 / 边界）
-- *AI 默认会把「形式化」写成数学公式* —— 不是。形式化是用文字 + → = ≠ + × 这类符号压一行可视的关系，比如 `通才 = 协调，专才 = 干活`。是"思想的几何"，不是"数学的形式"
-- *AI 默认按章节顺序提问* —— 这是抄目录，不是抽思想。Q 链应该按论证依赖关系排，不按出现顺序
-- *AI 默认会把 Q-A 理解成「问答游戏」* —— 不是。这里 Q 是凿子，A 是钉子。装饰性的轻问题禁止
-- *AI 默认会在 A 里堆术语保平安* —— 用术语不算回答。把术语翻译成具体动作和具体物件，否则 A 没承重
+- *AI 預設會寫「什麼是 X」型問題* —— 教科書腔。生成後掃一遍，凡是 Q 能用一句定義打發的，重寫
+- *AI 預設會讓 A 散掉* —— 沒有結論句、沒有邊界、寫成一段散文。每個 A 必須嚴格四段（結論 / 形式化 / 步驟 / 邊界）
+- *AI 預設會把「形式化」寫成數學公式* —— 不是。形式化是用文字 + → = ≠ + × 這類符號壓一行可視的關係，比如 `通才 = 協調，專才 = 幹活`。是"思想的幾何"，不是"數學的形式"
+- *AI 預設按章節順序提問* —— 這是抄目錄，不是抽思想。Q 鏈應該按論證依賴關係排，不按出現順序
+- *AI 預設會把 Q-A 理解成「問答遊戲」* —— 不是。這裡 Q 是鑿子，A 是釘子。裝飾性的輕問題禁止
+- *AI 預設會在 A 裡堆術語保平安* —— 用術語不算回答。把術語翻譯成具體動作和具體物件，否則 A 沒承重

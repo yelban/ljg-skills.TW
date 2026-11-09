@@ -43,36 +43,36 @@ for (const file of activeFiles) {
 const skill = await text(join(root, "SKILL.md"));
 requireThat(/version:\s*"\d+\.\d+\.\d+"/.test(skill), "SKILL version is not valid semver");
 requireThat(skill.includes("references/image-generation.md"), "shared protocol missing from SKILL route");
-requireThat(skill.includes("`-l`（默认）"), "default long mode changed");
+requireThat(skill.includes("`-l`（預設）"), "default long mode changed");
 for (const term of [
-  "## `-f` 字体优先级",
+  "## `-f` 字型優先順序",
   "KingHwa_OldSong",
   "Songti SC",
-  "不得为了制卡联网下载",
-  "实际解析到 `KingHwa_OldSong`",
-  "所有编辑性文字",
+  "不得為了制卡聯網下載",
+  "實際解析到 `KingHwa_OldSong`",
+  "所有編輯性文字",
   "title、headline",
-  "代码与来源行的等宽字体是唯一例外",
+  "程式碼與來源行的等寬字型是唯一例外",
 ]) {
   requireThat(skill.includes(term), `SKILL full-font contract missing: ${term}`);
 }
 for (const term of [
-  "## `-f` 长文阅读面",
+  "## `-f` 長文閱讀面",
   "白底黑字",
   "#FFFFFF",
   "#171717",
-  "不小于 40px",
+  "不小於 40px",
   "行高保持 1.9",
-  "有效宽度约 896px",
+  "有效寬度約 896px",
 ]) {
   requireThat(skill.includes(term), `SKILL full-readability contract missing: ${term}`);
 }
 
 const shared = await text(join(root, "references", "image-generation.md"));
-for (const field of ["源判断", "核心冲突", "视觉动词", "承载物", "文字安全区"]) {
+for (const field of ["源判斷", "核心衝突", "視覺動詞", "承載物", "文字安全區"]) {
   requireThat(shared.includes(field), `motif field missing: ${field}`);
 }
-for (const term of ["系列圣经", "先样图，后批量", "No readable text", "SHA-256", "alt"]) {
+for (const term of ["系列聖經", "先樣圖，後批次", "No readable text", "SHA-256", "alt"]) {
   requireThat(shared.includes(term), `shared protocol term missing: ${term}`);
 }
 
@@ -81,7 +81,7 @@ for (const mode of modeNames) {
   if (mode === "full") {
     requireThat(body.includes("references/taste.md"), "full mode does not read taste contract");
     requireThat(body.includes("assets/full_template.html"), "full mode does not read full template");
-    requireThat(body.includes("生成图数量为 `0`"), "full mode generated-image budget is not zero");
+    requireThat(body.includes("生成圖數量為 `0`"), "full mode generated-image budget is not zero");
   } else {
     requireThat(body.includes("references/image-generation.md"), `mode does not read shared protocol: ${mode}`);
   }
@@ -90,16 +90,16 @@ for (const mode of modeNames) {
 
 const longMode = await text(join(root, "references", "mode-long.md"));
 for (const term of [
-  "静线叙事",
+  "靜線敘事",
   "3 秒",
   "15 秒",
   "60 秒",
-  "原状 → 压力 → 变化 → 余波",
-  "问题 → 机制 → 证据 → 边界 → 决策",
-  "整卡缩略",
-  "非专属视觉属性",
-  "无论参照对象身份",
-  "不写创作者姓名",
+  "原狀 → 壓力 → 變化 → 餘波",
+  "問題 → 機制 → 證據 → 邊界 → 決策",
+  "整卡縮略",
+  "非專屬視覺屬性",
+  "無論參照物件身份",
+  "不寫創作者姓名",
   ".closing-judgment",
 ]) {
   requireThat(longMode.includes(term), `long-mode contract missing: ${term}`);
@@ -117,7 +117,7 @@ for (const name of ["long", "comic"]) {
 const whiteboardMode = await text(join(root, "references", "mode-whiteboard.md"));
 for (const term of [
   "`0–4`",
-  "论证账本",
+  "論證賬本",
   "source_sections",
   "must_render",
   ".reasoning-spine",
@@ -127,16 +127,16 @@ for (const term of [
   "data-from",
   "data-to",
   "branch-return",
-  "没有顶部 hero 图槽",
+  "沒有頂部 hero 圖槽",
   "data-source-claim",
   "prepare-whiteboard-source.ts",
-  "精确来源快照",
-  "独立清单",
+  "精確來源快照",
+  "獨立清單",
   "visibility: implicit",
   "visibility: visible",
   "`residue`",
   "transition-sentence",
-  "流水式衔接的删除测试",
+  "流水式銜接的刪除測試",
   "relation-arrowhead",
   '`question`',
   '`conclusion`',
@@ -260,30 +260,30 @@ for (const contract of [
 
 const fullMode = await text(join(root, "references", "mode-full.md"));
 for (const term of [
-  "逐块只出现一次",
-  "字符与先后顺序不变",
+  "逐塊只出現一次",
+  "字元與先後順序不變",
   "source-ledger.json",
   "data-source-block",
-  "改单字",
-  "调序",
-  "漏块",
-  "重复块",
+  "改單字",
+  "調序",
+  "漏塊",
+  "重複塊",
   "assets/verify-full-text.ts",
-  "纯白页面",
+  "純白頁面",
   "白底黑字",
   "#FFFFFF",
   "#171717",
   "40px",
   "1.9",
   "15:1",
-  "暗朱红",
+  "暗硃紅",
   "KingHwa_OldSong",
-  "浏览器自动回退",
-  "不得联网下载",
+  "瀏覽器自動回退",
+  "不得聯網下載",
   "platform font",
-  "缺失首选字体本身不是失败",
-  "title、headline、章节标题",
-  "`h1` title 与 `h2` headline",
+  "缺失首選字型本身不是失敗",
+  "title、headline、章節標題",
+  "`h1` title 與 `h2` headline",
   "唯一例外",
 ]) {
   requireThat(fullMode.includes(term), `full-mode contract missing: ${term}`);

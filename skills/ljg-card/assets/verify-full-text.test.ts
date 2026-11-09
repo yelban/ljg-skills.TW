@@ -5,9 +5,9 @@ import { tmpdir } from "node:os";
 import { compareBlockLedgers, type FullTextBlock } from "./verify-full-text";
 
 const expected: FullTextBlock[] = [
-  { id: "b001", text: "原稿标题" },
-  { id: "b002", text: "第一段原文，标点与空格都保留。" },
-  { id: "b003", text: "最后一句。" },
+  { id: "b001", text: "原稿標題" },
+  { id: "b002", text: "第一段原文，標點與空格都保留。" },
+  { id: "b003", text: "最後一句。" },
 ];
 
 describe("compareBlockLedgers", () => {
@@ -17,7 +17,7 @@ describe("compareBlockLedgers", () => {
 
   test("rejects a one-character rewrite", () => {
     const actual = structuredClone(expected);
-    actual[1].text = "第一段原文，标点与空格要保留。";
+    actual[1].text = "第一段原文，標點與空格要保留。";
     expect(compareBlockLedgers(expected, actual)).toHaveLength(1);
   });
 
@@ -45,7 +45,7 @@ describe("verify-full-text CLI", () => {
     fixtureDir = await mkdtemp(join(tmpdir(), "ljg-card-full-text-test-"));
     sourcePath = join(fixtureDir, "source.txt");
     ledgerPath = join(fixtureDir, "ledger.json");
-    const source = "原稿标题\n\n第一段原文。\n";
+    const source = "原稿標題\n\n第一段原文。\n";
     const sourceHash = new Bun.CryptoHasher("sha256")
       .update(new TextEncoder().encode(source))
       .digest("hex");
@@ -57,18 +57,18 @@ describe("verify-full-text CLI", () => {
         version: 1,
         source_sha256: sourceHash,
         blocks: [
-          { id: "b001", text: "原稿标题" },
+          { id: "b001", text: "原稿標題" },
           { id: "b002", text: "第一段原文。" },
         ],
       }),
     );
 
     const documents: Record<string, string> = {
-      exact: '<main class="full-document"><h1 data-source-block="b001">原稿标题</h1><p data-source-block="b002">第一段原文。</p></main>',
-      rewrite: '<main class="full-document"><h1 data-source-block="b001">原稿标题</h1><p data-source-block="b002">第一段改文。</p></main>',
-      reordered: '<main class="full-document"><p data-source-block="b002">第一段原文。</p><h1 data-source-block="b001">原稿标题</h1></main>',
-      missing: '<main class="full-document"><h1 data-source-block="b001">原稿标题</h1></main>',
-      duplicated: '<main class="full-document"><h1 data-source-block="b001">原稿标题</h1><p data-source-block="b002">第一段原文。</p><p data-source-block="b002">第一段原文。</p></main>',
+      exact: '<main class="full-document"><h1 data-source-block="b001">原稿標題</h1><p data-source-block="b002">第一段原文。</p></main>',
+      rewrite: '<main class="full-document"><h1 data-source-block="b001">原稿標題</h1><p data-source-block="b002">第一段改文。</p></main>',
+      reordered: '<main class="full-document"><p data-source-block="b002">第一段原文。</p><h1 data-source-block="b001">原稿標題</h1></main>',
+      missing: '<main class="full-document"><h1 data-source-block="b001">原稿標題</h1></main>',
+      duplicated: '<main class="full-document"><h1 data-source-block="b001">原稿標題</h1><p data-source-block="b002">第一段原文。</p><p data-source-block="b002">第一段原文。</p></main>',
     };
     for (const [name, body] of Object.entries(documents)) {
       await Bun.write(join(fixtureDir, `${name}.html`), `<!DOCTYPE html><html><body>${body}</body></html>`);

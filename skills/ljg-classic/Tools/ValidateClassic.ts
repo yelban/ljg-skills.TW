@@ -243,7 +243,7 @@ async function validateHtml(
     "data-interpretation",
     escapeHtml(spec.book),
     escapeHtml(spec.chapter),
-    "章节解读",
+    "章節解讀",
     ...spec.interpretation.map(escapeHtml),
   ];
   for (const fragment of requiredFragments) {

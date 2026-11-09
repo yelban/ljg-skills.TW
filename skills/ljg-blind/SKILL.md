@@ -1,53 +1,53 @@
 ---
 name: ljg-blind
-description: 盲区扫描——读昨天你与 AI 的全部对话，照出暴露的思维盲区（不是不懂的知识，是让某类真相一直看不见的思维习惯），再从微信读书挑一本书的一章精准补上，落成一篇完整分析笔记。Use when user says '扫盲区', '盲区', '照盲区', '看看我的思维盲区', '我昨天想漏了什么', 'blind spot', 'ljg-blind', '/ljg-blind', or wants yesterday's AI conversations analyzed for cognitive blind spots plus a targeted weread chapter to fill them. 可选参数：传一个日期(YYYY-MM-DD)扫那天而非昨天。NOT FOR 纵向深钻一个观点（用 ljg-think）、一个领域降秩（用 ljg-rank）、陪读一篇文本（用 ljg-read）、找一个领域的约束（用 ljg-constraint）。
+description: 盲區掃描——讀昨天你與 AI 的全部對話，照出暴露的思維盲區（不是不懂的知識，是讓某類真相一直看不見的思維習慣），再從微信讀書挑一本書的一章精準補上，落成一篇完整分析筆記。Use when user says '掃盲區', '盲區', '照盲區', '看看我的思維盲區', '我昨天想漏了什麼', 'blind spot', 'ljg-blind', '/ljg-blind', or wants yesterday's AI conversations analyzed for cognitive blind spots plus a targeted weread chapter to fill them. 可選引數：傳一個日期(YYYY-MM-DD)掃那天而非昨天。NOT FOR 縱向深鑽一個觀點（用 ljg-think）、一個領域降秩（用 ljg-rank）、陪讀一篇文本（用 ljg-read）、找一個領域的約束（用 ljg-constraint）。
 user_invocable: true
 ---
 
-# 盲区扫描
+# 盲區掃描
 
-读你昨天跟 AI 的全部对话，照出那个你自己看不见的思维盲区，从微信读书点亮补它的一章。
+讀你昨天跟 AI 的全部對話，照出那個你自己看不見的思維盲區，從微信讀書點亮補它的一章。
 
-## 盲区是什么
+## 盲區是什麼
 
-盲区不是知识缺口。不是"没读过某本书""不知道某个事实"——那种缺口，查一下就补上了。
+盲區不是知識缺口。不是"沒讀過某本書""不知道某個事實"——那種缺口，查一下就補上了。
 
-盲区是一种结构性的思维习惯，它让某一类真相对你**系统性地不可见**。你不是想不到，是这个习惯让你压根没往那个方向看。它藏在你怎么想事情的方式里，不藏在你想的内容里。
+盲區是一種結構性的思維習慣，它讓某一類真相對你**系統性地不可見**。你不是想不到，是這個習慣讓你壓根沒往那個方向看。它藏在你怎麼想事情的方式裡，不藏在你想的內容裡。
 
-所以证据不在"他说错了什么"。在——他没往哪看，他在哪绕了，他默认了什么却从没检。
+所以證據不在"他說錯了什麼"。在——他沒往哪看，他在哪繞了，他默認了什麼卻從沒檢。
 
-## 五种盲区信号
+## 五種盲區訊號
 
-从昨天的对话里找这五种。每一种都要落到具体的话上，不能凭感觉。
+從昨天的對話裡找這五種。每一種都要落到具體的話上，不能憑感覺。
 
-1. **绕开点**——一个难题他打开了，又飞快合上。证据：问题抛出，转头换话题，或一句"这个先不管"滑过去。
-2. **空转框架**——反复换视角切同一个问题，没有一个落地。证据：一个问题被套上三四副框架，每副都浅尝辄止，最后没结论。
-3. **单一取景框**——一整天只调用一两副 f（逢事就"约束""进化""博弈"），没试过别的镜子。这是他最隐蔽的盲区：越趁手的 f，越挡住别的 f 能照见的东西。（继刚看世界 = f(x)，四轴是他默认的四副 f；正因为默认，才最该查他今天是不是又只用了其中一副。）
-4. **未检前提**——一个默认假设贯穿全程，他当硬约束在用，从没问过它是不是假墙。证据：某个"本来就该这样"的说法，反复出现却从未被他自己质疑。
-5. **相邻空缺**——从他问的东西反推，本该问、却没问的那个角落。不是凭空猜，是他自己的线索指向那儿。
+1. **繞開點**——一個難題他打開了，又飛快合上。證據：問題丟擲，轉頭換話題，或一句"這個先不管"滑過去。
+2. **空轉框架**——反覆換視角切同一個問題，沒有一個落地。證據：一個問題被套上三四副框架，每副都淺嘗輒止，最後沒結論。
+3. **單一取景框**——一整天只調用一兩副 f（逢事就"約束""進化""博弈"），沒試過別的鏡子。這是他最隱蔽的盲區：越趁手的 f，越擋住別的 f 能照見的東西。（繼剛看世界 = f(x)，四軸是他預設的四副 f；正因為預設，才最該查他今天是不是又只用了其中一副。）
+4. **未檢前提**——一個預設假設貫穿全程，他當硬約束在用，從沒問過它是不是假牆。證據：某個"本來就該這樣"的說法，反覆出現卻從未被他自己質疑。
+5. **相鄰空缺**——從他問的東西反推，本該問、卻沒問的那個角落。不是憑空猜，是他自己的線索指向那兒。
 
-## 选哪一个
+## 選哪一個
 
-从信号里挑 **1 个**作为今天的盲区。宁可一个说透，不要五个都点一遍——盲区的密度低于精度。判据三条：
+從訊號裡挑 **1 個**作為今天的盲區。寧可一個說透，不要五個都點一遍——盲區的密度低於精度。判據三條：
 
-- **杠杆**——补上它，下一步打开的可能性最多。
-- **真盲**——是他自己看不见的，不是知道了在拖的。
-- **对位 mission**——贴 M0（找新取景框）/ M1（求本质）。盲区若正好挡在他的主线上，优先。读 `${LIFEOS_DIR:-$HOME/.codex/LIFEOS}/USER/TELOS/PRINCIPAL_TELOS.md` 确认主线。
+- **槓桿**——補上它，下一步開啟的可能性最多。
+- **真盲**——是他自己看不見的，不是知道了在拖的。
+- **對位 mission**——貼 M0（找新取景框）/ M1（求本質）。盲區若正好擋在他的主線上，優先。讀 `${LIFEOS_DIR:-$HOME/.codex/LIFEOS}/USER/TELOS/PRINCIPAL_TELOS.md` 確認主線。
 
 ---
 
-## 操作步骤
+## 操作步驟
 
 ### 第一步 · 定日期
 
 ```bash
-# 默认昨天；用户传了 YYYY-MM-DD 就用那天（macOS BSD date）
+# 預設昨天；使用者傳了 YYYY-MM-DD 就用那天（macOS BSD date）
 target=${1:-$(date -v-1d +%Y-%m-%d)}
 ```
 
-### 第二步 · 捞当天的对话
+### 第二步 · 撈當天的對話
 
-会话文件在 `$HOME/.codex/sessions/YYYY/MM/DD/*.jsonl`。目录日期按本机时间记录 session 的开始日，行内 `timestamp` 是 UTC；因此同时扫目标日与前一日目录，再按本机日期过滤消息。只读取顶层 task 的 `response_item / message / user / input_text`，排除 `session_meta.payload.source.subagent` 存在的子 agent 会话，以及 harness 包装和本次调用自身：
+會話檔案在 `$HOME/.codex/sessions/YYYY/MM/DD/*.jsonl`。目錄日期按本機時間記錄 session 的開始日，行內 `timestamp` 是 UTC；因此同時掃目標日與前一日目錄，再按本機日期過濾訊息。只讀取頂層 task 的 `response_item / message / user / input_text`，排除 `session_meta.payload.source.subagent` 存在的子 agent 會話，以及 harness 包裝和本次呼叫自身：
 
 ```bash
 target=<上一步的日期>
@@ -61,7 +61,7 @@ for day_dir in "$previous_dir" "$target_dir"; do
   [ -d "$session_dir" ] || continue
   find "$session_dir" -type f -name '*.jsonl' -print0
 done | while IFS= read -r -d '' session_file; do
-  # Codex 将子 agent 与顶层 task 放在同一日期目录；从 session_meta 排除它们。
+  # Codex 將子 agent 與頂層 task 放在同一日期目錄；從 session_meta 排除它們。
   if jq -e 'select(.type=="session_meta") |
       (.payload.source | type == "object" and has("subagent"))' \
       "$session_file" >/dev/null 2>&1; then
@@ -81,7 +81,7 @@ done | while IFS= read -r -d '' session_file; do
         | .text] | join("\n")) as $text
     | select($text | length > 0)
     | select(($text | test("^(<recommended_plugins>|<environment_context>|<task-notification>)")) | not)
-    | select(($text | test("(?i)(ljg-blind|扫盲区)")) | not)
+    | select(($text | test("(?i)(ljg-blind|掃盲區)")) | not)
     | "[" + ($epoch | strflocaltime("%H:%M")) + "] " + $text
   ' "$session_file" 2>/dev/null >> "$out"
 done
@@ -89,30 +89,30 @@ done
 wc -m "$out"
 ```
 
-材料若 >50KB，按对话分段读，先识别每段在讨论什么主题，再往下看。可辅助看几条相邻的 assistant 回复定上下文。
+材料若 >50KB，按對話分段讀，先識別每段在討論什麼主題，再往下看。可輔助看幾條相鄰的 assistant 回覆定上下文。
 
-**数据稀薄兜底**：当天真人输入 <200 字或没有对话——直接在输出里写明「当天对话稀薄 / 无」，**不强造盲区**。宁可交白卷，不许编。
+**資料稀薄兜底**：當天真人輸入 <200 字或沒有對話——直接在輸出裡寫明「當天對話稀薄 / 無」，**不強造盲區**。寧可交白卷，不許編。
 
-### 第三步 · 读出盲区
+### 第三步 · 讀出盲區
 
-按上面「五种盲区信号」过一遍，每命中一处都记下证据（哪几句话、什么转折让你看出来的）。然后按「选哪一个」的三条判据，选出 1 个最要紧的盲区。
+按上面「五種盲區訊號」過一遍，每命中一處都記下證據（哪幾句話、什麼轉折讓你看出來的）。然後按「選哪一個」的三條判據，選出 1 個最要緊的盲區。
 
-### 第四步 · 微信读书选章
+### 第四步 · 微信讀書選章
 
-调 weread skill（`WEREAD_API_KEY` 在环境变量里，格式 `wrk-xxxx`；若没有，提示 `export WEREAD_API_KEY=<key>`）。三步：
+調 weread skill（`WEREAD_API_KEY` 在環境變數裡，格式 `wrk-xxxx`；若沒有，提示 `export WEREAD_API_KEY=<key>`）。三步：
 
-1. **搜书**——从盲区里抽 1-2 个核心词当 keyword：
+1. **搜書**——從盲區裡抽 1-2 個核心詞當 keyword：
 
 ```bash
 curl -s -X POST https://i.weread.qq.com/api/agent/gateway \
   -H "Authorization: Bearer $WEREAD_API_KEY" -H "Content-Type: application/json" \
-  -d '{"api_name":"/store/search","keyword":"<核心词>","count":8,"skill_version":"1.0.3"}' \
-  | jq -r '.results[].books[]?.bookInfo | "\(.bookId)\t\(.title)\t\(.author)\t评分\(.newRating)"'
+  -d '{"api_name":"/store/search","keyword":"<核心詞>","count":8,"skill_version":"1.0.3"}' \
+  | jq -r '.results[].books[]?.bookInfo | "\(.bookId)\t\(.title)\t\(.author)\t評分\(.newRating)"'
 ```
 
-从返回里挑评分尽量 ≥750（新版评分是 ×100，即 7.5）、且最贴盲区的 1 本，记 bookId。评分不是唯一标准——对症 > 高分，一本 7.4 但正打在盲区上，胜过一本 8.5 但擦边的。
+從返回裡挑評分儘量 ≥750（新版評分是 ×100，即 7.5）、且最貼盲區的 1 本，記 bookId。評分不是唯一標準——對症 > 高分，一本 7.4 但正打在盲區上，勝過一本 8.5 但擦邊的。
 
-2. **看目录**——挑最对症那 **1 章**，不是整本、不是序章泛泛：
+2. **看目錄**——挑最對症那 **1 章**，不是整本、不是序章泛泛：
 
 ```bash
 curl -s -X POST https://i.weread.qq.com/api/agent/gateway \
@@ -121,95 +121,95 @@ curl -s -X POST https://i.weread.qq.com/api/agent/gateway \
   | jq -r '.chapters[] | select(.level<=2) | "\(.chapterUid)\t[\(.level)] \(.title)\t\(.wordCount)字"'
 ```
 
-记 chapterUid、章节标题、wordCount。
+記 chapterUid、章節標題、wordCount。
 
-3. **估时长**——`wordCount / 280`（中文阅读速度）向上圆到 5 的倍数。无 wordCount 就按目录感觉在 15-45 分钟之间估一个；标题带「上篇/下篇」「卷一」这类宏观词，时长再 ×1.5。
+3. **估時長**——`wordCount / 280`（中文閱讀速度）向上圓到 5 的倍數。無 wordCount 就按目錄感覺在 15-45 分鐘之間估一個；標題帶「上篇/下篇」「卷一」這類宏觀詞，時長再 ×1.5。
 
-4. **构造网页版链接**——微信读书网页阅读器不接受裸 `bookId` / `chapterUid`，必须先编码。用技能自带工具生成：
+4. **構造網頁版連結**——微信讀書網頁閱讀器不接受裸 `bookId` / `chapterUid`，必須先編碼。用技能自帶工具生成：
 
 ```bash
 bun "${HOME}/.agents/skills/ljg-blind/Tools/WeReadWebUrl.ts" "<bookId>" "<chapterUid>"
 ```
 
-工具输出形如：
+工具輸出形如：
 
 ```text
 https://weread.qq.com/web/reader/{encodedBookId}k{encodedChapterUid}
 ```
 
-把输出的完整 URL 写进笔记。不要手拼编码值，也不要把裸 ID 直接塞进 `/web/reader/`。
+把輸出的完整 URL 寫進筆記。不要手拼編碼值，也不要把裸 ID 直接塞進 `/web/reader/`。
 
-**兜底**：搜索全空 / 没对症章节 → 选整本相关书，只传 bookId 生成网页版书籍入口：
+**兜底**：搜尋全空 / 沒對症章節 → 選整本相關書，只傳 bookId 生成網頁版書籍入口：
 
 ```bash
 bun "${HOME}/.agents/skills/ljg-blind/Tools/WeReadWebUrl.ts" "<bookId>"
 ```
 
-文里说明为什么没能精准到章。
+文裡說明為什麼沒能精準到章。
 
-### 第五步 · 写笔记
+### 第五步 · 寫筆記
 
-获取时间戳：`date +%Y%m%dT%H%M%S` 和 `date "+%Y-%m-%d %a %H:%M"`（时间用当前，不是 target）。
+獲取時間戳：`date +%Y%m%dT%H%M%S` 和 `date "+%Y-%m-%d %a %H:%M"`（時間用當前，不是 target）。
 
-写入 `~/Context/{时间戳}--盲区-{主题}__blind.md`。Markdown 格式，禁止 Org 语法。
+寫入 `~/Context/{時間戳}--盲區-{主題}__blind.md`。Markdown 格式，禁止 Org 語法。
 
 正文模板：
 
 ```markdown
 ---
-title: 盲区扫描 · {一句话点出这个盲区}
+title: 盲區掃描 · {一句話點出這個盲區}
 date: [YYYY-MM-DD Weekday HH:MM]
 tags: blind weread topology
 ---
-# 昨天你在想什么
-<1-2 段。当天对话的思维地形——哪几件事、绕着哪个核心在转。给证据：哪几句话看出来的。不流水账，抓主线。>
+# 昨天你在想什麼
+<1-2 段。當天對話的思維地形——哪幾件事、繞著哪個核心在轉。給證據：哪幾句話看出來的。不流水賬，抓主線。>
 
-# 照出来的盲区
-<挑出的那 1 个盲区。先一句话点破它是哪种（绕开点 / 空转框架 / 单一取景框 / 未检前提 / 相邻空缺）。再 2-3 段说清：它具体长什么样、昨天哪几处暴露了它、为什么你自己看不见。要点到杠杆——补上之后会打开什么。>
+# 照出來的盲區
+<挑出的那 1 個盲區。先一句話點破它是哪種（繞開點 / 空轉框架 / 單一取景框 / 未檢前提 / 相鄰空缺）。再 2-3 段說清：它具體長什麼樣、昨天哪幾處暴露了它、為什麼你自己看不見。要點到槓桿——補上之後會開啟什麼。>
 
-# 这一章给你
-- 书：《书名》 — 作者
-- 章节：<章节标题>
-- 时长：约 N 分钟
-- 链接：[在微信读书网页版阅读本章](https://weread.qq.com/web/reader/ENCODED_BOOKkENCODED_CHAPTER)
-- 为什么是它：<3-4 句。把盲区和这一章对上——这章具体讲什么、怎么补这个盲区。不要泛泛说"开阔视野"，要说清这一章的哪个东西正对这个盲区的哪个缺口。>
+# 這一章給你
+- 書：《書名》 — 作者
+- 章節：<章節標題>
+- 時長：約 N 分鐘
+- 連結：[在微信讀書網頁版閱讀本章](https://weread.qq.com/web/reader/ENCODED_BOOKkENCODED_CHAPTER)
+- 為什麼是它：<3-4 句。把盲區和這一章對上——這章具體講什麼、怎麼補這個盲區。不要泛泛說"開闊視野"，要說清這一章的哪個東西正對這個盲區的哪個缺口。>
 ```
 
-报告文件路径给用户。
+報告檔案路徑給使用者。
 
 ---
 
-## 语气规则（写笔记时守住）
+## 語氣規則（寫筆記時守住）
 
-这篇笔记是写给一个跟你长期一起思考的人的，不是报告，不是陌生读者。
+這篇筆記是寫給一個跟你長期一起思考的人的，不是報告，不是陌生讀者。
 
-- **中文写作，禁翻译腔**。少用「然而 / 此外 / 值得注意的是」；少用名词化（「对…的理解」→「懂…」，「做出…的决定」→「决定」）；主语能省则省；短句优先。写完默念一遍，问：一个没读过翻译小说的中国人会这么说吗？汪曾祺会这么写吗？卡的地方整段重写，不是换个词。
-- **禁切痕风金属比喻**。不写「这一刀」「再狠一层」「锋利的话」「砸实」「钉死」「硬话」这一整套自夸元修辞。盲区照得准不准，读者看得出，不用作者吆喝力度。
-- **有温度、有毛刺、有判断**。可以有立场，别装中立到虚伪；但标清楚这是判断，不是客观事实。
+- **中文寫作，禁翻譯腔**。少用「然而 / 此外 / 值得注意的是」；少用名詞化（「對…的理解」→「懂…」，「做出…的決定」→「決定」）；主語能省則省；短句優先。寫完默唸一遍，問：一個沒讀過翻譯小說的中國人會這麼說嗎？汪曾祺會這麼寫嗎？卡的地方整段重寫，不是換個詞。
+- **禁切痕風金屬比喻**。不寫「這一刀」「再狠一層」「鋒利的話」「砸實」「釘死」「硬話」這一整套自誇元修辭。盲區照得準不準，讀者看得出，不用作者吆喝力度。
+- **有溫度、有毛刺、有判斷**。可以有立場，別裝中立到虛偽；但標清楚這是判斷，不是客觀事實。
 
-## Markdown 严格语法（禁混 Org）
+## Markdown 嚴格語法（禁混 Org）
 
-- 标题用 `#` / `##` / `###`，不要用星号充当标题
-- 加粗 `**字**`，斜体 `*字*`，等宽 `code`
-- 列表用 `-`；标题使用 `#`
-- 链接使用 `[text](url)`
-- 分隔线使用 `---`；引用使用 `>`
+- 標題用 `#` / `##` / `###`，不要用星號充當標題
+- 加粗 `**字**`，斜體 `*字*`，等寬 `code`
+- 列表用 `-`；標題使用 `#`
+- 連結使用 `[text](url)`
+- 分隔線使用 `---`；引用使用 `>`
 
-## 自检（写完前过一遍）
+## 自檢（寫完前過一遍）
 
-- 盲区有具体证据吗？每一处都能指到昨天哪几句话？没有就退回第三步。
-- 只选了 1 个盲区、说透了吗？还是贪多点了三四个？
-- 章节链接以 `https://weread.qq.com/web/reader/` 开头，并由工具用非空 bookId、chapterUid 生成？
-- 全文没有残留只能唤起移动 App 的专用协议链接？
-- 翻译腔查了吗？名词化、「是…的」句、可省的连词，扫一遍。
-- 切痕风金属比喻查了吗？「这一刀」「钉死」「砸实」一个不留。
-- 三段都有内容、不空段？
+- 盲區有具體證據嗎？每一處都能指到昨天哪幾句話？沒有就退回第三步。
+- 只選了 1 個盲區、說透了嗎？還是貪多點了三四個？
+- 章節連結以 `https://weread.qq.com/web/reader/` 開頭，並由工具用非空 bookId、chapterUid 生成？
+- 全文沒有殘留只能喚起移動 App 的專用協議連結？
+- 翻譯腔查了嗎？名詞化、「是…的」句、可省的連詞，掃一遍。
+- 切痕風金屬比喻查了嗎？「這一刀」「釘死」「砸實」一個不留。
+- 三段都有內容、不空段？
 
 ## Gotchas
 
-- **网页版 reader 路径使用编码 ID。** `https://weread.qq.com/web/reader/573976?chapterUid=13` 会返回 404；必须用 `Tools/WeReadWebUrl.ts` 分别编码 bookId 与 chapterUid，再用 `k` 连接。
-- **章节定位不放在 query 参数。** 正确形态是 `/web/reader/{encodedBookId}k{encodedChapterUid}`；省掉章节编码只会打开整本书入口。
+- **網頁版 reader 路徑使用編碼 ID。** `https://weread.qq.com/web/reader/573976?chapterUid=13` 會返回 404；必須用 `Tools/WeReadWebUrl.ts` 分別編碼 bookId 與 chapterUid，再用 `k` 連線。
+- **章節定位不放在 query 引數。** 正確形態是 `/web/reader/{encodedBookId}k{encodedChapterUid}`；省掉章節編碼只會開啟整本書入口。
 
 ## 和「早信」的分工
 
-Pulse 每天早上有个自动早信（`陈平安思维拓扑.org`），是陈平安的口气、每天一封、挑一个洞。ljg-blind 是**随手调**的分析版——同一套「读昨天 → 看盲区 → weread 选章」的底子，但更系统、专照盲区、分析写得更足，而且能扫任意一天（传日期参数）。想要一封信，等早信；想主动查某天的盲区、要一篇能存档的分析，用 ljg-blind。
+Pulse 每天早上有個自動早信（`陳平安思維拓撲.org`），是陳平安的口氣、每天一封、挑一個洞。ljg-blind 是**隨手調**的分析版——同一套「讀昨天 → 看盲區 → weread 選章」的底子，但更系統、專照盲區、分析寫得更足，而且能掃任意一天（傳日期引數）。想要一封信，等早信；想主動查某天的盲區、要一篇能存檔的分析，用 ljg-blind。

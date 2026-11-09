@@ -1,4 +1,4 @@
 interface:
-  display_name: "商业模式画布"
-  short_description: "将项目资料转成九模块商业模式画布卡片，区分已知、推测与缺项"
-  default_prompt: "使用 $ljg-business-model，根据我提供的信息绘制九模块商业模式画布卡片。"
+  display_name: "商業模式畫布"
+  short_description: "將專案資料轉成九模組商業模式畫布卡片，區分已知、推測與缺項"
+  default_prompt: "使用 $ljg-business-model，根據我提供的資訊繪製九模組商業模式畫布卡片。"

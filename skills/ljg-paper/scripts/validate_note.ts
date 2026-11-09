@@ -17,62 +17,62 @@ const requiredHeaders = [
 ];
 
 const genericHeadings = new Set([
-  "摘要", "背景", "问题", "研究问题", "方法", "实验", "实验结果",
-  "结果", "发现", "核心发现", "局限", "局限性", "结论", "启示",
-  "人生启示", "金句", "我能带走什么", "它到底在解决什么", "它真正看见了什么",
+  "摘要", "背景", "問題", "研究問題", "方法", "實驗", "實驗結果",
+  "結果", "發現", "核心發現", "侷限", "侷限性", "結論", "啟示",
+  "人生啟示", "金句", "我能帶走什麼", "它到底在解決什麼", "它真正看見了什麼",
 ]);
 
 const genericAnchors = new Set([
-  "问题", "方法", "模型", "系统", "实验", "结果", "发现", "关系", "变化", "结论", "边界",
+  "問題", "方法", "模型", "系統", "實驗", "結果", "發現", "關係", "變化", "結論", "邊界",
 ]);
 
 const identityFields = [
-  "贡献类型", "研究对象", "已有方法的不足", "主要贡献", "输入、处理与输出",
-  "不可省略的研究问题或主线", "主线为什么属于同一篇论文", "各主线的证据支持程度",
-  "论文未作出的主张", "正文中的论文具体表述", "前两节的问题与贡献表述", "论文简述", "与其他论文的区别",
+  "貢獻型別", "研究物件", "已有方法的不足", "主要貢獻", "輸入、處理與輸出",
+  "不可省略的研究問題或主線", "主線為什麼屬於同一篇論文", "各主線的證據支援程度",
+  "論文未作出的主張", "正文中的論文具體表述", "前兩節的問題與貢獻表述", "論文簡述", "與其他論文的區別",
 ];
 
 const understandingFields = [
-  "从哪个具体问题开始", "原先会怎样理解或处理", "什么证据需要补充或修正原有理解",
-  "作者补充了什么关系、做法或判断依据", "回到原问题，判断发生了什么变化", "还需要回答什么问题",
-  "贯穿全文的问题或关系", "案例如何选择与衔接", "结尾回到哪里", "陌生读者三句复述",
-  "示例的原文依据与简化限制",
+  "從哪個具體問題開始", "原先會怎樣理解或處理", "什麼證據需要補充或修正原有理解",
+  "作者補充了什麼關係、做法或判斷依據", "回到原問題，判斷髮生了什麼變化", "還需要回答什麼問題",
+  "貫穿全文的問題或關係", "案例如何選擇與銜接", "結尾回到哪裡", "陌生讀者三句複述",
+  "示例的原文依據與簡化限制",
 ];
 
 const generatorFields = [
-  "统一机制", "输入、起点或当前状态", "关键作用关系", "结果方向或终点",
-  "如何解释两个不同发现", "改变相关条件后的预测及依据", "失效边界", "正文中的机制表述",
-  "是否需要在前两节解释机制", "是否需要图示", "图后用什么例子解释",
+  "統一機制", "輸入、起點或當前狀態", "關鍵作用關係", "結果方向或終點",
+  "如何解釋兩個不同發現", "改變相關條件後的預測及依據", "失效邊界", "正文中的機制表述",
+  "是否需要在前兩節解釋機制", "是否需要圖示", "圖後用什麼例子解釋",
 ];
 
 const experimentFields = [
-  "实验在问什么", "固定了什么", "改变了什么", "与谁比较", "主要结果及例外",
-  "结果的实际意义", "这个结果改变什么判断", "这个结果不能推出什么", "正文中的核心证据表述",
+  "實驗在問什麼", "固定了什麼", "改變了什麼", "與誰比較", "主要結果及例外",
+  "結果的實際意義", "這個結果改變什麼判斷", "這個結果不能推出什麼", "正文中的核心證據表述",
 ];
 
 const evidenceFields = [
-  "名称", "角色", "位置", "论文直接结果", "支持判断", "正文对应表述", "决定", "取舍理由",
+  "名稱", "角色", "位置", "論文直接結果", "支援判斷", "正文對應表述", "決定", "取捨理由",
 ];
 
 const frontstageFields = [
-  "名称", "主要作用", "设置或起点", "结果或后果", "帮助理解什么", "与后文的联系",
+  "名稱", "主要作用", "設定或起點", "結果或後果", "幫助理解什麼", "與後文的聯絡",
 ];
 
 const continuityFields = [
-  "开头要回答的问题", "全文解释顺序", "案例之间的联系",
-  "章节换序检查", "略去数字后的解释", "只保留结论会遗漏什么",
+  "開頭要回答的問題", "全文解釋順序", "案例之間的聯絡",
+  "章節換序檢查", "略去數字後的解釋", "只保留結論會遺漏什麼",
 ];
 
 const finalFields = [
-  "论文最终补充或修正了什么认识", "结尾依据前文哪些发现",
-  "正文结尾的对应表述", "结尾与本论文的联系", "结尾是否新增证据、术语或建议",
+  "論文最終補充或修正了什麼認識", "結尾依據前文哪些發現",
+  "正文結尾的對應表述", "結尾與本論文的聯絡", "結尾是否新增證據、術語或建議",
 ];
 
 const readerFields = [
-  "不依赖分数的全文复述", "读者首先记住的解释", "读者对章节联系的解释",
-  "研究问题", "作者的主要贡献", "输入→组件／关系→输出",
-  "中心实验问题／固定项／比较者／结果／意义", "证据的适用范围与限制",
-  "三句认识变化复述", "结果解释",
+  "不依賴分數的全文複述", "讀者首先記住的解釋", "讀者對章節聯絡的解釋",
+  "研究問題", "作者的主要貢獻", "輸入→元件／關係→輸出",
+  "中心實驗問題／固定項／比較者／結果／意義", "證據的適用範圍與限制",
+  "三句認識變化複述", "結果解釋",
 ];
 
 function substantive(value: string): boolean {
@@ -118,28 +118,28 @@ export function validate(content: string, file: string, paperMap?: string): Resu
 
   for (const header of requiredHeaders) {
     if (!new RegExp(`^#\\+${header}:\\s+\\S`, "im").test(content)) {
-      errors.push(`缺少或为空的 #+${header}`);
+      errors.push(`缺少或為空的 #+${header}`);
     }
   }
 
   const filenameIdentifier = basename(file).match(/^(\d{8}T\d{6})--paper-/)?.[1] ?? "";
   const identifier = content.match(/^#\+identifier:\s*(\d{8}T\d{6})\s*$/im)?.[1] ?? "";
-  if (!filenameIdentifier) errors.push("文件名不是 Denote paper 时间戳格式");
+  if (!filenameIdentifier) errors.push("檔名不是 Denote paper 時間戳格式");
   if (!identifier || identifier !== filenameIdentifier) {
-    errors.push(`IDENTIFIER ${identifier || "为空"} 与文件名 ${filenameIdentifier || basename(file)} 不一致`);
+    errors.push(`IDENTIFIER ${identifier || "為空"} 與檔名 ${filenameIdentifier || basename(file)} 不一致`);
   }
 
   const sourceLines = content.match(/^#\+source:.*$/gim) ?? [];
-  if (sourceLines.length !== 1) errors.push(`#+source 必须且只能出现一次，当前为 ${sourceLines.length}`);
+  if (sourceLines.length !== 1) errors.push(`#+source 必須且只能出現一次，當前為 ${sourceLines.length}`);
   if (sourceLines.length === 1 && !/^#\+source:\s+(?:https?:\/\/\S+|\/[^\r\n]+?)\s*$/i.test(sourceLines[0])) {
-    errors.push("#+source 只放一个裸原始 URL 或绝对本地原文路径，不加描述或参考资料列表");
+    errors.push("#+source 只放一個裸原始 URL 或絕對本地原文路徑，不加描述或參考資料列表");
   }
 
   const headingMatches = [...content.matchAll(/^\* ([^*\n].*)$/gm)];
   const headings = headingMatches.map((match) => match[1].trim());
-  if (headings.length < 2) errors.push(`至少需要 2 个由事件、变化或条件命名的一级标题，当前为 ${headings.length}`);
+  if (headings.length < 2) errors.push(`至少需要 2 個由事件、變化或條件命名的一級標題，當前為 ${headings.length}`);
   const genericHits = headings.filter((heading) => genericHeadings.has(heading.replace(/\s+/g, "")));
-  if (genericHits.length) errors.push(`一级标题不能使用通用栏目或空泛标签：${[...new Set(genericHits)].join("、")}`);
+  if (genericHits.length) errors.push(`一級標題不能使用通用欄目或空泛標籤：${[...new Set(genericHits)].join("、")}`);
 
   const bodyStart = headingMatches[0]?.index ?? content.length;
   const body = content.slice(bodyStart);
@@ -148,37 +148,37 @@ export function validate(content: string, file: string, paperMap?: string): Resu
   const lastHeadingStart = headingMatches.at(-1)?.index ?? bodyStart;
   const finalBody = content.slice(lastHeadingStart);
 
-  if (/(?:零号模型|FX\s*回流|x\s*\/\s*R\s*\/\s*f\s*\/\s*E|\{\{[^}]+\}\}|\b(?:TODO|TBD|PLACEHOLDER)\b)/i.test(body)) {
-    errors.push("正文含内部分析标签、模板占位或未完成标记");
+  if (/(?:零號模型|FX\s*迴流|x\s*\/\s*R\s*\/\s*f\s*\/\s*E|\{\{[^}]+\}\}|\b(?:TODO|TBD|PLACEHOLDER)\b)/i.test(body)) {
+    errors.push("正文含內部分析標籤、模板佔位或未完成標記");
   }
 
-  const backstagePattern = /(?:paper-map|证据台账|本轮核验|未参与写作|讲解者构造|旧稿依据|核验状态|决定：进入正文|决定：仅供备查)/g;
+  const backstagePattern = /(?:paper-map|證據臺賬|本輪核驗|未參與寫作|講解者構造|舊稿依據|核驗狀態|決定：進入正文|決定：僅供備查)/g;
   const backstageHits = [...body.matchAll(backstagePattern)].map((match) => match[0]);
   if (backstageHits.length) {
-    errors.push(`正文泄漏研究记录或核验语言：${[...new Set(backstageHits)].join("、")}`);
+    errors.push(`正文洩漏研究記錄或核驗語言：${[...new Set(backstageHits)].join("、")}`);
   }
 
   const paragraphs = paragraphList(body);
   const denseParagraphs = paragraphs.filter((paragraph) => [...paragraph.replace(/\s/g, "")].length > 240).length;
-  if (denseParagraphs) warnings.push(`正文有 ${denseParagraphs} 段超过 240 字；检查是否一次塞入多个重要关系`);
+  if (denseParagraphs) warnings.push(`正文有 ${denseParagraphs} 段超過 240 字；檢查是否一次塞入多個重要關係`);
   const numericCounts = paragraphs.map((paragraph) => (paragraph.match(/\d+(?:\.\d+)?%?/g) ?? []).length);
   const numericTokenCount = numericCounts.reduce((sum, count) => sum + count, 0);
   const numericParagraphCount = numericCounts.filter((count) => count > 0).length;
   const severeNumericPileParagraphs = numericCounts.filter((count) => count >= 7).length;
   const numericPileParagraphs = numericCounts.filter((count) => count >= 5 && count < 7).length;
   if (severeNumericPileParagraphs) {
-    const message = `正文有 ${severeNumericPileParagraphs} 段包含至少 7 个数字；检查每项比较是否有明确作用和解释`;
+    const message = `正文有 ${severeNumericPileParagraphs} 段包含至少 7 個數字；檢查每項比較是否有明確作用和解釋`;
     (currentFormat ? warnings : errors).push(message);
   }
-  if (numericPileParagraphs) warnings.push(`正文有 ${numericPileParagraphs} 段包含 5–6 个数字；检查各项比较是否必要，保留影响结论的区间与不确定性`);
+  if (numericPileParagraphs) warnings.push(`正文有 ${numericPileParagraphs} 段包含 5–6 個數字；檢查各項比較是否必要，保留影響結論的區間與不確定性`);
 
   const exampleBlocks = [...content.matchAll(/#\+begin_example\s*\n([\s\S]*?)#\+end_example/gim)];
-  if (!currentFormat && exampleBlocks.length > 1) errors.push("最多保留一个 Markdown 围栏图块");
+  if (!currentFormat && exampleBlocks.length > 1) errors.push("最多保留一個 Markdown 圍欄圖塊");
   const maxDiagramWidth = exampleBlocks.reduce((max, block) => {
     const width = block[1].split(/\r?\n/).reduce((lineMax, line) => Math.max(lineMax, displayWidth(line)), 0);
     return Math.max(max, width);
   }, 0);
-  if (maxDiagramWidth > 80) errors.push(`ASCII 图宽度 ${maxDiagramWidth}，超过 80 显示列`);
+  if (maxDiagramWidth > 80) errors.push(`ASCII 圖寬度 ${maxDiagramWidth}，超過 80 顯示列`);
 
   let identityAnchorCount = 0;
   let orientationAnchorCount = 0;
@@ -192,192 +192,192 @@ export function validate(content: string, file: string, paperMap?: string): Resu
   let paperMapVersion = "";
 
   if (!paperMap) {
-    errors.push("所有论文笔记都必须提供 --map paper-map 研究记录");
+    errors.push("所有論文筆記都必須提供 --map paper-map 研究記錄");
   } else {
     const version = lineField(paperMap, "格式版本");
     paperMapVersion = version;
-    if (!/^(?:1|2|3)$/.test(version)) errors.push(`paper-map 格式版本必须是 1、2 或 3，当前为 ${version || "为空"}`);
-    if (version === "1" || version === "2") warnings.push(`paper-map 格式版本 ${version} 使用兼容模式及原有检查规则；新笔记请使用版本 3`);
+    if (!/^(?:1|2|3)$/.test(version)) errors.push(`paper-map 格式版本必須是 1、2 或 3，當前為 ${version || "為空"}`);
+    if (version === "1" || version === "2") warnings.push(`paper-map 格式版本 ${version} 使用相容模式及原有檢查規則；新筆記請使用版本 3`);
 
-    for (const field of ["原文位置", "论文信息", "原文哈希", "材料能支持到", "外部指令扫描"]) {
-      if (!substantive(lineField(paperMap, field))) errors.push(`paper-map 缺少材料字段：${field}`);
+    for (const field of ["原文位置", "論文資訊", "原文雜湊", "材料能支援到", "外部指令掃描"]) {
+      if (!substantive(lineField(paperMap, field))) errors.push(`paper-map 缺少材料欄位：${field}`);
     }
     if (currentFormat) {
       const noteSource = content.match(/^#\+source:[ \t]*(.*)$/im)?.[1]?.trim() ?? "";
-      if (noteSource !== lineField(paperMap, "原文位置")) errors.push("笔记 #+source 与研究记录的原文位置不一致");
+      if (noteSource !== lineField(paperMap, "原文位置")) errors.push("筆記 #+source 與研究記錄的原文位置不一致");
     }
-    const injectionScan = lineField(paperMap, "外部指令扫描");
-    if (substantive(injectionScan) && !/^(?:未发现|已停止)/.test(injectionScan)) {
-      errors.push("“外部指令扫描”必须以“未发现”或“已停止”开头");
+    const injectionScan = lineField(paperMap, "外部指令掃描");
+    if (substantive(injectionScan) && !/^(?:未發現|已停止)/.test(injectionScan)) {
+      errors.push("“外部指令掃描”必須以“未發現”或“已停止”開頭");
     }
 
-    if (currentFormat && /^已停止/.test(injectionScan)) errors.push("材料处理已停止，不能标记为可交付");
+    if (currentFormat && /^已停止/.test(injectionScan)) errors.push("材料處理已停止，不能標記為可交付");
 
     for (const field of identityFields) {
-      if (!substantive(lineField(paperMap, field))) errors.push(`研究问题与贡献未填：${field}`);
+      if (!substantive(lineField(paperMap, field))) errors.push(`研究問題與貢獻未填：${field}`);
     }
-    const contributionType = lineField(paperMap, "贡献类型");
-    if (substantive(contributionType) && !/^(?:方法|干预|解释|理论|测量|评测|资源|系统)/.test(contributionType)) {
-      errors.push("贡献类型必须从方法／干预、解释／理论、测量／评测、资源／系统中选择主类型");
+    const contributionType = lineField(paperMap, "貢獻型別");
+    if (substantive(contributionType) && !/^(?:方法|干預|解釋|理論|測量|評測|資源|系統)/.test(contributionType)) {
+      errors.push("貢獻型別必須從方法／干預、解釋／理論、測量／評測、資源／系統中選擇主型別");
     }
 
-    const uniqueResultShape = lineField(paperMap, "正文主要结果表述");
-    const extraQuantitativeForeground = lineField(paperMap, "是否补充定量比较");
+    const uniqueResultShape = lineField(paperMap, "正文主要結果表述");
+    const extraQuantitativeForeground = lineField(paperMap, "是否補充定量比較");
     if (version === "2" || currentFormat) {
-      if (!substantive(uniqueResultShape)) errors.push("中心实验或论证未填：正文主要结果表述");
-      else if (!body.includes(uniqueResultShape)) errors.push(`正文主要结果表述“${uniqueResultShape}”没有出现在正文`);
-      if (!yesNoDecision(extraQuantitativeForeground)) errors.push("“是否补充定量比较”必须明确写是或否并说明理由");
+      if (!substantive(uniqueResultShape)) errors.push("中心實驗或論證未填：正文主要結果表述");
+      else if (!body.includes(uniqueResultShape)) errors.push(`正文主要結果表述“${uniqueResultShape}”沒有出現在正文`);
+      if (!yesNoDecision(extraQuantitativeForeground)) errors.push("“是否補充定量比較”必須明確寫是或否並說明理由");
     }
     quantitativeException = /^是/.test(extraQuantitativeForeground);
-    if (!currentFormat && quantitativeException && !/^(?:测量|评测)/.test(contributionType)) {
-      errors.push("旧版本的是否补充定量比较例外只适用于测量／评测论文；新版按比较的实际作用取舍");
+    if (!currentFormat && quantitativeException && !/^(?:測量|評測)/.test(contributionType)) {
+      errors.push("舊版本的是否補充定量比較例外只適用於測量／評測論文；新版按比較的實際作用取捨");
     }
     const numericTokenLimit = quantitativeException ? 8 : 4;
     const numericParagraphLimit = quantitativeException ? 2 : 1;
-    if (currentFormat && !substantive(lineField(paperMap, "补充比较的作用"))) {
-      errors.push("中心实验或论证未填：补充比较的作用");
+    if (currentFormat && !substantive(lineField(paperMap, "補充比較的作用"))) {
+      errors.push("中心實驗或論證未填：補充比較的作用");
     }
     if (numericTokenCount > numericTokenLimit || numericParagraphCount > numericParagraphLimit) {
-      if (currentFormat) warnings.push(`正文有 ${numericTokenCount} 个数字，分布在 ${numericParagraphCount} 段；请结合证据记录与独立阅读检查确认这些比较各有作用`);
+      if (currentFormat) warnings.push(`正文有 ${numericTokenCount} 個數字，分佈在 ${numericParagraphCount} 段；請結合證據記錄與獨立閱讀檢查確認這些比較各有作用`);
       else errors.push(
-        `旧版本数字数量限制：正文共有 ${numericTokenCount} 个数字、分散在 ${numericParagraphCount} 段；` +
-        `${quantitativeException ? "评测例外" : "旧版本默认规则"}最多允许 ${numericTokenLimit} 个数字、${numericParagraphLimit} 个定量段落。` +
-        "段落拆分不能把证据清单变成叙事，其余精确量移回 paper-map",
+        `舊版本數字數量限制：正文共有 ${numericTokenCount} 個數字、分散在 ${numericParagraphCount} 段；` +
+        `${quantitativeException ? "評測例外" : "舊版本預設規則"}最多允許 ${numericTokenLimit} 個數字、${numericParagraphLimit} 個定量段落。` +
+        "段落拆分不能把證據清單變成敘事，其餘精確量移回 paper-map",
       );
     }
 
-    const identityAnchors = parseAnchors(lineField(paperMap, "正文中的论文具体表述"));
+    const identityAnchors = parseAnchors(lineField(paperMap, "正文中的論文具體表述"));
     identityAnchorCount = identityAnchors.length;
-    if (identityAnchors.length < 2) errors.push(`正文中的论文具体表述至少 2 个，当前为 ${identityAnchors.length}`);
+    if (identityAnchors.length < 2) errors.push(`正文中的論文具體表述至少 2 個，當前為 ${identityAnchors.length}`);
     const genericIdentityAnchors = identityAnchors.filter((anchor) => genericAnchors.has(anchor));
-    if (genericIdentityAnchors.length) errors.push(`论文具体表述过于通用：${genericIdentityAnchors.join("、")}`);
+    if (genericIdentityAnchors.length) errors.push(`論文具體表述過於通用：${genericIdentityAnchors.join("、")}`);
     const missingIdentityAnchors = identityAnchors.filter((anchor) => !body.includes(anchor));
-    if (missingIdentityAnchors.length) errors.push(`这些论文具体表述没有出现在正文：${missingIdentityAnchors.join("、")}`);
+    if (missingIdentityAnchors.length) errors.push(`這些論文具體表述沒有出現在正文：${missingIdentityAnchors.join("、")}`);
 
-    const orientationAnchors = parseAnchors(lineField(paperMap, "前两节的问题与贡献表述"));
+    const orientationAnchors = parseAnchors(lineField(paperMap, "前兩節的問題與貢獻表述"));
     orientationAnchorCount = orientationAnchors.length;
-    if (orientationAnchors.length < 2) errors.push(`前两节的问题与贡献表述至少 2 个，当前为 ${orientationAnchors.length}`);
+    if (orientationAnchors.length < 2) errors.push(`前兩節的問題與貢獻表述至少 2 個，當前為 ${orientationAnchors.length}`);
     const lateOrientationAnchors = orientationAnchors.filter((anchor) => !earlyBody.includes(anchor));
-    if (lateOrientationAnchors.length) errors.push(`这些研究问题与贡献表述没有在前两个一级标题内出现：${lateOrientationAnchors.join("、")}`);
+    if (lateOrientationAnchors.length) errors.push(`這些研究問題與貢獻表述沒有在前兩個一級標題內出現：${lateOrientationAnchors.join("、")}`);
 
     for (const field of understandingFields) {
-      if (!substantive(lineField(paperMap, field))) errors.push(`读者的认识变化未填：${field}`);
+      if (!substantive(lineField(paperMap, field))) errors.push(`讀者的認識變化未填：${field}`);
     }
 
-    generatorExists = lineField(paperMap, "是否存在统一机制");
+    generatorExists = lineField(paperMap, "是否存在統一機制");
     if (!yesNoDecision(generatorExists)) {
-      errors.push("“是否存在统一机制”必须明确写是或否并说明理由");
+      errors.push("“是否存在統一機制”必須明確寫是或否並說明理由");
     } else if (/^是/.test(generatorExists)) {
       for (const field of generatorFields) {
-        if (!substantive(lineField(paperMap, field))) errors.push(`机制与结果解释未填：${field}`);
+        if (!substantive(lineField(paperMap, field))) errors.push(`機制與結果解釋未填：${field}`);
       }
-      const generatorAnchors = parseAnchors(lineField(paperMap, "正文中的机制表述"));
-      if (!generatorAnchors.length) errors.push("声明存在机制时至少需要 1 个正文中的机制表述");
+      const generatorAnchors = parseAnchors(lineField(paperMap, "正文中的機制表述"));
+      if (!generatorAnchors.length) errors.push("宣告存在機制時至少需要 1 個正文中的機制表述");
       const missingGeneratorAnchors = generatorAnchors.filter((anchor) => !body.includes(anchor));
-      if (missingGeneratorAnchors.length) errors.push(`这些机制表述没有出现在正文：${missingGeneratorAnchors.join("、")}`);
-      const earlyDecision = lineField(paperMap, "是否需要在前两节解释机制");
-      if (!yesNoDecision(earlyDecision)) errors.push("“是否需要在前两节解释机制”必须明确写是或否并说明理由");
+      if (missingGeneratorAnchors.length) errors.push(`這些機制表述沒有出現在正文：${missingGeneratorAnchors.join("、")}`);
+      const earlyDecision = lineField(paperMap, "是否需要在前兩節解釋機制");
+      if (!yesNoDecision(earlyDecision)) errors.push("“是否需要在前兩節解釋機制”必須明確寫是或否並說明理由");
       if (/^是/.test(earlyDecision)) {
         const lateGeneratorAnchors = generatorAnchors.filter((anchor) => !earlyBody.includes(anchor));
-        if (lateGeneratorAnchors.length) errors.push(`机制要求前置，但这些表述出现过晚：${lateGeneratorAnchors.join("、")}`);
+        if (lateGeneratorAnchors.length) errors.push(`機制要求前置，但這些表述出現過晚：${lateGeneratorAnchors.join("、")}`);
       }
     } else if (/^否/.test(generatorExists)) {
-      const generator = lineField(paperMap, "统一机制");
-      if (!/未找到|不存在/.test(generator)) errors.push("声明没有统一机制时，“统一机制”应明确写未找到或不存在");
+      const generator = lineField(paperMap, "統一機制");
+      if (!/未找到|不存在/.test(generator)) errors.push("宣告沒有統一機制時，“統一機制”應明確寫未找到或不存在");
     }
 
-    const visualDecision = lineField(paperMap, "是否需要图示");
-    if (!yesNoDecision(visualDecision)) errors.push("“是否需要图示”必须明确写是或否并说明理由");
+    const visualDecision = lineField(paperMap, "是否需要圖示");
+    if (!yesNoDecision(visualDecision)) errors.push("“是否需要圖示”必須明確寫是或否並說明理由");
     if (/^是/.test(visualDecision)) {
       if (!exampleBlocks.length || (!currentFormat && exampleBlocks.length !== 1)) {
-        errors.push(currentFormat ? "声明需要图示，但正文没有 example 图块" : "旧版本声明需要图示时，正文必须恰好有 1 个 example 图块");
+        errors.push(currentFormat ? "宣告需要圖示，但正文沒有 example 圖塊" : "舊版本宣告需要圖示時，正文必須恰好有 1 個 example 圖塊");
       }
-      const carriers = parseAnchors(lineField(paperMap, "图后用什么例子解释"));
-      if (currentFormat && carriers.length !== exampleBlocks.length) errors.push("每张图都需要按顺序记录图后解释所用的例子");
+      const carriers = parseAnchors(lineField(paperMap, "圖後用什麼例子解釋"));
+      if (currentFormat && carriers.length !== exampleBlocks.length) errors.push("每張圖都需要按順序記錄圖後解釋所用的例子");
       for (let index = 0; index < exampleBlocks.length; index++) {
         const block = exampleBlocks[index];
         const carrier = carriers[index];
         const afterDiagram = content.slice((block.index ?? 0) + block[0].length, exampleBlocks[index + 1]?.index);
-        if (!carrier || !afterDiagram.includes(carrier)) errors.push(`图后未找到对应例子：${carrier || "未填写"}`);
+        if (!carrier || !afterDiagram.includes(carrier)) errors.push(`圖後未找到對應例子：${carrier || "未填寫"}`);
       }
     } else if (/^否/.test(visualDecision) && exampleBlocks.length) {
-      warnings.push("记录声明不需要图示，但正文含 example 图块；请核对图示决定");
+      warnings.push("記錄宣告不需要圖示，但正文含 example 圖塊；請核對圖示決定");
     }
 
     for (const field of experimentFields) {
-      if (!substantive(lineField(paperMap, field))) errors.push(`中心实验或论证未填：${field}`);
+      if (!substantive(lineField(paperMap, field))) errors.push(`中心實驗或論證未填：${field}`);
     }
-    const centralAnchor = lineField(paperMap, "正文中的核心证据表述");
-    if (substantive(centralAnchor) && !body.includes(centralAnchor)) errors.push(`正文中的核心证据表述“${centralAnchor}”没有出现在正文`);
+    const centralAnchor = lineField(paperMap, "正文中的核心證據表述");
+    if (substantive(centralAnchor) && !body.includes(centralAnchor)) errors.push(`正文中的核心證據表述“${centralAnchor}”沒有出現在正文`);
 
     const evidenceLines = [...paperMap.matchAll(/^- \[evidence\]\s+.+$/gm)].map((match) => match[0]);
     evidenceCount = evidenceLines.length;
     for (const line of evidenceLines) {
       const missing = evidenceFields.filter((field) => {
-        if (currentFormat && field === "正文对应表述" && segmentField(line, "角色") === "备查") return false;
+        if (currentFormat && field === "正文對應表述" && segmentField(line, "角色") === "備查") return false;
         return !substantive(segmentField(line, field));
       });
-      if (missing.length) errors.push(`证据条目缺少字段：${missing.join("、")}；条目=${line}`);
+      if (missing.length) errors.push(`證據條目缺少欄位：${missing.join("、")}；條目=${line}`);
       const role = segmentField(line, "角色");
-      const decision = segmentField(line, "决定");
-      if (!/^(?:核心|补充|备查)$/.test(role)) errors.push(`证据角色只能是核心／补充／备查：${role || "为空"}`);
-      if (!/^(?:进入正文|合并|仅供备查)$/.test(decision)) errors.push(`证据决定只能是进入正文／合并／仅供备查：${decision || "为空"}`);
+      const decision = segmentField(line, "決定");
+      if (!/^(?:核心|補充|備查)$/.test(role)) errors.push(`證據角色只能是核心／補充／備查：${role || "為空"}`);
+      if (!/^(?:進入正文|合併|僅供備查)$/.test(decision)) errors.push(`證據決定只能是進入正文／合併／僅供備查：${decision || "為空"}`);
       if (role === "核心") centralEvidenceCount++;
-      if (role === "补充") necessaryEvidenceCount++;
-      if (role === "备查") backgroundEvidenceCount++;
-      if (role === "备查" && decision !== "仅供备查") errors.push("备查证据必须决定为“仅供备查”");
-      if (decision !== "仅供备查") {
-        const anchor = segmentField(line, "正文对应表述");
-        if (/^(?:无|未找到)$/.test(anchor) || !body.includes(anchor)) errors.push(`进入正文或合并的证据对应表述没有出现在正文：${anchor || "为空"}`);
+      if (role === "補充") necessaryEvidenceCount++;
+      if (role === "備查") backgroundEvidenceCount++;
+      if (role === "備查" && decision !== "僅供備查") errors.push("備查證據必須決定為“僅供備查”");
+      if (decision !== "僅供備查") {
+        const anchor = segmentField(line, "正文對應表述");
+        if (/^(?:無|未找到)$/.test(anchor) || !body.includes(anchor)) errors.push(`進入正文或合併的證據對應表述沒有出現在正文：${anchor || "為空"}`);
       }
     }
-    if (!centralEvidenceCount) errors.push("证据分级至少需要 1 条核心证据");
-    if (!currentFormat && !necessaryEvidenceCount) errors.push("证据分级至少需要 1 条补充证据");
-    if (!currentFormat && !backgroundEvidenceCount) errors.push("证据分级至少需要 1 条备查证据，这是版本 1、2 保留的类别要求");
+    if (!centralEvidenceCount) errors.push("證據分級至少需要 1 條核心證據");
+    if (!currentFormat && !necessaryEvidenceCount) errors.push("證據分級至少需要 1 條補充證據");
+    if (!currentFormat && !backgroundEvidenceCount) errors.push("證據分級至少需要 1 條備查證據，這是版本 1、2 保留的類別要求");
 
     const frontstageLines = [...paperMap.matchAll(/^- \[frontstage\]\s+.+$/gm)].map((match) => match[0]);
     frontstageCount = frontstageLines.length;
-    if (!frontstageCount) errors.push("paper-map 至少需要 1 个正文案例");
+    if (!frontstageCount) errors.push("paper-map 至少需要 1 個正文案例");
     const responsibilities: string[] = [];
     for (const line of frontstageLines) {
       const missing = frontstageFields.filter((field) => !substantive(segmentField(line, field)));
-      if (missing.length) errors.push(`正文案例缺少字段：${missing.join("、")}；条目=${line}`);
-      const name = segmentField(line, "名称");
+      if (missing.length) errors.push(`正文案例缺少欄位：${missing.join("、")}；條目=${line}`);
+      const name = segmentField(line, "名稱");
       const responsibility = segmentField(line, "主要作用");
-      if (substantive(name) && !body.includes(name)) errors.push(`正文案例“${name}”没有出现在正文`);
+      if (substantive(name) && !body.includes(name)) errors.push(`正文案例“${name}”沒有出現在正文`);
       if (substantive(responsibility)) responsibilities.push(responsibility);
     }
     const duplicateResponsibilities = [...new Set(responsibilities.filter((item, index, all) => all.indexOf(item) !== index))];
     if (duplicateResponsibilities.length) {
-      const message = `案例的主要作用重复：${duplicateResponsibilities.join("、")}；检查是否提供了不同信息`;
+      const message = `案例的主要作用重複：${duplicateResponsibilities.join("、")}；檢查是否提供了不同資訊`;
       (currentFormat ? warnings : errors).push(message);
     }
 
     for (const field of continuityFields) {
-      if (!substantive(lineField(paperMap, field))) errors.push(`章节组织与联系未填：${field}`);
+      if (!substantive(lineField(paperMap, field))) errors.push(`章節組織與聯絡未填：${field}`);
     }
 
     for (const field of finalFields) {
-      if (!substantive(lineField(paperMap, field))) errors.push(`结尾检查未填：${field}`);
+      if (!substantive(lineField(paperMap, field))) errors.push(`結尾檢查未填：${field}`);
     }
-    const finalAnchor = lineField(paperMap, "正文结尾的对应表述");
-    if (substantive(finalAnchor) && !finalBody.includes(finalAnchor)) errors.push(`结尾对应表述“${finalAnchor}”没有出现在最后一个内容标题下`);
-    const newMaterialDecision = lineField(paperMap, "结尾是否新增证据、术语或建议");
-    if (substantive(newMaterialDecision) && !/^否/.test(newMaterialDecision)) errors.push("结尾不能新增新证据、术语或建议；该字段必须以“否”开头");
+    const finalAnchor = lineField(paperMap, "正文結尾的對應表述");
+    if (substantive(finalAnchor) && !finalBody.includes(finalAnchor)) errors.push(`結尾對應表述“${finalAnchor}”沒有出現在最後一個內容標題下`);
+    const newMaterialDecision = lineField(paperMap, "結尾是否新增證據、術語或建議");
+    if (substantive(newMaterialDecision) && !/^否/.test(newMaterialDecision)) errors.push("結尾不能新增新證據、術語或建議；該欄位必須以“否”開頭");
 
     for (const field of readerFields) {
-      if (version === "2" || currentFormat || !["不依赖分数的全文复述", "读者首先记住的解释", "读者对章节联系的解释"].includes(field)) {
-        if (!substantive(lineField(paperMap, field))) errors.push(`陌生读者验收未填：${field}`);
+      if (version === "2" || currentFormat || !["不依賴分數的全文複述", "讀者首先記住的解釋", "讀者對章節聯絡的解釋"].includes(field)) {
+        if (!substantive(lineField(paperMap, field))) errors.push(`陌生讀者驗收未填：${field}`);
       }
     }
     if (version === "2" || currentFormat) {
-      const noNumberRetell = lineField(paperMap, "不依赖分数的全文复述");
-      if (!currentFormat && /\d+(?:\.\d+)?%?/.test(noNumberRetell)) errors.push("不依赖分数的全文复述仍含阿拉伯数字；先说明过程，再回答实验数值");
-      if (lineField(paperMap, "全文理解判定") !== "NARRATIVE_PASS") errors.push("全文理解检查必须记录 NARRATIVE_PASS");
+      const noNumberRetell = lineField(paperMap, "不依賴分數的全文複述");
+      if (!currentFormat && /\d+(?:\.\d+)?%?/.test(noNumberRetell)) errors.push("不依賴分數的全文複述仍含阿拉伯數字；先說明過程，再回答實驗數值");
+      if (lineField(paperMap, "全文理解判定") !== "NARRATIVE_PASS") errors.push("全文理解檢查必須記錄 NARRATIVE_PASS");
     }
-    if (lineField(paperMap, "问题与贡献判定") !== "PAPER_IDENTITY_PASS") errors.push("陌生读者五问必须得到 PAPER_IDENTITY_PASS");
-    if (lineField(paperMap, "认识变化判定") !== "UNDERSTANDING_PASS") errors.push("三句认识更新必须得到 UNDERSTANDING_PASS");
-    if (lineField(paperMap, "结果解释判定") !== "RECONSTRUCTION_PASS") errors.push("结果解释必须得到 RECONSTRUCTION_PASS");
+    if (lineField(paperMap, "問題與貢獻判定") !== "PAPER_IDENTITY_PASS") errors.push("陌生讀者五問必須得到 PAPER_IDENTITY_PASS");
+    if (lineField(paperMap, "認識變化判定") !== "UNDERSTANDING_PASS") errors.push("三句認識更新必須得到 UNDERSTANDING_PASS");
+    if (lineField(paperMap, "結果解釋判定") !== "RECONSTRUCTION_PASS") errors.push("結果解釋必須得到 RECONSTRUCTION_PASS");
   }
 
   return {

@@ -99,10 +99,10 @@ function chartRendererFixtures(template: string): Record<string, boolean> {
   const byClass = (node: ChartFixtureNode, name: string) => all(node).filter((item) => item.className.split(/\s+/).includes(name));
   const text = (node: ChartFixtureNode): string => node.textContent + node.children.map(text).join("");
   try {
-    const bars = render({ kind: "bar", title: "收支", items: [{ label: "负", value: -2 }, { label: "零", value: 0 }, { label: "正", value: 3 }] });
+    const bars = render({ kind: "bar", title: "收支", items: [{ label: "負", value: -2 }, { label: "零", value: 0 }, { label: "正", value: 3 }] });
     const tracks = byClass(bars, "bar-track");
     const zeroBars = render({ kind: "bar", title: "零", items: [{ label: "A", value: 0 }, { label: "B", value: 0 }] });
-    const line = render({ kind: "line", title: "变化", items: [{ label: "A", x: 1, value: -2 }, { label: "B", x: 2, value: 0 }, { label: "C", x: 5, value: 3, emphasis: true }] });
+    const line = render({ kind: "line", title: "變化", items: [{ label: "A", x: 1, value: -2 }, { label: "B", x: 2, value: 0 }, { label: "C", x: 5, value: 3, emphasis: true }] });
     const points = byClass(line, "plot-point");
     const xs = points.map((node) => Number(node.attributes.cx));
     const mobile = byClass(line, "chart-data")[0];
@@ -165,7 +165,7 @@ async function selfTest(){
  result.staleBrowserRejected=(await validateHtml(html,undefined,{buildId:'old',count:prepared.slides.length,pages:prepared.slides.map(()=>({pass:true})),pass:true})).some(c=>c.id==='browser-build'&&!c.pass);
  for(const [k,v] of Object.entries(chartRendererFixtures(template)))result['chart_'+k]=v;
  const mathCode=template.slice(template.indexOf('  function escapeHtml('),template.indexOf('// BEGIN CHART RENDERER'));const renderMath=(text:string)=>runInNewContext(mathCode+'\nrenderMathAware(input)',{input:text},{timeout:1000});
- result.priceProtection=!String(renderMath('$20/month 与 $200/month')).includes('class="math"');result.mathClosedDelimiters=String(renderMath('$$x^2 \\cdot y$$')).includes('<sup>2</sup>');
+ result.priceProtection=!String(renderMath('$20/month 與 $200/month')).includes('class="math"');result.mathClosedDelimiters=String(renderMath('$$x^2 \\cdot y$$')).includes('<sup>2</sup>');
  const validFonts=['data:font/ttf;base64,AAEAAA==','data:font/otf;base64,T1RUTw=='];result.fontSignatures=validFonts.every(x=>isEmbeddedAsset(x,'font'))&&!isEmbeddedAsset('data:font/ttf;base64,VEVYVA==','font');
  const ok=Object.values(result).every(Boolean);console.log(JSON.stringify({status:ok?'PASS':'FAIL',...result,failedChecks:checks.filter(c=>!c.pass)},null,2));return ok;
 }

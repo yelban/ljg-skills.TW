@@ -1,18 +1,18 @@
 import { describe, expect, test } from "bun:test";
 import { validateNoteText } from "./ValidateNote";
 
-const v5OrgPath = "/tmp/20260823T010203--理解-目标函数__is.org";
-const v5MdPath = "/tmp/20260823T010203--理解-目标函数__is.md";
-const DEFINITION = "目标函数是在一组可选方案上给出可比较结果、供优化过程判断哪个方案更符合目标的函数或规则。";
-const OPERATION = "它把每个候选方案映射成一个值，求解过程据此保留更优方案，直到不能继续改进或达到停止条件。";
-const RECOGNITION = "优化不是先有方向再做计算，目标函数本身就在规定什么变化会被系统当成进步。";
-const GUIDANCE = "设计或评估优化系统时，先看目标函数奖励什么、漏掉什么，再检查高分是否真的对应想要的结果。";
-const orgPath = "/tmp/20260823T010203--动词-网约车秩序__is.org";
-const mdPath = "/tmp/20260823T010203--动词-网约车秩序__is.md";
-const ACTION = "平台经营者借助手机定位和实时派单，把原本彼此看不见的乘客与司机组织成一张由平台居中调度的城市出行网络。";
+const v5OrgPath = "/tmp/20260823T010203--理解-目標函式__is.org";
+const v5MdPath = "/tmp/20260823T010203--理解-目標函式__is.md";
+const DEFINITION = "目標函式是在一組可選方案上給出可比較結果、供最佳化過程判斷哪個方案更符合目標的函式或規則。";
+const OPERATION = "它把每個候選方案對映成一個值，求解過程據此保留更優方案，直到不能繼續改進或達到停止條件。";
+const RECOGNITION = "最佳化不是先有方向再做計算，目標函式本身就在規定什麼變化會被系統當成進步。";
+const GUIDANCE = "設計或評估最佳化系統時，先看目標函式獎勵什麼、漏掉什麼，再檢查高分是否真的對應想要的結果。";
+const orgPath = "/tmp/20260823T010203--動詞-網約車秩序__is.org";
+const mdPath = "/tmp/20260823T010203--動詞-網約車秩序__is.md";
+const ACTION = "平臺經營者藉助手機定位和即時派單，把原本彼此看不見的乘客與司機組織成一張由平臺居中排程的城市出行網路。";
 
 function goodV5Org(): string {
-  return `#+title: 理解：目标函数
+  return `#+title: 理解：目標函式
 #+date: [2026-08-23 Sun 01:02]
 #+identifier: 20260823T010203
 #+filetags: :is:act:
@@ -21,26 +21,26 @@ function goodV5Org(): string {
 #+operation: ${OPERATION}
 #+recognition: ${RECOGNITION}
 #+guidance: ${GUIDANCE}
-#+basis: 在优化问题中，目标函数为候选方案赋值，求解过程按这些值比较和选择方案。
-#+falsifier: 如果候选方案的目标函数值与求解过程的比较和选择完全无关，那么当前解释需要重写。
+#+basis: 在最佳化問題中，目標函式為候選方案賦值，求解過程按這些值比較和選擇方案。
+#+falsifier: 如果候選方案的目標函式值與求解過程的比較和選擇完全無關，那麼當前解釋需要重寫。
 
-* 机器并不知道什么叫更好
+* 機器並不知道什麼叫更好
 
-看到「寻找最优解」，很容易以为机器已经知道什么叫好，只差把答案算出来。其实在计算开始以前，人必须先给出一把尺子。没有这把尺子，程序只能看见许多可能，不能判断该往哪边走。
+看到「尋找最優解」，很容易以為機器已經知道什麼叫好，只差把答案算出來。其實在計算開始以前，人必須先給出一把尺子。沒有這把尺子，程式只能看見許多可能，不能判斷該往哪邊走。
 
-${DEFINITION} 在路线规划里，方案可以是不同走法，目标函数可以比较它们各自需要的时间。它不是全部现实，只是把当前任务认定的重要差别变得可以比较。
+${DEFINITION} 在路線規劃裡，方案可以是不同走法，目標函式可以比較它們各自需要的時間。它不是全部現實，只是把當前任務認定的重要差別變得可以比較。
 
-* 一把尺子怎样推动搜索
+* 一把尺子怎樣推動搜尋
 
-${OPERATION} 目标函数告诉程序往哪里改进，约束条件则先排除那些不能采用的方案。两者经常一起出现，却在做不同的事。
+${OPERATION} 目標函式告訴程式往哪裡改進，約束條件則先排除那些不能採用的方案。兩者經常一起出現，卻在做不同的事。
 
-这也改变了我们对「客观优化」的理解。优化不会消除人的判断，而是把一部分判断提前写进计算。分数越来越好，只能证明系统更符合这把尺子，不能单独证明现实也在变好。
+這也改變了我們對「客觀最佳化」的理解。最佳化不會消除人的判斷，而是把一部分判斷提前寫進計算。分數越來越好，只能證明系統更符合這把尺子，不能單獨證明現實也在變好。
 
-* 先检查尺子，再相信高分
+* 先檢查尺子，再相信高分
 
-所以，看到一个系统声称自己在优化时，先别急着看它用了多复杂的算法。先问它究竟给什么加分，哪些重要结果没有进入计算。若高分方案在现实中反复造成目标之外的损失，问题可能不在求解器，而在那把尺子。
+所以，看到一個系統聲稱自己在最佳化時，先別急著看它用了多複雜的演算法。先問它究竟給什麼加分，哪些重要結果沒有進入計算。若高分方案在現實中反覆造成目標之外的損失，問題可能不在求解器，而在那把尺子。
 
-${GUIDANCE} 以后再看到「最优」两个字，可以把它自动补全成一句更准确的话：这是在当前目标函数和约束条件下得到的最优，而不是脱离条件的最好。
+${GUIDANCE} 以後再看到「最優」兩個字，可以把它自動補全成一句更準確的話：這是在當前目標函式和約束條件下得到的最優，而不是脫離條件的最好。
 `;
 }
 
@@ -54,36 +54,36 @@ function goodV5Markdown(): string {
 }
 
 function goodV4Org(): string {
-  return `#+title: 动词：网约车
+  return `#+title: 動詞：網約車
 #+date: [2026-08-23 Sun 01:02]
 #+identifier: 20260823T010203
 #+filetags: :is:act:
 #+schema: ljg-is-v4
 #+action: ${ACTION}
-#+basis: 网约车依靠线上请求、位置匹配和平台派单组织乘客与司机，行程双方都要通过平台规则才能完成。
-#+falsifier: 如果拿掉平台对入口和派单的安排，服务仍能按原样运行，那么当前解释就需要重写。
+#+basis: 網約車依靠線上請求、位置匹配和平臺派單組織乘客與司機，行程雙方都要通過平臺規則才能完成。
+#+falsifier: 如果拿掉平臺對入口和派單的安排，服務仍能按原樣執行，那麼當前解釋就需要重寫。
 
-* 你叫来的不只是一辆车
+* 你叫來的不只是一輛車
 
-晚上十点，你站在路边，附近没有空车。打开手机后，屏幕先告诉你要等多久，几分钟后一位陌生司机按照导航来接你。一次原本靠碰运气发生的相遇，现在像按下开关一样出现了。
+晚上十點，你站在路邊，附近沒有空車。開啟手機後，螢幕先告訴你要等多久，幾分鐘後一位陌生司機按照導航來接你。一次原本靠碰運氣發生的相遇，現在像按下開關一樣出現了。
 
-${ACTION} 改变不只在于叫车更快。谁先遇见谁、这次相遇怎样开始，都有了一个居中的安排者。
+${ACTION} 改變不只在於叫車更快。誰先遇見誰、這次相遇怎樣開始，都有了一個居中的安排者。
 
-* 平台开始替陌生人安排相遇
+* 平臺開始替陌生人安排相遇
 
-事情原本也可以走另一条路。城市可以建设公共叫车系统，司机也可以用合作社共同管理入口，让乘客和司机一起决定关键规则。商业平台之所以迅速长大，是因为它先解决了双方互相找不到的麻烦，但方便本身还不能说明规则理应归平台所有。
+事情原本也可以走另一條路。城市可以建設公共叫車系統，司機也可以用合作社共同管理入口，讓乘客和司機一起決定關鍵規則。商業平臺之所以迅速長大，是因為它先解決了雙方互相找不到的麻煩，但方便本身還不能說明規則理應歸平臺所有。
 
-平台一旦成为入口，就不只是介绍双方认识。它决定哪些司机先看到订单，也用计价和评价影响一次服务怎样完成。司机获得了客源，却要学习平台看重什么；乘客少等了车，也开始把位置和选择交给系统。
+平臺一旦成為入口，就不只是介紹雙方認識。它決定哪些司機先看到訂單，也用計價和評價影響一次服務怎樣完成。司機獲得了客源，卻要學習平臺看重什麼；乘客少等了車，也開始把位置和選擇交給系統。
 
-当司机和乘客逐渐依赖这套安排，它便反过来改变他们。司机会围绕派单和评分调整工作，乘客会按照平台给出的时间与价格作决定，平台也必须维持足够的车辆和可信的处置能力。它承诺的方便，后来成了它自己不能随意撤回的责任。
+當司機和乘客逐漸依賴這套安排，它便反過來改變他們。司機會圍繞派單和評分調整工作，乘客會按照平臺給出的時間與價格作決定，平臺也必須維持足夠的車輛和可信的處置能力。它承諾的方便，後來成了它自己不能隨意撤回的責任。
 
-* 方便以后，规则归谁
+* 方便以後，規則歸誰
 
-往回看，关键一步不是汽车开始载客，而是平台把陌生人的临时需要变成可以持续计算的相遇。从这一步开始，「谁来安排相遇，又由谁承担失误」就成了反复出现的问题。未来可以有公共平台、合作社或更开放的接口，但每条路都要重新回答这个问题。
+往回看，關鍵一步不是汽車開始載客，而是平臺把陌生人的臨時需要變成可以持續計算的相遇。從這一步開始，「誰來安排相遇，又由誰承擔失誤」就成了反覆出現的問題。未來可以有公共平臺、合作社或更開放的介面，但每條路都要重新回答這個問題。
 
-这一步打开了随时叫车的生活，也让城市越来越依赖一个数字入口。规则若能被司机和乘客共同修改，方便或许不必以交出全部决定权为代价。若入口继续集中，选择看上去很多，决定规则的人却可能很少。
+這一步打開了隨時叫車的生活，也讓城市越來越依賴一個數字入口。規則若能被司機和乘客共同修改，方便或許不必以交出全部決定權為代價。若入口繼續集中，選擇看上去很多，決定規則的人卻可能很少。
 
-这里说的是网约车的一般运行方式，不是在断言每个平台都使用同样的规则。如果拿掉平台对入口和派单的安排，乘客与司机仍能按原样完成这种即时服务，那么这篇解释就站不住。当一项方便已经成了城市日常，到底谁有权修改维持它的规则？
+這裡說的是網約車的一般執行方式，不是在斷言每個平臺都使用同樣的規則。如果拿掉平臺對入口和派單的安排，乘客與司機仍能按原樣完成這種即時服務，那麼這篇解釋就站不住。當一項方便已經成了城市日常，到底誰有權修改維持它的規則？
 `;
 }
 
@@ -97,84 +97,84 @@ function goodV4Markdown(): string {
 }
 
 function goodV3Org(): string {
-  return `#+title: 动词：绩效考核
+  return `#+title: 動詞：績效考核
 #+date: [2026-08-23 Sun 01:02]
 #+identifier: 20260823T010203
 #+filetags: :is:act:
 #+schema: ljg-is-v3
 
-* 动词判断
-- *原问*：绩效考核是什么？
-- *改问*：组织管理者凭什么把工作价值做成可量化奖惩的秩序，而不是保留多方叙述与协商？
-- *作*：组织管理者以量化评分，把分散工作的价值判断做成可比较、可奖惩的管理秩序。
+* 動詞判斷
+- *原問*：績效考核是什麼？
+- *改問*：組織管理者憑什麼把工作價值做成可量化獎懲的秩序，而不是保留多方敘述與協商？
+- *作*：組織管理者以量化評分，把分散工作的價值判斷做成可比較、可獎懲的管理秩序。
 
-* 一个不
-- *给定*：工作贡献主要由具体协作中的判断和信任确认。
-- *不*：贡献不必只留在具体关系中，也可以被统一尺度组织。
-- *未选*：由同事、客户与本人共同叙述贡献，再公开协商奖惩。
+* 一個不
+- *給定*：工作貢獻主要由具體協作中的判斷和信任確認。
+- *不*：貢獻不必只留在具體關係中，也可以被統一尺度組織。
+- *未選*：由同事、客戶與本人共同敘述貢獻，再公開協商獎懲。
 
 * 理由
-- *已有*：统一评分降低跨团队比较成本，并给奖惩提供记录。
-- *尚缺*：可比较不等于公正，指标不能代表全部工作。
+- *已有*：統一評分降低跨團隊比較成本，並給獎懲提供記錄。
+- *尚缺*：可比較不等於公正，指標不能代表全部工作。
 
 * 做成的秩序
-- *规则*：指标、权重和周期决定哪些贡献进入正式判断。
-- *关系*：管理者成为评分者，员工成为被比较者。
-- *分配*：奖金、机会和风险按评分重新分配。
+- *規則*：指標、權重和週期決定哪些貢獻進入正式判斷。
+- *關係*：管理者成為評分者，員工成為被比較者。
+- *分配*：獎金、機會和風險按評分重新分配。
 
-* 卷入与反制
-- *卷入*：员工、经理、协作者和组织共同承担后果。
-- *回应*：员工可以解释、争议或拒绝评价。
-- *反制*：评分体系一旦成为人事依据，管理者也必须服从指标，难以承认体系没有记录的贡献。
+* 捲入與反制
+- *捲入*：員工、經理、協作者和組織共同承擔後果。
+- *回應*：員工可以解釋、爭議或拒絕評價。
+- *反制*：評分體系一旦成為人事依據，管理者也必須服從指標，難以承認體系沒有記錄的貢獻。
 
-* 历史与未来
-- *本源*：从指标异化的困境逆溯，分析追到组织用统一尺度比较岗位的创建事件；它使「不同工作凭什么可比」持续成为不能删除的问题。
-- *打开*：组织可以跨团队比较工作。
-- *关闭*：难量化的工作更难进入判断。
-- *修正*：组织可以开放指标制定和申诉。
+* 歷史與未來
+- *本源*：從指標異化的困境逆溯，分析追到組織用統一尺度比較崗位的建立事件；它使「不同工作憑什麼可比」持續成為不能刪除的問題。
+- *開啟*：組織可以跨團隊比較工作。
+- *關閉*：難量化的工作更難進入判斷。
+- *修正*：組織可以開放指標制定和申訴。
 
-* 未决问题
-- *凭什么*：凭什么让统一评分取得决定奖惩的权力，而不是保留协商？
-- *接下来*：评分会把员工和管理者共同做成怎样的人？
+* 未決問題
+- *憑什麼*：憑什麼讓統一評分取得決定獎懲的權力，而不是保留協商？
+- *接下來*：評分會把員工和管理者共同做成怎樣的人？
 
-* 根据与边界
-- *根据*：评分连接跨人比较、奖金和晋升，是本分析采用的制度事实。
-- *推断*：参与者会把行动转向可记录指标。
-- *边界*：本分析不证明所有评分必然不公。
-- *反驳*：如果评分不影响任何资源或行动，当前判断就需要重写。
+* 根據與邊界
+- *根據*：評分連線跨人比較、獎金和晉升，是本分析採用的制度事實。
+- *推斷*：參與者會把行動轉向可記錄指標。
+- *邊界*：本分析不證明所有評分必然不公。
+- *反駁*：如果評分不影響任何資源或行動，當前判斷就需要重寫。
 `;
 }
 
 function legacyV2(): string {
-  return `#+title: 本质：Taxi
+  return `#+title: 本質：Taxi
 #+date: [2026-08-01 Sat 01:02]
 #+identifier: 20260801T010203
 #+filetags: :is:
 #+schema: ljg-is-v2
 
-* 问题
-真正问题：乘客最终从哪里到哪里？
+* 問題
+真正問題：乘客最終從哪裡到哪裡？
 
-* 完整表达
-完整：（面向乘客）把人从 A 点送到 B 点
+* 完整表達
+完整：（面向乘客）把人從 A 點送到 B 點
 
-* 剥离
-- *实现*：汽车可以替换
+* 剝離
+- *實現*：汽車可以替換
 
-* 本质
-核心：把人从 A 点送到 B 点
+* 本質
+核心：把人從 A 點送到 B 點
 
 * 示例
-- *代入*：你从公司回家
+- *代入*：你從公司回家
 
-* 结构迁移
-- *结构式*：(X, S0) -> (X, S1)
-- *变量*：X=对象
-- *迁移*：文件 A -> B
-- *边界*：只迁移位置；不迁移身份
+* 結構遷移
+- *結構式*：(X, S0) -> (X, S1)
+- *變數*：X=物件
+- *遷移*：檔案 A -> B
+- *邊界*：只遷移位置；不遷移身份
 
-* 验证
-- *替换*：换车仍成立
+* 驗證
+- *替換*：換車仍成立
 `;
 }
 
@@ -200,7 +200,7 @@ describe("ValidateNote v5 usable-understanding contract", () => {
     ]) {
       expect(template).toMatch(new RegExp(`^(?:#\\+${key}:|${key}:)`, "m"));
     }
-    expect(template).not.toMatch(/^(?:\*|#) (?:是什么|如何运作|认知改变|行动指导)$/mu);
+    expect(template).not.toMatch(/^(?:\*|#) (?:是什麼|如何運作|認知改變|行動指導)$/mu);
   });
 
   test("accepts a complete v5 Org note that ends with a usable judgment", () => {
@@ -223,23 +223,23 @@ describe("ValidateNote v5 usable-understanding contract", () => {
   });
 
   test("rejects vague guidance but does not require an open question", () => {
-    const vague = goodV5Org().replace(`#+guidance: ${GUIDANCE}`, "#+guidance: 今后对此保持关注，具体情况具体分析。");
+    const vague = goodV5Org().replace(`#+guidance: ${GUIDANCE}`, "#+guidance: 今後對此保持關注，具體情況具體分析。");
     expect(v5ErrorsFor(vague).some((error) => error.includes("guidance"))).toBe(true);
     expect(goodV5Org().trimEnd().endsWith("。")).toBe(true);
     expect(validateNoteText(v5OrgPath, goodV5Org()).ok).toBe(true);
   });
 
   test("rejects checklist headings and visible field labels", () => {
-    const heading = goodV5Org().replace("* 机器并不知道什么叫更好", "* 是什么");
-    const label = goodV5Org().replace("看到「寻找最优解」", "定义：目标函数是一把尺子。\n\n看到「寻找最优解」");
-    expect(v5ErrorsFor(heading).some((error) => error.includes("标题"))).toBe(true);
-    expect(v5ErrorsFor(label).some((error) => error.includes("字段标签"))).toBe(true);
+    const heading = goodV5Org().replace("* 機器並不知道什麼叫更好", "* 是什麼");
+    const label = goodV5Org().replace("看到「尋找最優解」", "定義：目標函式是一把尺子。\n\n看到「尋找最優解」");
+    expect(v5ErrorsFor(heading).some((error) => error.includes("標題"))).toBe(true);
+    expect(v5ErrorsFor(label).some((error) => error.includes("欄位標籤"))).toBe(true);
   });
 
   test("does not require a protagonist, forced back-action or question ending", () => {
     const result = validateNoteText(v5OrgPath, goodV5Org());
     expect(result.ok).toBe(true);
-    expect(goodV5Org()).not.toContain("反过来规定创造者");
+    expect(goodV5Org()).not.toContain("反過來規定創造者");
     expect(goodV5Org().trimEnd()).not.toEndWith("？");
   });
 });
@@ -257,15 +257,15 @@ describe("ValidateNote v4 narrative contract", () => {
   });
 
   test("keeps v3 notes readable", () => {
-    const result = validateNoteText("/tmp/20260823T010203--动词-绩效考核__is.org", goodV3Org());
+    const result = validateNoteText("/tmp/20260823T010203--動詞-績效考核__is.org", goodV3Org());
     expect(result.ok).toBe(true);
     expect(result.schema).toBe("ljg-is-v3");
   });
 
   test("keeps v2 notes readable", () => {
-    const result = validateNoteText("/tmp/20260801T010203--本质-taxi__is.org", legacyV2());
+    const result = validateNoteText("/tmp/20260801T010203--本質-taxi__is.org", legacyV2());
     expect(result.ok).toBe(true);
-    expect(result.core).toBe("把人从 A 点送到 B 点");
+    expect(result.core).toBe("把人從 A 點送到 B 點");
   });
 
   test("rejects an unknown schema", () => {
@@ -273,156 +273,156 @@ describe("ValidateNote v4 narrative contract", () => {
   });
 
   test("requires the v4 filename", () => {
-    expect(errorsFor(goodV4Org(), "/tmp/网约车.org").some((error) => error.includes("v4 文件名"))).toBe(true);
+    expect(errorsFor(goodV4Org(), "/tmp/網約車.org").some((error) => error.includes("v4 檔名"))).toBe(true);
   });
 
   test("requires action title and tags", () => {
-    const badTitle = goodV4Org().replace("动词：网约车", "本质：网约车");
+    const badTitle = goodV4Org().replace("動詞：網約車", "本質：網約車");
     const badTags = goodV4Org().replace(":is:act:", ":is:");
     expect(errorsFor(badTitle).some((error) => error.includes("title"))).toBe(true);
     expect(errorsFor(badTags).some((error) => error.includes("act"))).toBe(true);
   });
 
   test("allows two to four content-led headings but rejects rigid placeholders", () => {
-    const two = goodV4Org().replace("\n* 平台开始替陌生人安排相遇\n", "\n");
-    const tooMany = goodV4Org().replace("* 方便以后，规则归谁", "* 多出的一栏\n\n这是一段额外说明。\n\n这又是一段额外说明。\n\n* 又多出一栏\n\n这是一段额外说明。\n\n这又是一段额外说明。\n\n* 方便以后，规则归谁");
-    const generic = goodV4Org().replace("* 你叫来的不只是一辆车", "* 开场");
+    const two = goodV4Org().replace("\n* 平臺開始替陌生人安排相遇\n", "\n");
+    const tooMany = goodV4Org().replace("* 方便以後，規則歸誰", "* 多出的一欄\n\n這是一段額外說明。\n\n這又是一段額外說明。\n\n* 又多出一欄\n\n這是一段額外說明。\n\n這又是一段額外說明。\n\n* 方便以後，規則歸誰");
+    const generic = goodV4Org().replace("* 你叫來的不只是一輛車", "* 開場");
     expect(validateNoteText(orgPath, two).ok).toBe(true);
-    expect(errorsFor(tooMany).some((error) => error.includes("两到四个"))).toBe(true);
-    expect(errorsFor(generic).some((error) => error.includes("标题必须具体"))).toBe(true);
+    expect(errorsFor(tooMany).some((error) => error.includes("兩到四個"))).toBe(true);
+    expect(errorsFor(generic).some((error) => error.includes("標題必須具體"))).toBe(true);
   });
 
   test("rejects visible lists and framework fields", () => {
-    const list = goodV4Org().replace("晚上十点", "- 规则：平台负责派单\n\n晚上十点");
-    const label = goodV4Org().replace("事情原本也可以", "规则：平台负责派单。\n\n事情原本也可以");
-    expect(errorsFor(list).some((error) => error.includes("项目符号"))).toBe(true);
-    expect(errorsFor(label).some((error) => error.includes("字段标签"))).toBe(true);
+    const list = goodV4Org().replace("晚上十點", "- 規則：平臺負責派單\n\n晚上十點");
+    const label = goodV4Org().replace("事情原本也可以", "規則：平臺負責派單。\n\n事情原本也可以");
+    expect(errorsFor(list).some((error) => error.includes("專案符號"))).toBe(true);
+    expect(errorsFor(label).some((error) => error.includes("欄位標籤"))).toBe(true);
   });
 
   test("requires enough paragraphs for a flowing explanation", () => {
-    const note = goodV4Org().replace("\n\n平台一旦成为入口", " 平台一旦成为入口").replace("\n\n当司机和乘客", " 当司机和乘客");
-    expect(errorsFor(note).some((error) => error.includes("每节至少"))).toBe(true);
+    const note = goodV4Org().replace("\n\n平臺一旦成為入口", " 平臺一旦成為入口").replace("\n\n當司機和乘客", " 當司機和乘客");
+    expect(errorsFor(note).some((error) => error.includes("每節至少"))).toBe(true);
   });
 
   test("requires a concrete opening", () => {
     const note = goodV4Org().replace(
-      "晚上十点，你站在路边，附近没有空车。打开手机后，屏幕先告诉你要等多久，几分钟后一位陌生司机按照导航来接你。一次原本靠碰运气发生的相遇，现在像按下开关一样出现了。",
-      "现代性塑造了一种新的流动范式。抽象关系由此进入复杂系统。主体间性也发生了结构变化。",
+      "晚上十點，你站在路邊，附近沒有空車。開啟手機後，螢幕先告訴你要等多久，幾分鐘後一位陌生司機按照導航來接你。一次原本靠碰運氣發生的相遇，現在像按下開關一樣出現了。",
+      "現代性塑造了一種新的流動範式。抽象關係由此進入複雜系統。主體間性也發生了結構變化。",
     );
-    expect(errorsFor(note).some((error) => error.includes("具体的人"))).toBe(true);
+    expect(errorsFor(note).some((error) => error.includes("具體的人"))).toBe(true);
   });
 
   test("allows a natural prose paraphrase while keeping action meaningful", () => {
     const paraphrased = goodV4Org().replace(
-      `${ACTION} 改变不只在于叫车更快。谁先遇见谁、这次相遇怎样开始，都有了一个居中的安排者。`,
-      "平台先看见你和司机各在哪里，再替你们配对。叫车变快只是表面变化，更深的变化是陌生人的相遇从此要经过同一个入口。",
+      `${ACTION} 改變不只在於叫車更快。誰先遇見誰、這次相遇怎樣開始，都有了一個居中的安排者。`,
+      "平臺先看見你和司機各在哪裡，再替你們配對。叫車變快只是表面變化，更深的變化是陌生人的相遇從此要經過同一個入口。",
     );
-    const abstract = goodV4Org().replace(`#+action: ${ACTION}`, "#+action: 这是一段长度足够却没有关键动作和共同变化的抽象判断。社会因此出现了某种新影响。");
+    const abstract = goodV4Org().replace(`#+action: ${ACTION}`, "#+action: 這是一段長度足夠卻沒有關鍵動作和共同變化的抽象判斷。社會因此出現了某種新影響。");
     expect(validateNoteText(orgPath, paraphrased).ok).toBe(true);
-    expect(errorsFor(abstract).some((error) => error.includes("普通话"))).toBe(true);
+    expect(errorsFor(abstract).some((error) => error.includes("普通話"))).toBe(true);
   });
 
   test("keeps the Zhao lens conditional instead of forcing a plot", async () => {
     const workflow = await Bun.file(new URL("../Workflows/TraceCreation.md", import.meta.url)).text();
-    expect(workflow).toContain("赵汀阳的问题链只作条件性补充");
-    expect(workflow).toContain("不为了哲学完整而写进文章");
-    expect(workflow).toContain("不强制虚构主人公");
-    expect(workflow).toContain("若转折没有被前面的定义与机制逼出来，就删除");
+    expect(workflow).toContain("趙汀陽的問題鏈只作條件性補充");
+    expect(workflow).toContain("不為了哲學完整而寫進文章");
+    expect(workflow).toContain("不強制虛構主人公");
+    expect(workflow).toContain("若轉折沒有被前面的定義與機制逼出來，就刪除");
   });
 
   test("rejects list punctuation and overlong sentences", () => {
-    const listed = goodV4Org().replace("它决定哪些司机先看到订单", `平台考虑甲、乙、丙、丁、戊、己、庚、辛、壬、癸、子、丑、寅、卯、辰。它决定哪些司机先看到订单`);
-    const long = goodV4Org().replace("改变不只在于叫车更快。", `${"这个变化不断叠加新的抽象判断".repeat(12)}。`);
-    expect(errorsFor(listed).some((error) => error.includes("要素罗列"))).toBe(true);
+    const listed = goodV4Org().replace("它決定哪些司機先看到訂單", `平臺考慮甲、乙、丙、丁、戊、己、庚、辛、壬、癸、子、醜、寅、卯、辰。它決定哪些司機先看到訂單`);
+    const long = goodV4Org().replace("改變不只在於叫車更快。", `${"這個變化不斷疊加新的抽象判斷".repeat(12)}。`);
+    expect(errorsFor(listed).some((error) => error.includes("要素羅列"))).toBe(true);
     expect(errorsFor(long).some((error) => error.includes("100 字"))).toBe(true);
   });
 
   test("allows natural ending variants but requires backstage falsifier and an open question", () => {
     const natural = goodV4Org()
-      .replace("往回看，关键一步", "真正的转折发生在")
-      .replace("这里说的是网约车的一般运行方式，不是在断言每个平台都使用同样的规则。", "我只讨论网约车常见的运行方式。至于具体公司怎样派单，这里没有核验，也不能据此下判断。")
-      .replace("如果拿掉平台对入口和派单的安排，乘客与司机仍能按原样完成这种即时服务，那么这篇解释就站不住。", "另一种材料也可能迫使我们改变看法，例如司机和乘客实际上共同掌握全部规则。")
-      .replace("#+falsifier: 如果拿掉平台对入口和派单的安排，服务仍能按原样运行，那么当前解释就需要重写。", "#+falsifier: 若司机和乘客事实上共同掌握全部关键规则，那么当前解释就不成立。");
+      .replace("往回看，關鍵一步", "真正的轉折發生在")
+      .replace("這裡說的是網約車的一般執行方式，不是在斷言每個平臺都使用同樣的規則。", "我只討論網約車常見的執行方式。至於具體公司怎樣派單，這裡沒有核驗，也不能據此下判斷。")
+      .replace("如果拿掉平臺對入口和派單的安排，乘客與司機仍能按原樣完成這種即時服務，那麼這篇解釋就站不住。", "另一種材料也可能迫使我們改變看法，例如司機和乘客實際上共同掌握全部規則。")
+      .replace("#+falsifier: 如果拿掉平臺對入口和派單的安排，服務仍能按原樣執行，那麼當前解釋就需要重寫。", "#+falsifier: 若司機和乘客事實上共同掌握全部關鍵規則，那麼當前解釋就不成立。");
     const noFalsifier = goodV4Org().replace(/^#\+falsifier: .+\n/mu, "");
-    const closed = goodV4Org().replace("到底谁有权修改维持它的规则？", "这些规则最终会得到妥善解决。");
+    const closed = goodV4Org().replace("到底誰有權修改維持它的規則？", "這些規則最終會得到妥善解決。");
     expect(validateNoteText(orgPath, natural).ok).toBe(true);
     expect(errorsFor(noFalsifier).some((error) => error.includes("falsifier"))).toBe(true);
-    expect(errorsFor(closed).some((error) => error.includes("真问题"))).toBe(true);
+    expect(errorsFor(closed).some((error) => error.includes("真問題"))).toBe(true);
   });
 
   test("rejects rumor as basis", () => {
-    const note = goodV4Org().replace("网约车依靠线上请求、位置匹配和平台派单组织乘客与司机，行程双方都要通过平台规则才能完成。", "听说大家可能都认可平台派单。");
+    const note = goodV4Org().replace("網約車依靠線上請求、位置匹配和平臺派單組織乘客與司機，行程雙方都要通過平臺規則才能完成。", "聽說大家可能都認可平臺派單。");
     expect(errorsFor(note).some((error) => error.includes("basis"))).toBe(true);
   });
 
   test("rejects old contracts, placeholders and Markdown syntax in Org", () => {
-    const old = goodV4Org().replace("改变不只在于", "The One 是 X -> Y。改变不只在于");
-    const placeholder = goodV4Org().replace("网约车", "{目标}");
-    const markdown = goodV4Org().replace("网约车", "[网约车](https://example.com)");
-    expect(errorsFor(old).some((error) => error.includes("旧合同"))).toBe(true);
-    expect(errorsFor(placeholder).some((error) => error.includes("占位符"))).toBe(true);
-    expect(errorsFor(markdown).some((error) => error.includes("Markdown 链接"))).toBe(true);
+    const old = goodV4Org().replace("改變不只在於", "The One 是 X -> Y。改變不只在於");
+    const placeholder = goodV4Org().replace("網約車", "{目標}");
+    const markdown = goodV4Org().replace("網約車", "[網約車](https://example.com)");
+    expect(errorsFor(old).some((error) => error.includes("舊合同"))).toBe(true);
+    expect(errorsFor(placeholder).some((error) => error.includes("佔位符"))).toBe(true);
+    expect(errorsFor(markdown).some((error) => error.includes("Markdown 連結"))).toBe(true);
   });
 
   test("rejects identifier disagreement", () => {
     const note = goodV4Org().replace("20260823T010203\n#+filetags", "20260823T010204\n#+filetags");
-    expect(errorsFor(note).some((error) => error.includes("文件名时间戳"))).toBe(true);
+    expect(errorsFor(note).some((error) => error.includes("檔名時間戳"))).toBe(true);
   });
 });
 
 describe("ValidateNote v3 compatibility regressions", () => {
-  const v3Path = "/tmp/20260823T010203--动词-绩效考核__is.org";
+  const v3Path = "/tmp/20260823T010203--動詞-績效考核__is.org";
   const v3Errors = (content: string) => validateNoteText(v3Path, content).errors;
 
   test("still requires choice and justification in the v3 reframing", () => {
     const note = goodV3Org().replace(
-      "组织管理者凭什么把工作价值做成可量化奖惩的秩序，而不是保留多方叙述与协商？",
-      "绩效考核最终做了什么？",
+      "組織管理者憑什麼把工作價值做成可量化獎懲的秩序，而不是保留多方敘述與協商？",
+      "績效考核最終做了什麼？",
     );
-    expect(v3Errors(note).some((error) => error.includes("凭什么") && error.includes("而不是"))).toBe(true);
+    expect(v3Errors(note).some((error) => error.includes("憑什麼") && error.includes("而不是"))).toBe(true);
   });
 
   test("still rejects an abstract v3 action", () => {
     const note = goodV3Org().replace(
-      "组织管理者以量化评分，把分散工作的价值判断做成可比较、可奖惩的管理秩序。",
-      "这是一段长度足够却没有行动者和共同安排的抽象判断。",
+      "組織管理者以量化評分，把分散工作的價值判斷做成可比較、可獎懲的管理秩序。",
+      "這是一段長度足夠卻沒有行動者和共同安排的抽象判斷。",
     );
-    expect(v3Errors(note).some((error) => error.includes("具体创制行动"))).toBe(true);
+    expect(v3Errors(note).some((error) => error.includes("具體創制行動"))).toBe(true);
   });
 
   test("still requires a real v3 alternative", () => {
-    const note = goodV3Org().replace("由同事、客户与本人共同叙述贡献，再公开协商奖惩。", "其他可能");
-    expect(v3Errors(note).some((error) => error.includes("未选"))).toBe(true);
+    const note = goodV3Org().replace("由同事、客戶與本人共同敘述貢獻，再公開協商獎懲。", "其他可能");
+    expect(v3Errors(note).some((error) => error.includes("未選"))).toBe(true);
   });
 
   test("still distinguishes v3 back-action from a bad consequence", () => {
     const note = goodV3Org().replace(
-      "评分体系一旦成为人事依据，管理者也必须服从指标，难以承认体系没有记录的贡献。",
-      "长期加班会让员工疲惫，团队士气也会下降。",
+      "評分體系一旦成為人事依據，管理者也必須服從指標，難以承認體系沒有記錄的貢獻。",
+      "長期加班會讓員工疲憊，團隊士氣也會下降。",
     );
-    expect(v3Errors(note).some((error) => error.includes("反制") && error.includes("坏后果"))).toBe(true);
+    expect(v3Errors(note).some((error) => error.includes("反制") && error.includes("壞後果"))).toBe(true);
   });
 
   test("still requires v3 origin to carry a persistent problem", () => {
     const note = goodV3Org().replace(
-      "从指标异化的困境逆溯，分析追到组织用统一尺度比较岗位的创建事件；它使「不同工作凭什么可比」持续成为不能删除的问题。",
-      "当前能追到的最早创建点是第一次使用评分表。",
+      "從指標異化的困境逆溯，分析追到組織用統一尺度比較崗位的建立事件；它使「不同工作憑什麼可比」持續成為不能刪除的問題。",
+      "當前能追到的最早建立點是第一次使用評分表。",
     );
     expect(v3Errors(note).some((error) => error.includes("本源"))).toBe(true);
   });
 
   test("still rejects rumor as v3 evidence", () => {
-    const note = goodV3Org().replace("评分连接跨人比较、奖金和晋升，是本分析采用的制度事实。", "听说评分大概能够提高效率。");
-    expect(v3Errors(note).some((error) => error.includes("根据"))).toBe(true);
+    const note = goodV3Org().replace("評分連線跨人比較、獎金和晉升，是本分析採用的制度事實。", "聽說評分大概能夠提高效率。");
+    expect(v3Errors(note).some((error) => error.includes("根據"))).toBe(true);
   });
 
   test("still requires a falsifiable v3 judgment", () => {
-    const note = goodV3Org().replace("如果评分不影响任何资源或行动，当前判断就需要重写。", "当前判断仍有待观察。");
-    expect(v3Errors(note).some((error) => error.includes("反驳"))).toBe(true);
+    const note = goodV3Org().replace("如果評分不影響任何資源或行動，當前判斷就需要重寫。", "當前判斷仍有待觀察。");
+    expect(v3Errors(note).some((error) => error.includes("反駁"))).toBe(true);
   });
 
   test("still rejects The One and the arrow contract in v3", () => {
-    const note = goodV3Org().replace("从指标异化的困境逆溯", "The One 是 X -> Y；从指标异化的困境逆溯");
-    expect(v3Errors(note).some((error) => error.includes("旧合同"))).toBe(true);
+    const note = goodV3Org().replace("從指標異化的困境逆溯", "The One 是 X -> Y；從指標異化的困境逆溯");
+    expect(v3Errors(note).some((error) => error.includes("舊合同"))).toBe(true);
   });
 });

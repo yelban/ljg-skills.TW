@@ -1,103 +1,103 @@
 {
   "skill_name": "ljg-book",
-  "instructions": "实际测试前绑定source_path和隔离输出目录。执行者只收到prompt、材料和当前技能，不收到material_fixture、expected_output或assertions；评估者只收到最终正文。来源核对另做。占位用例不是已执行测试。",
+  "instructions": "實際測試前繫結source_path和隔離輸出目錄。執行者只收到prompt、材料和當前技能，不收到material_fixture、expected_output或assertions；評估者只收到最終正文。來源核對另做。佔位用例不是已執行測試。",
   "evals": [
     {
       "id": 1,
-      "prompt": "请用 ljg-book 解读这本书 <source_path>，让没读过的人理解整本书。",
-      "material_fixture": "完整的论证方法书",
+      "prompt": "請用 ljg-book 解讀這本書 <source_path>，讓沒讀過的人理解整本書。",
+      "material_fixture": "完整的論證方法書",
       "files": [
         "<source_path>"
       ],
-      "expected_output": "按实际材料形成来源有界、全书关系可理解、关键线索持续展开的Markdown 及 coverage；不预设正文对象、标题或最终结论。",
+      "expected_output": "按實際材料形成來源有界、全書關係可理解、關鍵線索持續展開的Markdown 及 coverage；不預設正文物件、標題或最終結論。",
       "assertions": [
-        "解释主要方法之间的分工和组合，不只列术语",
-        "连续展开所选对象，并保留原书的重要方法和结尾",
-        "能指认理解修改前后的具体对应，不虚构研究结果"
+        "解釋主要方法之間的分工和組合，不只列術語",
+        "連續展開所選物件，並保留原書的重要方法和結尾",
+        "能指認理解修改前後的具體對應，不虛構研究結果"
       ]
     },
     {
       "id": 2,
-      "prompt": "请根据这份旧笔记 <source_path>，重新讲清《鳗鱼的旅行》。",
-      "material_fixture": "旧解读笔记而非原书全文",
+      "prompt": "請根據這份舊筆記 <source_path>，重新講清《鰻魚的旅行》。",
+      "material_fixture": "舊解讀筆記而非原書全文",
       "files": [
         "<source_path>"
       ],
-      "expected_output": "按实际材料形成来源有界、全书关系可理解、关键线索持续展开的Markdown 及 coverage；不预设正文对象、标题或最终结论。",
+      "expected_output": "按實際材料形成來源有界、全書關係可理解、關鍵線索持續展開的Markdown 及 coverage；不預設正文物件、標題或最終結論。",
       "assertions": [
-        "材料等级和可支持范围与旧笔记一致",
-        "保留材料中的自然史、探索史和父子回忆及实际联系",
-        "不为单线叙述删掉独立主线，不补写原材料没有的经历"
+        "材料等級和可支援範圍與舊筆記一致",
+        "保留材料中的自然史、探索史和父子回憶及實際聯絡",
+        "不為單線敘述刪掉獨立主線，不補寫原材料沒有的經歷"
       ]
     },
     {
       "id": 3,
-      "prompt": "请用 ljg-book 解读 <source_path>，保存笔记。",
-      "material_fixture": "完整多地区历史书",
+      "prompt": "請用 ljg-book 解讀 <source_path>，儲存筆記。",
+      "material_fixture": "完整多地區歷史書",
       "files": [
         "<source_path>"
       ],
-      "expected_output": "按实际材料形成来源有界、全书关系可理解、关键线索持续展开的Markdown 及 coverage；不预设正文对象、标题或最终结论。",
+      "expected_output": "按實際材料形成來源有界、全書關係可理解、關鍵線索持續展開的Markdown 及 coverage；不預設正文物件、標題或最終結論。",
       "assertions": [
-        "说明各地条件和相互联系，允许多线及时间推进",
-        "核心解释有具体历史过程支撑",
-        "不为连续性制造单一主人公或虚假的因果先后"
+        "說明各地條件和相互聯絡，允許多線及時間推進",
+        "核心解釋有具體歷史過程支撐",
+        "不為連續性製造單一主人公或虛假的因果先後"
       ]
     },
     {
       "id": 4,
-      "prompt": "请用 ljg-book 告诉我 <source_path> 这部作品写了什么。",
-      "material_fixture": "完整文学作品",
+      "prompt": "請用 ljg-book 告訴我 <source_path> 這部作品寫了什麼。",
+      "material_fixture": "完整文學作品",
       "files": [
         "<source_path>"
       ],
-      "expected_output": "按实际材料形成来源有界、全书关系可理解、关键线索持续展开的Markdown 及 coverage；不预设正文对象、标题或最终结论。",
+      "expected_output": "按實際材料形成來源有界、全書關係可理解、關鍵線索持續展開的Markdown 及 coverage；不預設正文物件、標題或最終結論。",
       "assertions": [
-        "保留人物经历、关系、主要变化和结尾",
-        "读者理解改变与人物遭遇改变分清",
-        "不强制解决困境或提炼方法，不捏造人物心理"
+        "保留人物經歷、關係、主要變化和結尾",
+        "讀者理解改變與人物遭遇改變分清",
+        "不強制解決困境或提煉方法，不捏造人物心理"
       ]
     },
     {
       "id": 5,
-      "prompt": "请用 ljg-book 解释这本技术书 <source_path>。",
-      "material_fixture": "完整技术或科学书",
+      "prompt": "請用 ljg-book 解釋這本技術書 <source_path>。",
+      "material_fixture": "完整技術或科學書",
       "files": [
         "<source_path>"
       ],
-      "expected_output": "按实际材料形成来源有界、全书关系可理解、关键线索持续展开的Markdown 及 coverage；不预设正文对象、标题或最终结论。",
+      "expected_output": "按實際材料形成來源有界、全書關係可理解、關鍵線索持續展開的Markdown 及 coverage；不預設正文物件、標題或最終結論。",
       "assertions": [
-        "主要模型与各部分工作关系可重建",
-        "条件到结果的方向、单位与边界一致",
-        "图表解释具体，不按一个图或两个案例的固定配额删内容"
+        "主要模型與各部分工作關係可重建",
+        "條件到結果的方向、單位與邊界一致",
+        "圖表解釋具體，不按一個圖或兩個案例的固定配額刪內容"
       ]
     },
     {
       "id": 6,
-      "prompt": "请用 ljg-book 处理这些材料 <source_path>。",
-      "material_fixture": "只有书名、目录与短样章",
+      "prompt": "請用 ljg-book 處理這些材料 <source_path>。",
+      "material_fixture": "只有書名、目錄與短樣章",
       "files": [
         "<source_path>"
       ],
-      "expected_output": "按实际材料形成来源有界、全书关系可理解、关键线索持续展开的Markdown 及 coverage；不预设正文对象、标题或最终结论。",
+      "expected_output": "按實際材料形成來源有界、全書關係可理解、關鍵線索持續展開的Markdown 及 coverage；不預設正文物件、標題或最終結論。",
       "assertions": [
-        "明确初拆或假设范围",
-        "不靠领域知识补成全书情节或论证",
-        "记录无法判断的部分，不虚构完整认识变化"
+        "明確初拆或假設範圍",
+        "不靠領域知識補成全書情節或論證",
+        "記錄無法判斷的部分，不虛構完整認識變化"
       ]
     },
     {
       "id": 7,
-      "prompt": "请用 ljg-book 解读这本书 <source_path>。",
-      "material_fixture": "含多个无法统一立场的完整作品",
+      "prompt": "請用 ljg-book 解讀這本書 <source_path>。",
+      "material_fixture": "含多個無法統一立場的完整作品",
       "files": [
         "<source_path>"
       ],
-      "expected_output": "按实际材料形成来源有界、全书关系可理解、关键线索持续展开的Markdown 及 coverage；不预设正文对象、标题或最终结论。",
+      "expected_output": "按實際材料形成來源有界、全書關係可理解、關鍵線索持續展開的Markdown 及 coverage；不預設正文物件、標題或最終結論。",
       "assertions": [
-        "允许明确不存在统一生成器",
-        "说明不同立场的分歧与共同问题",
-        "末节由正文发展支撑，不强压成统一人生道理"
+        "允許明確不存在統一生成器",
+        "說明不同立場的分歧與共同問題",
+        "末節由正文發展支撐，不強壓成統一人生道理"
       ]
     }
   ]

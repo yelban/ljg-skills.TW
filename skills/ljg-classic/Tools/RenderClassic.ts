@@ -114,8 +114,8 @@ export function validateSpec(value: unknown): ClassicSpec {
 
   spec.interpretation.forEach((paragraph, index) => {
     assertPlainString(paragraph, `interpretation[${index}]`);
-    if (paragraph.includes("解读边界")) {
-      throw new Error("interpretation must not contain 解读边界");
+    if (paragraph.includes("解讀邊界")) {
+      throw new Error("interpretation must not contain 解讀邊界");
     }
   });
 
@@ -487,10 +487,10 @@ export function renderHtml(spec: ClassicSpec, width = DEFAULT_WIDTH, heroDataUri
       <div class="title-rule" aria-hidden="true"></div>
     </header>
     ${hero}
-    <article class="classic" aria-label="原文与注解">${passages}
+    <article class="classic" aria-label="原文與註解">${passages}
     </article>
     <section class="interpretation" data-interpretation>
-      <h2>章节解读</h2>
+      <h2>章節解讀</h2>
       ${interpretation}
     </section>
     ${source}

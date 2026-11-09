@@ -45,7 +45,7 @@ async () => {
   for(const k of ['ArrowRight','ArrowDown',' ','Enter','j','PageDown']){const prior=api.activeIndex();await key(k);keys.push(api.activeIndex()===Math.min(RAW_SLIDES.length-1,prior+1));}
   for(const k of ['ArrowLeft','ArrowUp','k','PageUp']){const prior=api.activeIndex();await key(k);keys.push(api.activeIndex()===Math.max(0,prior-1));}
   await key('End');keys.push(api.activeIndex()===RAW_SLIDES.length-1);await key('Home');keys.push(api.activeIndex()===0);
-  await key('n');const dialog=document.getElementById('speakerNotes');keys.push(dialog.open&&document.getElementById('notesBody').textContent===(RAW_SLIDES[0].notes||'本页没有附加讲稿。'));await key('ArrowRight');keys.push(api.activeIndex()===0);await key('n');keys.push(!dialog.open);
+  await key('n');const dialog=document.getElementById('speakerNotes');keys.push(dialog.open&&document.getElementById('notesBody').textContent===(RAW_SLIDES[0].notes||'本頁沒有附加講稿。'));await key('ArrowRight');keys.push(api.activeIndex()===0);await key('n');keys.push(!dialog.open);
   const noteIndex=RAW_SLIDES.findIndex(s=>typeof s.notes==='string'&&s.notes.length>0);
   if(noteIndex>=0){api.show(noteIndex);await tick();await key('n');keys.push(dialog.open&&document.getElementById('notesBody').textContent===RAW_SLIDES[noteIndex].notes);await key('n');keys.push(!dialog.open);api.show(0);await tick();}
   const input=document.createElement('input');document.body.appendChild(input);await key('PageDown',input);keys.push(api.activeIndex()===0);input.remove();

@@ -22,9 +22,9 @@ const ledger = {
       id: "step-01",
       role: "question",
       source_refs: ["src-01"],
-      claim: "为什么经验没有改变模型？",
-      support: "Agent 在上下文里积累了轨迹。",
-      residue: "任务结束时，模型参数并没有随之改变。",
+      claim: "為什麼經驗沒有改變模型？",
+      support: "Agent 在上下文裡積累了軌跡。",
+      residue: "任務結束時，模型引數並沒有隨之改變。",
       must_render: true,
       presentation: "typography",
     },
@@ -32,8 +32,8 @@ const ledger = {
       id: "step-02",
       role: "tension",
       source_refs: ["src-01"],
-      claim: "短期记住不等于长期学会。",
-      support: "上下文结束后，经验无法稳定进入下一次任务。",
+      claim: "短期記住不等於長期學會。",
+      support: "上下文結束後，經驗無法穩定進入下一次任務。",
       residue: "",
       must_render: true,
       presentation: "text",
@@ -42,8 +42,8 @@ const ledger = {
       id: "step-03",
       role: "conclusion",
       source_refs: ["src-02"],
-      claim: "持续学习需要可更新、可调用的记忆层级。",
-      support: "不同写入深度对应不同更新成本。",
+      claim: "持續學習需要可更新、可呼叫的記憶層級。",
+      support: "不同寫入深度對應不同更新成本。",
       residue: "",
       must_render: true,
       presentation: "matrix",
@@ -52,8 +52,8 @@ const ledger = {
       id: "step-04",
       role: "boundary",
       source_refs: ["src-02"],
-      claim: "工程路线尚未等于人类水平的持续学习。",
-      support: "遗忘与非独立同分布更新仍未解决。",
+      claim: "工程路線尚未等於人類水平的持續學習。",
+      support: "遺忘與非獨立同分布更新仍未解決。",
       residue: "",
       must_render: true,
       presentation: "text",
@@ -61,8 +61,8 @@ const ledger = {
   ],
   relations: [
     { id: "rel-01", from: "step-01", to: "step-02", kind: "deepen", visibility: "implicit", bridge: "" },
-    { id: "rel-02", from: "step-02", to: "step-03", kind: "question", visibility: "visible", bridge: "如果经验要跨任务保留，就必须找到一种能够持续写入、再次调用的机制。" },
-    { id: "rel-03", from: "step-03", to: "step-04", kind: "boundary", visibility: "visible", bridge: "即使经验已经能够写入，遗忘与在线更新仍然限制着它能否稳定积累。" },
+    { id: "rel-02", from: "step-02", to: "step-03", kind: "question", visibility: "visible", bridge: "如果經驗要跨任務保留，就必須找到一種能夠持續寫入、再次呼叫的機制。" },
+    { id: "rel-03", from: "step-03", to: "step-04", kind: "boundary", visibility: "visible", bridge: "即使經驗已經能夠寫入，遺忘與線上更新仍然限制著它能否穩定積累。" },
   ],
 };
 
@@ -75,14 +75,14 @@ const sourceInventory = {
   source_sha256: ledger.source_sha256,
   section_count: 2,
   sections: [
-    { id: "src-01", text: "问题与前提。", text_sha256: hashText("问题与前提。") },
-    { id: "src-02", text: "结论与边界。", text_sha256: hashText("结论与边界。") },
+    { id: "src-01", text: "問題與前提。", text_sha256: hashText("問題與前提。") },
+    { id: "src-02", text: "結論與邊界。", text_sha256: hashText("結論與邊界。") },
   ],
 };
 
 const validSnapshot = (): WhiteboardValidationSnapshot => ({
-  title: "经验怎样变成模型能力",
-  question: "一段任务经验，怎样进入下一次任务仍可调用的能力？",
+  title: "經驗怎樣變成模型能力",
+  question: "一段任務經驗，怎樣進入下一次任務仍可呼叫的能力？",
   spineCount: 1,
   globalLayoutCount: 0,
   ledger: structuredClone(ledger),
@@ -146,9 +146,9 @@ describe("whiteboard reasoning-spine contract", () => {
   test("rejects copy or arrows on an implicit relation", () => {
     const snapshot = validSnapshot();
     const brokenLedger = structuredClone(ledger);
-    brokenLedger.relations[0].bridge = "继续追问。";
+    brokenLedger.relations[0].bridge = "繼續追問。";
     snapshot.ledger = brokenLedger;
-    snapshot.relations[0].bridge = "继续追问。";
+    snapshot.relations[0].bridge = "繼續追問。";
     snapshot.relations[0].hasStem = true;
     snapshot.relations[0].hasArrowhead = true;
     expect(validateWhiteboardSnapshot(snapshot).join("\n")).toContain("must keep bridge empty");
@@ -168,7 +168,7 @@ describe("whiteboard reasoning-spine contract", () => {
   test("rejects duplicate transition copy in both residue and relation bridge", () => {
     const snapshot = validSnapshot();
     const brokenLedger = structuredClone(ledger);
-    brokenLedger.steps[1].residue = "必须寻找一种可持续写入的机制。";
+    brokenLedger.steps[1].residue = "必須尋找一種可持續寫入的機制。";
     snapshot.ledger = brokenLedger;
     snapshot.steps[1].residue = brokenLedger.steps[1].residue;
     expect(validateWhiteboardSnapshot(snapshot).join("\n")).toContain("duplicates the visible transition");
@@ -230,7 +230,7 @@ describe("whiteboard reasoning-spine contract", () => {
   });
 
   test("does not confuse ordinary braces with placeholders", () => {
-    expect(findUnresolvedPlaceholders("body { color: var(--ink); } \u300c判断\u300d")).toEqual([]);
+    expect(findUnresolvedPlaceholders("body { color: var(--ink); } \u300c判斷\u300d")).toEqual([]);
   });
 
   test("keeps the full-page safety ceiling explicit", () => {

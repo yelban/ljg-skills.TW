@@ -1,49 +1,56 @@
-# ljg-skills
+# ljg-skills-tw
 
-我的 Codex 自定义技能集。
+> **這是繁體中文（台灣）在地化同步版本**
+>
+> 上游：[lijigang/ljg-skills](https://github.com/lijigang/ljg-skills) | 維護者：[@yelban](https://github.com/yelban)
+>
+> 所有內容已使用 OpenCC s2twp 轉換為繁體中文（台灣正體）。
 
-## 安装
 
-使用 [skills CLI](https://github.com/vercel-labs/skills) 安装到 Codex：
+我的 Codex 自定義技能集。
+
+## 安裝
+
+使用 [skills CLI](https://github.com/vercel-labs/skills) 安裝到 Codex：
 
 ```bash
-# 安装全部技能（全局，org-mode 格式）
-bunx skills add lijigang/ljg-skills -g -a codex --skill '*' -y
+# 安裝全部技能（全域性，org-mode 格式）
+bunx skills add yelban/ljg-skills.TW -g -a codex --skill '*' -y
 
-# 安装全部技能（Markdown 格式，适用于 Obsidian / VSCode / Notion 等）
-bunx skills add lijigang/ljg-skills#md -g -a codex --skill '*' -y
+# 安裝全部技能（Markdown 格式，適用於 Obsidian / VSCode / Notion 等）
+bunx skills add yelban/ljg-skills.TW#md -g -a codex --skill '*' -y
 
-# 安装单个技能
-bunx skills add lijigang/ljg-skills -g -a codex --skill ljg-card -y
+# 安裝單個技能
+bunx skills add yelban/ljg-skills.TW -g -a codex --skill ljg-card -y
 
-# 安装单个技能（Markdown 格式）
-bunx skills add lijigang/ljg-skills#md -g -a codex --skill ljg-card -y
+# 安裝單個技能（Markdown 格式）
+bunx skills add yelban/ljg-skills.TW#md -g -a codex --skill ljg-card -y
 
-# 安装商业模式画布技能（两个分支均输出 PNG、HTML 和 JSON）
-bunx skills add lijigang/ljg-skills -g -a codex --skill ljg-business-model -y
+# 安裝商業模式畫布技能（兩個分支均輸出 PNG、HTML 和 JSON）
+bunx skills add yelban/ljg-skills.TW -g -a codex --skill ljg-business-model -y
 
-# 安装多个指定技能
-bunx skills add lijigang/ljg-skills -g -a codex --skill ljg-card --skill ljg-learn -y
+# 安裝多個指定技能
+bunx skills add yelban/ljg-skills.TW -g -a codex --skill ljg-card --skill ljg-learn -y
 
-# 查看仓库中有哪些技能
-bunx skills add lijigang/ljg-skills -l
+# 檢視倉庫中有哪些技能
+bunx skills add yelban/ljg-skills.TW -l
 ```
 
-**参数说明：**
+**引數說明：**
 
-| 参数 | 作用 |
+| 引數 | 作用 |
 |------|------|
-| `-a codex` | 只安装给 Codex |
-| `-g` | 全局安装到 `~/.agents/skills/`（推荐）；不加则安装到项目级 `.agents/skills/` |
-| `--skill <name>` | 指定安装某个技能，可重复使用 |
-| `--skill '*'` | 安装仓库内全部技能 |
-| `#md` | 从 `md` branch 安装 Markdown 格式版本（默认为 org-mode） |
-| `-y` | 跳过交互确认 |
-| `-l` | 仅列出可用技能，不安装 |
+| `-a codex` | 只安裝給 Codex |
+| `-g` | 全域性安裝到 `~/.agents/skills/`（推薦）；不加則安裝到專案級 `.agents/skills/` |
+| `--skill <name>` | 指定安裝某個技能，可重複使用 |
+| `--skill '*'` | 安裝倉庫內全部技能 |
+| `#md` | 從 `md` branch 安裝 Markdown 格式版本（預設為 org-mode） |
+| `-y` | 跳過互動確認 |
+| `-l` | 僅列出可用技能，不安裝 |
 
-### ljg-card 依赖
+### ljg-card 依賴
 
-`ljg-card` 依赖 Playwright 截图，安装后需额外执行：
+`ljg-card` 依賴 Playwright 截圖，安裝後需額外執行：
 
 ```bash
 cd ~/.agents/skills/ljg-card && bun install && bunx playwright install chromium
@@ -51,67 +58,67 @@ cd ~/.agents/skills/ljg-card && bun install && bunx playwright install chromium
 
 ### 替代方式：git clone
 
-仓库根目录不是技能目录，clone 后还要把 `skills/` 同步到 Codex。下面两种格式二选一：
+倉庫根目錄不是技能目錄，clone 後還要把 `skills/` 同步到 Codex。下面兩種格式二選一：
 
 ```bash
 # org-mode 版本（master）
-git clone --branch master --depth 1 https://github.com/lijigang/ljg-skills.git "$HOME/code/ljg-skills"
+git clone --branch master --depth 1 https://github.com/yelban/ljg-skills.TW.git "$HOME/code/ljg-skills"
 mkdir -p "$HOME/.agents/skills"
 rsync -a "$HOME/code/ljg-skills/skills/" "$HOME/.agents/skills/"
 
 # Markdown 版本（md）
-git clone --branch md --depth 1 https://github.com/lijigang/ljg-skills.git "$HOME/code/ljg-skills-md"
+git clone --branch md --depth 1 https://github.com/yelban/ljg-skills.TW.git "$HOME/code/ljg-skills-md"
 mkdir -p "$HOME/.agents/skills"
 rsync -a "$HOME/code/ljg-skills-md/skills/" "$HOME/.agents/skills/"
 ```
 
 ## 技能
 
-| 技能 | 说明 |
+| 技能 | 說明 |
 |------|------|
-| **ljg-analogy** | 结构类比 — 为场景或两个对象的差异寻找精妙类比与关系隐喻，保留关键关系、解释增量与迁移边界 |
-| **ljg-blind** | 盲区扫描 — 读取指定日期的 AI 对话，找出结构性思维盲区，并用微信读书章节精准补上 |
-| **ljg-business-model** | 商业模式画布 — 基于《商业模式新生代》，把项目资料整理为经典九模块 PNG 卡片，区分材料、推测与缺项，保留可修改的 HTML 和 JSON |
-| **ljg-card** | 内容铸卡 — 将文本铸成长图 `-l`、原文保真全文卡 `-f`、漫画 `-c`、白板 `-w` 四种 PNG；`-f` 不生成新图，只呈现原稿自带图片，其余模式按各自图像合同生成位图 |
-| **ljg-classic** | 古文精读 — 将原文、逐字注解、句义、章节意旨图与全章解读排成一张可连续阅读的长 PNG |
-| **ljg-learn** | 概念解剖 — 从八个方向切开一个概念（历史、辩证、现象、语言、形式、存在、美感、元反思），压成一句顿悟 |
-| **ljg-paper** | 论文阅读 — 面向无行业背景的读者，从具体角色与动作讲清研究问题、作者贡献、结果如何得来及证据边界 |
-| **ljg-book** | 拆书 — 讲清全书的主要内容、各条主线如何相连，以及事实、事件与后果怎样逐步改变理解；保留必要的多线发展 |
-| **ljg-qa** | 信息提问机 — 把文章/论文/书的核心观点抽成 Q-A 链，Q 切要害，A 四段（结论 / 形式化 / 步骤 / 边界） |
-| **ljg-explain** | 通俗讲解 — 把概念、公式、机制与原理讲到能辨认、推导和迁移；默认在对话中完整讲解，以迁移示例说明应用 |
-| **ljg-rank** | 降秩引擎 — 给一个领域，找出背后不可再少的独立生成器 |
-| **ljg-constraint** | 约束引擎 — 给一个领域/专业/角色，找出框住它的那几条约束（硬/软/自设三层），揪出被当成硬约束的假墙、指出哪条能重新定义 |
-| **ljg-is** | 理解引擎 — 把名词的「是什么」与动词的「怎样运作」接起来，再推出认知修正与可执行判断 |
-| **ljg-map** | 知识地图 — 以《学习观》的知识观洞察文稿，提取概念、判别依据与联结；按内容自身结构绘图，每个节点配白话定义、短公式与具体语义 |
-| **ljg-mechanism** | 机制研究 — 从具体现象追踪过程、比较竞争解释，并联网核对关键因果与迁移条件；交付证据能支撑的机制判断及边界 |
-| **ljg-think** | 追本之箭 — 给一个观点或现象，纵向深钻到不可再分的本质 |
-| **ljg-word** | 单词精通 — 深度拆解一个英语单词的核心语义和顿悟时刻 |
-| **ljg-writes** | 写作引擎 — 把一个观点写成可理解、可迁移、经得住反例的中文文章 |
-| **ljg-teach** | 体验式教学 — 先让学习者作出选择，用公平的意外显化认知缺口，命名后再以迁移局面复测 |
-| **ljg-invest** | 投资分析 — 核心判断项目是否是一台「秩序创造机器」 |
-| **ljg-read** | 伴读 — 用《学习观》的「下上结构」，从具体情境讲清概念、判别依据与有条件的关系；默认直接在对话中展示 |
-| **ljg-relationship** | 关系分析 — 五层结构诊断 + 精神分析，通过对话引导帮用户"看见"关系真实结构 |
-| **ljg-roundtable** | 圆桌讨论 — 一个议题一场圆桌：真实人物逐轮交锋，每轮收一张 ASCII 结构图，散场全文存档 |
-| **ljg-structure** | 母题结构风洞 — 从表层问题找到反复出现的母题，提炼可迁移结构，用 ASCII 图说明关系并设计最小可逆实验 |
-| **ljg-present** | Unix 演讲设计 — 保真排版 / 授权讲稿提炼；按语义选择五类版式，中文与 Unicode 连线分层，默认暗色，单文件离线 HTML，支持讲稿层与翻页器 |
-| **ljg-push** | 推送引擎 — 把本地 `~/.agents/skills/ljg-*` 一键同步到 github repo（master + md 双分支）|
+| **ljg-analogy** | 結構類比 — 為場景或兩個物件的差異尋找精妙類比與關係隱喻，保留關鍵關係、解釋增量與遷移邊界 |
+| **ljg-blind** | 盲區掃描 — 讀取指定日期的 AI 對話，找出結構性思維盲區，並用微信讀書章節精準補上 |
+| **ljg-business-model** | 商業模式畫布 — 基於《商業模式新生代》，把專案資料整理為經典九模組 PNG 卡片，區分材料、推測與缺項，保留可修改的 HTML 和 JSON |
+| **ljg-card** | 內容鑄卡 — 將文本鑄成長圖 `-l`、原文保真全文卡 `-f`、漫畫 `-c`、白板 `-w` 四種 PNG；`-f` 不生成新圖，只呈現原稿自帶圖片，其餘模式按各自影像合同生成點陣圖 |
+| **ljg-classic** | 古文精讀 — 將原文、逐字註解、句義、章節意旨圖與全章解讀排成一張可連續閱讀的長 PNG |
+| **ljg-learn** | 概念解剖 — 從八個方向切開一個概念（歷史、辯證、現象、語言、形式、存在、美感、元反思），壓成一句頓悟 |
+| **ljg-paper** | 論文閱讀 — 面向無行業背景的讀者，從具體角色與動作講清研究問題、作者貢獻、結果如何得來及證據邊界 |
+| **ljg-book** | 拆書 — 講清全書的主要內容、各條主線如何相連，以及事實、事件與後果怎樣逐步改變理解；保留必要的多線發展 |
+| **ljg-qa** | 資訊提問機 — 把文章/論文/書的核心觀點抽成 Q-A 鏈，Q 切要害，A 四段（結論 / 形式化 / 步驟 / 邊界） |
+| **ljg-explain** | 通俗講解 — 把概念、公式、機制與原理講到能辨認、推導和遷移；預設在對話中完整講解，以遷移示例說明應用 |
+| **ljg-rank** | 降秩引擎 — 給一個領域，找出背後不可再少的獨立生成器 |
+| **ljg-constraint** | 約束引擎 — 給一個領域/專業/角色，找出框住它的那幾條約束（硬/軟/自設三層），揪出被當成硬約束的假牆、指出哪條能重新定義 |
+| **ljg-is** | 理解引擎 — 把名詞的「是什麼」與動詞的「怎樣運作」接起來，再推出認知修正與可執行判斷 |
+| **ljg-map** | 知識地圖 — 以《學習觀》的知識觀洞察文稿，提取概念、判別依據與聯結；按內容自身結構繪圖，每個節點配白話定義、短公式與具體語義 |
+| **ljg-mechanism** | 機制研究 — 從具體現象追蹤過程、比較競爭解釋，並聯網核對關鍵因果與遷移條件；交付證據能支撐的機制判斷及邊界 |
+| **ljg-think** | 追本之箭 — 給一個觀點或現象，縱向深鑽到不可再分的本質 |
+| **ljg-word** | 單詞精通 — 深度拆解一個英語單詞的核心語義和頓悟時刻 |
+| **ljg-writes** | 寫作引擎 — 把一個觀點寫成可理解、可遷移、經得住反例的中文文章 |
+| **ljg-teach** | 體驗式教學 — 先讓學習者作出選擇，用公平的意外顯化認知缺口，命名後再以遷移局面複測 |
+| **ljg-invest** | 投資分析 — 核心判斷專案是否是一臺「秩序創造機器」 |
+| **ljg-read** | 伴讀 — 用《學習觀》的「下上結構」，從具體情境講清概念、判別依據與有條件的關係；預設直接在對話中展示 |
+| **ljg-relationship** | 關係分析 — 五層結構診斷 + 精神分析，通過對話引導幫使用者"看見"關係真實結構 |
+| **ljg-roundtable** | 圓桌討論 — 一個議題一場圓桌：真實人物逐輪交鋒，每輪收一張 ASCII 結構圖，散場全文存檔 |
+| **ljg-structure** | 母題結構風洞 — 從表層問題找到反覆出現的母題，提煉可遷移結構，用 ASCII 圖說明關係並設計最小可逆實驗 |
+| **ljg-present** | Unix 演講設計 — 保真排版 / 授權講稿提煉；按語義選擇五類版式，中文與 Unicode 連線分層，預設暗色，單檔案離線 HTML，支援講稿層與翻頁器 |
+| **ljg-push** | 推送引擎 — 把本地 `~/.agents/skills/ljg-*` 一鍵同步到 github repo（master + md 雙分支）|
 
 
-## 输出格式
+## 輸出格式
 
-笔记类技能提供两种默认输出格式，通过不同 branch 安装，功能完全相同：
+筆記類技能提供兩種預設輸出格式，通過不同 branch 安裝，功能完全相同：
 
-| Branch | 格式 | 适用场景 |
+| Branch | 格式 | 適用場景 |
 |--------|------|----------|
-| `master`（默认） | Org-mode（`.org`） | Emacs / Denote 用户 |
-| `md` | Markdown（`.md`） | Obsidian / VSCode / Notion 等 Markdown 生态用户 |
+| `master`（預設） | Org-mode（`.org`） | Emacs / Denote 使用者 |
+| `md` | Markdown（`.md`） | Obsidian / VSCode / Notion 等 Markdown 生態使用者 |
 
-`ljg-map` 在两个分支中均默认直接在对话中输出知识地图与节点解释；仅在用户要求时保存文件。图形随文稿的知识关系变化，不预设固定层级。
+`ljg-map` 在兩個分支中均預設直接在對話中輸出知識地圖與節點解釋；僅在使用者要求時儲存檔案。圖形隨文稿的知識關係變化，不預設固定層級。
 
-`ljg-read` 在两个分支中均默认使用中文 Markdown 在对话中讲解文本；仅在用户明确要求时保存文件。默认连贯讲完当前范围，提问伴读与互动自测按需开启。
+`ljg-read` 在兩個分支中均預設使用中文 Markdown 在對話中講解文本；僅在使用者明確要求時儲存檔案。預設連貫講完當前範圍，提問伴讀與互動自測按需開啟。
 
-`ljg-explain` 与 `ljg-mechanism` 在两个分支中均默认直接在对话中交付，分别用于通俗讲解与机制研究；仅在用户明确要求时按指定格式保存文件。
+`ljg-explain` 與 `ljg-mechanism` 在兩個分支中均預設直接在對話中交付，分別用於通俗講解與機制研究；僅在使用者明確要求時按指定格式儲存檔案。
 
-`ljg-analogy` 在两个分支中均默认直接在对话中给出类比或隐喻；比较两个对象时保留关键差异，仅在用户明确要求时保存文件。
+`ljg-analogy` 在兩個分支中均預設直接在對話中給出類比或隱喻；比較兩個物件時保留關鍵差異，僅在使用者明確要求時儲存檔案。
 
-`ljg-business-model` 在两个分支中均交付 PNG 商业模式画布，并保留 HTML 和 JSON；运行需要 Bun，导出图片需要可用的真实浏览器截图能力。
+`ljg-business-model` 在兩個分支中均交付 PNG 商業模式畫布，並保留 HTML 和 JSON；執行需要 Bun，匯出圖片需要可用的真實瀏覽器截圖能力。

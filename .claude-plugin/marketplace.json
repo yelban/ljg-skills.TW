@@ -1,13 +1,13 @@
 {
-  "name": "ljg-skills",
-  "displayName": "LJG Skills Collection",
-  "description": "Personal Claude Code skills collection for paper reading, content casting, and writing workflows",
+  "name": "ljg-skills-tw",
+  "displayName": "LJG Skills Collection (繁體中文版)",
+  "description": "Personal Claude Code skills collection (繁體中文版)",
   "version": "1.17.126",
   "owner": {
     "name": "lijigang",
     "url": "https://github.com/lijigang"
   },
-  "repository": "https://github.com/lijigang/ljg-skills",
+  "repository": "https://github.com/yelban/ljg-skills.TW",
   "license": "MIT",
   "keywords": [
     "skills",
@@ -30,5 +30,9 @@
       "version": "1.17.126",
       "source": "./"
     }
-  ]
+  ],
+  "maintainer": {
+    "name": "yelban",
+    "note": "Traditional Chinese (Taiwan) fork"
+  }
 }
